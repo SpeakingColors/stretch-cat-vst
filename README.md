@@ -1,5 +1,7 @@
 # Stretch Cat 🐈
 
+<img src="assets/icon.svg" width="96" align="right" alt="icon">
+
 Creative audio plugin (VST3).
 
 ## Status
