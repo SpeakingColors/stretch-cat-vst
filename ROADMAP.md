@@ -2,10 +2,18 @@
 
 Sampler and track effect.
 
+## Done
+- [x] Stretch engine in pure C++ with unit tests (speed, pitch, modes, lanes, tape link, transient slices)
+- [x] Sampler voices (loop, one shot, gate, note repitch, voice stealing), tested
+- [x] JUCE plugin shell with host parameters, CI (core tests, configure, build)
+
 ## Next
-- [ ] Sampler engine with time stretch
-- [ ] Track effect version
-- [ ] Plugin shell on cat-ui
+- [ ] Move the render to a background thread
+- [ ] Lanes, slices and the filter / EQ / compressor rack in the plugin
+- [ ] Real formant shift (the mockup says plugin only)
+- [ ] Track effect version (stretch the DAW audio)
+- [ ] cat-ui editor from the mockup (wood cheeks, waveform, lanes, info bubbles) drawn through `catui::RenderGate`
+- [ ] Listen on real material and tune the modes
 
 ## Every cat plugin
 - Draw through `catui::RenderGate` so meters and animations stop when the window is not in front (audio, automation and MIDI keep running)
