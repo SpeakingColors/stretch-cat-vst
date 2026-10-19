@@ -3,7 +3,7 @@
 using Layout = juce::AudioProcessorValueTreeState::ParameterLayout;
 using juce::NormalisableRange;
 
-static const char* kStretchIds[] = { "mode", "tape", "grain", "trans", "smooth", "speed", "tr", "fine" };
+static const char* kStretchIds[] = { "mode", "tape", "grain", "trans", "smooth", "speed", "tr", "fine", "len", "hostbpm" };
 
 Layout StretchCatProcessor::layout()
 {
@@ -16,6 +16,8 @@ Layout StretchCatProcessor::layout()
     l.add(std::make_unique<juce::AudioParameterInt>(juce::ParameterID { "tr", 1 }, "Transpose", -24, 24, 0));
     l.add(std::make_unique<juce::AudioParameterInt>(juce::ParameterID { "fine", 1 }, "Fine (cents)", -100, 100, 0));
     l.add(std::make_unique<juce::AudioParameterChoice>(juce::ParameterID { "pb", 1 }, "Playback", juce::StringArray { "Loop", "One shot", "Gate" }, 0));
+    l.add(std::make_unique<juce::AudioParameterChoice>(juce::ParameterID { "len", 1 }, "Length", juce::StringArray { "Auto", "1/16 note", "1/8 note", "1/4 note", "1/2 note", "1 bar", "2 bars", "4 bars", "8 bars", "16 bars", "32 bars" }, 0));
+    f("hostbpm", "Fit tempo (BPM)", { 40.f, 240.f }, 120.f);
     f("atk", "Attack", { 0.f, 500.f }, 5.f); f("rel", "Release", { 0.f, 2000.f }, 80.f);
     l.add(std::make_unique<juce::AudioParameterInt>(juce::ParameterID { "root", 1 }, "Root note", 24, 96, 60));
     f("gain", "Gain", { -24.f, 12.f }, 0.f);
@@ -50,6 +52,11 @@ bool StretchCatProcessor::loadFile(const juce::File& f)
 
 void StretchCatProcessor::timerCallback()
 {
+    {   // follow the host tempo while a length is chosen
+        const double hb = hostBpmSeen.load();
+        if (hb >= 40.0 && hb <= 240.0 && (int) get("len") != 0 && std::fabs(hb - (double) get("hostbpm")) > 0.01)
+            if (auto* pr = apvts.getParameter("hostbpm")) pr->setValueNotifyingHost(pr->convertTo0to1((float) hb));
+    }
     if (dirty.exchange(false) && !srcL.empty()) renderNow();
     if (retired.size() > 32) { const juce::SpinLock::ScopedTryLockType tl(handoff); if (tl.isLocked()) retired.erase(retired.begin(), retired.end() - 4); }
 }
@@ -60,6 +67,11 @@ void StretchCatProcessor::renderNow()
     p.mode = (stretchcat::Mode) (int) get("mode"); p.tapeLink = get("tape") > 0.5f;
     p.grain = get("grain"); p.transients = get("trans"); p.smooth = get("smooth"); p.speed = get("speed");
     p.semitones = get("tr") + get("fine") / 100.0;
+    {   // Length: fit the whole sample into the chosen number of beats at the fit tempo (host tempo is not read while rendering off the audio thread)
+        int cnt = 0; const double* beats = stretchcat::lengthBeats(cnt); const int li = juce::jlimit(0, cnt - 1, (int) get("len"));
+        const double fit = stretchcat::fitSpeed((double) srcL.size(), srcSr, get("hostbpm"), beats[li]);
+        if (fit > 0.0) p.speed = fit;
+    }
     auto out = std::make_shared<stretchcat::Stereo>(stretchcat::render(srcL, srcR, 0, (long long) srcL.size(), p));      // TODO: move to a background thread
     if (out->L.size() < 4) { statusText = "Nothing to play."; return; }
     { const juce::SpinLock::ScopedLockType sl(handoff); pending = out; pendingSr = srcSr; hasPending = true; }
@@ -70,6 +82,7 @@ void StretchCatProcessor::processBlock(juce::AudioBuffer<float>& buf, juce::Midi
 {
     juce::ScopedNoDenormals nd;
     buf.clear();
+    if (auto* ph = getPlayHead()) if (auto pos = ph->getPosition()) if (auto b = pos->getBpm()) hostBpmSeen.store(*b);
     {   // pick up a freshly rendered buffer (the old one is parked, not freed, so no free() on the audio thread)
         const juce::SpinLock::ScopedTryLockType tl(handoff);
         if (tl.isLocked() && hasPending && retired.size() < retired.capacity()) { sampler.setBuffer(pending, pendingSr); retired.push_back(pending); hasPending = false; }

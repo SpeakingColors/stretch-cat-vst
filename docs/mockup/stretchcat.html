@@ -209,7 +209,7 @@ button[aria-pressed="true"],button.on { background:color-mix(in srgb,var(--cL) 1
       </section>
 
     </div>
-    <footer class="foot"><span><b>Studio 87</b> &middot; Stretch Cat v0.1 design mockup</span><span id="sizeT" data-tip="Window size. Drag any edge or corner of the plugin to resize it; the shape stays the same. Double-click here for 100 %.">Window 100 %</span><span>Free and open source. Collects nothing.</span></footer>
+    <footer class="foot"><span><b>Studio 87</b> &middot; Stretch Cat v0.1 design mockup</span><span id="sizeT" data-tip="Window size. Drag any edge or corner of the plugin to resize it; the shape stays the same. Double-click here for 100 %.">Window 100 %</span></footer>
   </div>
   <div class="cheek r"></div>
 </div>
@@ -893,7 +893,7 @@ var TR = trackList(), SRCB = null, fileBuf = null, fileName = "Your file", RES =
 var NOTES = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
 def("src", "vox"); def("mode", "sam"); def("hostBpm", 140); def("root", 60);
 def("sa", 0); def("sb", 1); def("sl", "[]");
-def("smode", "complex"); def("grain", 0.5); def("trn", 0.5); def("smo", 0.7); def("tr", 0); def("fine", 0); def("spd", 1); def("link", "pitch");
+def("smode", "complex"); def("grain", 0.5); def("trn", 0.5); def("smo", 0.7); def("tr", 0); def("fine", 0); def("spd", 1); def("link", "pitch"); def("len", "auto");
 def("pbm", "loop"); def("atk", 5); def("rel", 80); def("gl", 0);
 def("lane", "p"); def("ln_p", "[[0,0.5],[1,0.5]]"); def("ln_s", "[[0,0.5],[1,0.5]]"); def("ln_c", "[[0,1],[1,1]]"); def("ln_f", "[[0,0.5],[1,0.5]]"); def("ln_w", "[[0,0.5],[1,0.5]]");
 def("caplen", 1); def("auto", true);
@@ -974,14 +974,19 @@ function postProcess(res, o) {
   }
   return { L: outL, R: outR, map: res.map };
 }
+var LENS = [["auto", "Auto (free)", 0], ["0.25", "1/16 note", 0.25], ["0.5", "1/8 note", 0.5], ["1", "1/4 note (1 beat)", 1], ["2", "1/2 note (2 beats)", 2], ["4", "1 bar", 4], ["8", "2 bars", 8], ["16", "4 bars", 16], ["32", "8 bars", 32], ["64", "16 bars", 64], ["128", "32 bars", 128]];
+function lenBeats() { return S.len === "auto" ? 0 : +S.len; }
+/* base speed for a selection of selN source samples: fits the chosen length at the host tempo, else the Speed knob and Link */
+function baseSpeed(selN) { var lb = lenBeats(); if (lb > 0) return (selN / sr) / (lb * 60 / S.hostBpm); return S.spd * (S.link === "length" ? SRCB.bpm / S.hostBpm : 1); }
+function lenInfo(outN) { var el = $("#lenInfo"); if (!el) return; var lb = lenBeats(); if (!SRCB) { el.textContent = ""; return; } var r = selRange(), sp = baseSpeed(r[1] - r[0]), bars = lb / 4; el.textContent = lb > 0 ? ((bars >= 1 ? bars + (bars === 1 ? " bar" : " bars") : lb + (lb === 1 ? " beat" : " beats")) + " = " + (lb * 60 / S.hostBpm).toFixed(2) + " s at " + S.hostBpm.toFixed(1) + " BPM, speed x" + sp.toFixed(2)) : "Free: " + (outN ? (outN / sr).toFixed(2) + " s" : "set by Speed"); }
 function renderNow() {
   if (!SRCB) return; var r = selRange(); if (r[1] - r[0] < 2000) return; var pP = lanePts("p"), sP = lanePts("s"), tr = S.tr + S.fine / 100;
-  var speedMul = S.spd * (S.link === "length" ? 1 : 1);
-  var o = { mode: S.smode, link: S.link, grain: S.grain, trn: S.trn, smooth: S.smo, pitch: function (tn) { return laneVal("p", laneAt(pP, tn)) + tr; }, speed: function (tn) { return laneVal("s", laneAt(sP, tn)) * speedMul * (S.link === "length" ? SRCB.bpm / S.hostBpm : 1); } };
+  var speedMul = baseSpeed(r[1] - r[0]);
+  var o = { mode: S.smode, link: S.link, grain: S.grain, trn: S.trn, smooth: S.smo, pitch: function (tn) { return laneVal("p", laneAt(pP, tn)) + tr; }, speed: function (tn) { return laneVal("s", laneAt(sP, tn)) * speedMul; } };
   var t0 = performance.now(); var res = stretchRender(r[0], r[1], o); res = postProcess(res, { cut: lanePts("c"), wid: lanePts("w"), a: r[0], b: r[1] });
   /* attack and release fades, normalize softly */
   var n = res.L.length, fa = Math.round(S.atk / 1000 * sr), fr = Math.round(S.rel / 1000 * sr), pk = 0, i; for (i = 0; i < n; i++) { var f = Math.min(1, i / Math.max(1, fa), (n - i) / Math.max(1, fr)); res.L[i] *= f; res.R[i] *= f; pk = Math.max(pk, Math.abs(res.L[i]), Math.abs(res.R[i])); }
-  RES = { L: res.L, R: res.R, map: res.map, n: n, dur: n / sr, ms: Math.round(performance.now() - t0) };
+  lenInfo(res.L.length); RES = { L: res.L, R: res.R, map: res.map, n: n, dur: n / sr, ms: Math.round(performance.now() - t0) };
   var b = ctx.createBuffer(2, Math.max(1, n), sr); b.getChannelData(0).set(res.L); b.getChannelData(1).set(res.R); RES.buf = b; RES.pk = null;
   $("#rackInfo").textContent = "render " + RES.ms + " ms"; if (play.on) { var ph = (((ctx.currentTime - play.t0) % play.dur) / play.dur) || 0; startPlay(ph); }
 }
@@ -1025,7 +1030,7 @@ function dawPos() { return dawOn ? ((ctx.currentTime - dry.t0) % (SRCB.n / sr)) 
 /* slices and one-shots: render the slice with the same settings and play it */
 function playSlice(i) {
   if (!SRCB) return; ensureCtx(); var cuts = [S.sa].concat(slicesArr()).concat([S.sb]), a = cuts[i], b = cuts[i + 1]; if (b === undefined || b <= a) return; var save = [S.sa, S.sb];
-  var pP = lanePts("p"), tr = S.tr + S.fine / 100; var o = { mode: S.smode, link: S.link, grain: S.grain, trn: S.trn, smooth: S.smo, pitch: function () { return laneVal("p", laneAt(pP, 0)) + tr; }, speed: function () { return S.spd * (S.link === "length" ? SRCB.bpm / S.hostBpm : 1); } };
+  var pP = lanePts("p"), tr = S.tr + S.fine / 100; var o = { mode: S.smode, link: S.link, grain: S.grain, trn: S.trn, smooth: S.smo, pitch: function () { return laneVal("p", laneAt(pP, 0)) + tr; }, speed: function () { return baseSpeed(selRange()[1] - selRange()[0]); } };
   var A = Math.floor(a * SRCB.n), B = Math.floor(b * SRCB.n); var res = stretchRender(A, B, o), n = res.L.length, bf = ctx.createBuffer(2, Math.max(1, n), sr); var fl = Math.min(n, 128); for (var k = 0; k < n; k++) { var f = Math.min(1, k / 64, (n - k) / fl); res.L[k] *= f; res.R[k] *= f; } bf.getChannelData(0).set(res.L); bf.getChannelData(1).set(res.R);
   var g = graph(), s = ctx.createBufferSource(); s.buffer = bf; s.connect(g.inG); s.start(); G.hit = i; G.hitT = ctx.currentTime; if (S.mode === "fx") return;
 }
@@ -1056,6 +1061,8 @@ function playSlice(i) {
   mkKnob(st, { id: "fine", label: "Fine", min: -100, max: 100, step: 1, mid: 0, def: 0, fmt: function (v) { return (v > 0 ? "+" : "") + v + " c"; }, tip: "Pitch in cents." });
   mkKnob(st, { id: "spd", label: "Speed", min: 0.25, max: 4, log: true, def: 1, fmt: function (v) { return "x" + v.toFixed(2); }, tip: "Overall playback speed. 2 is twice as fast." });
   mkSel(st, "link", "Link", [["length", "Keep length"], ["pitch", "Keep pitch"], ["tape", "Tape linked"]], "Keep length: the loop is stretched to your host tempo. Keep pitch: speed changes only the length. Tape linked: speed and pitch move together, like a record.");
+  mkSel(st, "len", "Length", LENS.map(function (x) { return [x[0], x[1]]; }), "Sets how long the stretched sample lasts, in note values or bars at the host tempo (4/4). The stretch fits the selection to that length, so the Speed knob is ignored while a length is chosen. Auto: the length follows Speed and Link.");
+  var li = document.createElement("div"); li.id = "lenInfo"; li.className = "rd"; li.style.cssText = "grid-column:1/-1;color:var(--cAcc);font:12px var(--f-num)"; st.appendChild(li);
   var pb = $("#cPb"); mkSel(pb, "pbm", "Playback", [["oneshot", "One-shot"], ["loop", "Loop"], ["gate", "Gate"], ["keys", "Slices to keys"]], "One-shot: plays once. Loop: repeats. Gate: plays while you hold Play. Slices to keys: keys 1 to 8 play the slices.");
   mkKnob(pb, { id: "atk", label: "Attack", min: 0, max: 500, def: 5, fmt: fmtMs, tip: "Fade in." }); mkKnob(pb, { id: "rel", label: "Release", min: 1, max: 2000, log: true, def: 80, fmt: fmtMs, tip: "Fade out." });
   mkKnob(pb, { id: "gl", label: "Glide", min: 0, max: 1000, def: 0, fmt: fmtMs, tip: "Time to slide between notes (plugin only: needs MIDI)." });
@@ -1162,7 +1169,7 @@ window.onParam = function (id, v) {
   if (id === "src") loadSource(); else if (id === "mode") { setMode(); if (S.mode === "fx") { if (S.auto) grab(); } else { setParam("sa", 0, false); } }
   else if (id === "lane") $$("#laneTabs [data-l]").forEach(function (b) { b.setAttribute("aria-pressed", String(b.getAttribute("data-l") === v)); });
   else if (id === "caplen") $$("#capRow [data-c]").forEach(function (b) { b.setAttribute("aria-pressed", String(+b.getAttribute("data-c") === +v)); });
-  else if (["smode", "grain", "trn", "smo", "tr", "fine", "spd", "link", "atk", "rel", "hostBpm"].indexOf(id) >= 0) schedRender();
+  else if (["smode", "grain", "trn", "smo", "tr", "fine", "spd", "link", "len", "atk", "rel", "hostBpm"].indexOf(id) >= 0) schedRender();
   if (["fo", "ft", "fc", "fr", "eo", "elo", "emi", "ehi", "co", "cth", "crt", "cat", "crl", "dvc", "wid", "haas", "oo", "olim", "omix", "ogain", "ocl"].indexOf(id) >= 0) applyRack();
   if (id === "dvo" || id === "dvn") { if (play.on) startPlay(((ctx.currentTime - play.t0) % play.dur) / play.dur); }
   if (id === "mode" || id === "lane" || id === "caplen") { $$("#laneTabs [data-l]").forEach(function (b) { b.setAttribute("aria-pressed", String(b.getAttribute("data-l") === S.lane)); }); $$("#capRow [data-c]").forEach(function (b) { b.setAttribute("aria-pressed", String(+b.getAttribute("data-c") === +S.caplen)); }); }
@@ -1177,9 +1184,9 @@ PAINT.push(function (dt) {
   $("#sliceRow .pad8") && null;
 });
 /* ---------- presets ---------- */
-var KEYS = ["src", "mode", "smode", "grain", "trn", "smo", "tr", "fine", "spd", "link", "pbm", "atk", "rel", "ln_p", "ln_s", "ln_c", "ln_f", "ln_w", "caplen", "fo", "ft", "fc", "fr", "eo", "elo", "emi", "ehi", "co", "cth", "crt", "cat", "crl", "dvo", "dvc", "dvn", "wid", "haas", "oo", "olim", "omix", "ogain", "ocl"];
+var KEYS = ["src", "mode", "smode", "grain", "trn", "smo", "tr", "fine", "spd", "link", "len", "pbm", "atk", "rel", "ln_p", "ln_s", "ln_c", "ln_f", "ln_w", "caplen", "fo", "ft", "fc", "fr", "eo", "elo", "emi", "ehi", "co", "cth", "crt", "cat", "crl", "dvo", "dvc", "dvn", "wid", "haas", "oo", "olim", "omix", "ogain", "ocl"];
 var FLATL = { ln_p: "[[0,0.5],[1,0.5]]", ln_s: "[[0,0.5],[1,0.5]]", ln_c: "[[0,1],[1,1]]", ln_f: "[[0,0.5],[1,0.5]]", ln_w: "[[0,0.5],[1,0.5]]" };
-var BASE = { src: "vox", mode: "sam", smode: "complex", grain: 0.5, trn: 0.5, smo: 0.7, tr: 0, fine: 0, spd: 1, link: "pitch", pbm: "loop", atk: 5, rel: 80, caplen: 1, fo: true, ft: "lp", fc: 16000, fr: 0.7, eo: true, elo: 0, emi: 0, ehi: 0, co: false, cth: -18, crt: 3, cat: 10, crl: 120, dvo: false, dvc: 12, dvn: 3, wid: 0, haas: 12, oo: true, olim: true, omix: 1, ogain: 0, ocl: -0.3 };
+var BASE = { src: "vox", mode: "sam", smode: "complex", grain: 0.5, trn: 0.5, smo: 0.7, tr: 0, fine: 0, spd: 1, link: "pitch", len: "auto", pbm: "loop", atk: 5, rel: 80, caplen: 1, fo: true, ft: "lp", fc: 16000, fr: 0.7, eo: true, elo: 0, emi: 0, ehi: 0, co: false, cth: -18, crt: 3, cat: 10, crl: 120, dvo: false, dvc: 12, dvn: 3, wid: 0, haas: 12, oo: true, olim: true, omix: 1, ogain: 0, ocl: -0.3 };
 for (var kk in FLATL) BASE[kk] = FLATL[kk];
 function mx(v) { var o = {}; for (var k in BASE) o[k] = BASE[k]; for (k in v) o[k] = v[k]; return o; }
 var FACT = [
@@ -1188,6 +1195,9 @@ var FACT = [
   { name: "Half-time vocal", v: mx({ spd: 0.5, smode: "tones", link: "pitch", grain: 0.7 }) },
   { name: "Tape slowdown", v: mx({ smode: "repitch", ln_s: "[[0,0.5],[0.5,0.5],[1,0.2]]", link: "tape" }) },
   { name: "Wash pad", v: mx({ smode: "texture", spd: 0.3, grain: 0.8, dvo: true, dvn: 5, dvc: 18, wid: 60, ln_c: "[[0,0.45],[1,0.9]]" }) },
+  { name: "Fit 1 bar", v: mx({ len: "4", smode: "beats" }) },
+  { name: "Fit 4 bars pad", v: mx({ len: "16", smode: "texture", grain: 0.8 }) },
+  { name: "Quarter note chop", v: mx({ len: "1", smode: "beats", grain: 0.35 }) },
   { name: "Chipmunk", v: mx({ tr: 7, smode: "beats", grain: 0.35, hi: 0, ehi: 3 }) },
   { name: "FX: bar capture", v: mx({ mode: "fx", caplen: 1, src: "brk", link: "pitch" }) },
   { name: "FX: drop pitch bend", v: mx({ mode: "fx", caplen: 2, src: "hard", ln_p: "[[0,0.5],[0.7,0.5],[1,0.2]]" }) }

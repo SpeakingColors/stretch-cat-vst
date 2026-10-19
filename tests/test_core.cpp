@@ -102,8 +102,19 @@ static void testSampler() {
       CHECK(s4.activeVoices() == Sampler::kVoices, "voice stealing caps polyphony at %d", Sampler::kVoices);
       s4.process(p, L.data(), R.data(), 480); }
 }
+static void testLength() {
+    CHECK(std::fabs(fitSpeed(48000 * 2.0, 48000, 120, 4.0) - 1.0) < 1e-9, "2 s at 120 BPM is exactly 1 bar: speed 1");
+    CHECK(std::fabs(fitSpeed(48000 * 4.0, 48000, 120, 4.0) - 2.0) < 1e-9, "4 s into 1 bar at 120 BPM: speed 2");
+    CHECK(std::fabs(fitSpeed(48000 * 2.0, 48000, 120, 16.0) - 0.25) < 1e-9, "2 s into 4 bars at 120 BPM: speed 0.25");
+    CHECK(std::fabs(fitSpeed(44100 * 1.0, 44100, 60, 1.0) - 1.0) < 1e-9, "1 s at 60 BPM is one beat");
+    CHECK(fitSpeed(1000, 48000, 120, 0.0) == 0.0 && fitSpeed(1000, 48000, 0, 4.0) == 0.0, "Auto or bad tempo gives no fit");
+    // end to end: the rendered length matches the chosen length
+    std::vector<float> v = tone(300, 0, 2.0); Params p; p.mode = Mode::Complex; p.speed = fitSpeed((double) v.size(), sr, 120, 4.0) * 2.0;
+    auto o = render(v, v, 0, (long long) v.size(), p);
+    CHECK(std::fabs((double) o.L.size() / sr - 1.0) < 0.15, "2 s fitted to half a bar at 120 BPM renders about 1.0 s (%.3f)", (double) o.L.size() / sr);
+}
 int main() {
-    testSpeed(); testPitch(); testTape(); testModes(); testLanes(); testSlices(); testSampler();
+    testSpeed(); testPitch(); testTape(); testModes(); testLanes(); testSlices(); testSampler(); testLength();
     if (fails) { std::printf("%d FAILED\n", fails); return 1; }
     std::printf("all tests passed\n"); return 0;
 }

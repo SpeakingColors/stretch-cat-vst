@@ -47,6 +47,7 @@ private:
     // source (message thread only)
     std::vector<float> srcL, srcR; double srcSr = 44100; juce::String fileName, statusText = "No sound loaded. Press Load.";
     std::atomic<bool> dirty { false };
+    std::atomic<double> hostBpmSeen { 0.0 };
     // hand-off of a finished render to the audio thread
     juce::SpinLock handoff; std::shared_ptr<const stretchcat::Stereo> pending; double pendingSr = 44100; bool hasPending = false;
     std::vector<std::shared_ptr<const stretchcat::Stereo>> retired;     // old buffers are freed on the message thread, not the audio thread

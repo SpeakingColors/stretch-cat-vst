@@ -47,6 +47,14 @@ struct Params {
     static double lanePitch(double y) { return -12.0 + 24.0 * y; }
 };
 
+// Length choices: beats at the host tempo (4/4). Index 0 is Auto (free: the Speed knob decides).
+inline const double* lengthBeats(int& count) { static const double t[] = { 0.0, 0.25, 0.5, 1.0, 2.0, 4.0, 8.0, 16.0, 32.0, 64.0, 128.0 }; count = (int)(sizeof t / sizeof t[0]); return t; }
+// Speed that fits `srcSamples` (at srcRate) into the chosen length at hostBpm. Returns <= 0 for Auto or bad input.
+inline double fitSpeed(double srcSamples, double srcRate, double hostBpm, double beats) {
+    if (beats <= 0.0 || hostBpm <= 0.0 || srcRate <= 0.0 || srcSamples <= 0.0) return 0.0;
+    return (srcSamples / srcRate) / (beats * 60.0 / hostBpm);
+}
+
 struct Stereo { std::vector<float> L, R; };
 
 inline float hermite(const std::vector<float>& a, double p) {
