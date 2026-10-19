@@ -1,0 +1,24 @@
+# Fast check of the Windows installer script (about 2 minutes): compiles windows.iss with dummy files so script mistakes show up before the long release build.
+name: installer-check
+on:
+  push:
+    paths: ['packaging/**', '.github/workflows/installer-check.yml']
+  workflow_dispatch:
+jobs:
+  inno:
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v4
+      - name: Dummy stage
+        run: |
+          NAME=$(grep -m1 '^  NAME:' .github/workflows/release.yml | sed 's/.*NAME: *//'); PRODUCT=$(grep -m1 '^  PRODUCT:' .github/workflows/release.yml | sed 's/.*PRODUCT: *//; s/"//g')
+          mkdir -p stage/vst3; echo x > stage/vst3/dummy.txt; echo x > "stage/$PRODUCT.exe"; echo x > "stage/Purrfect Cut.exe"; echo x > "stage/$NAME-manual.pdf"
+          echo "NAME=$NAME" >> "$GITHUB_ENV"; echo "PRODUCT=$PRODUCT" >> "$GITHUB_ENV"
+      - name: Compile
+        run: |
+          iscc="/c/Program Files (x86)/Inno Setup 6/ISCC.exe"
+          [ -f "$iscc" ] || { choco install innosetup -y --no-progress; }
+          "$iscc" "//DName=$NAME" "//DProduct=$PRODUCT" "//DVersion=0.0.1" packaging/windows.iss

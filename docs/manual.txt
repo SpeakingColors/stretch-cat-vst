@@ -1,0 +1,25 @@
+# Intro
+Stretch Cat is a sampler with time stretch. Load a sound; change its speed without changing the pitch, or its pitch without changing the speed, and play it from MIDI keys.
+
+# Quick start
+- Press Load and pick a sound file (wav, aiff, flac, ogg or mp3).
+- Play MIDI notes: the sound is repitched from the Root note. The stretched version is rendered when a control changes.
+- Note: this version uses the host's plain parameter view plus a Load button. The designed window (waveform, lanes, slices) is in the mockup in the repository and is not built into the plugin yet.
+
+# Stretch
+- Stretch mode: Beats, Tones, Texture, Re-Pitch, Complex or Formant+. Beats keeps drums sharp, Tones suits sustained sounds, Texture suits noise and pads, Re-Pitch changes speed and pitch together like a record.
+- Speed and pitch linked (Tape): when on, speed and pitch move together.
+- Grain, Transients and Smooth shape how the stretch engine cuts and joins the sound.
+- Speed: 0.25 to 4 times. Transpose: -24 to +24 semitones. Fine: -100 to +100 cents.
+
+# Length and tempo
+- Length: Auto (free) or fit the sound to 1/16, 1/8, 1/4, 1/2 note, 1, 2, 4, 8, 16 or 32 bars (4/4). The stretch is set so the sound fills that length at the tempo; the Speed knob is ignored while a length is set.
+- Fit tempo (BPM): the tempo used for the length fit, 40 to 240. It follows the host tempo.
+
+# Playback
+- Playback: Loop, One shot or Gate. Attack up to 500 ms, Release up to 2 s. Root note sets the key where the sound plays unchanged. Gain: -24 to +12 dB. Eight notes can play at once.
+
+# Recommendations
+- For loops from a sample pack, set Length to the number of bars and let it fit.
+- Use Complex for full mixes, Beats for drum loops and Formant+ for vocals.
+- Not tuned by ear yet: please report problems on GitHub.

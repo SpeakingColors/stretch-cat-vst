@@ -1,0 +1,38 @@
+Stretch Cat install, remove and use (works fully offline)
+=====================================================
+
+Windows
+  Run windows\StretchCat-Setup.exe. It installs two things: the VST3 plugin for your DAW
+  (C:\Program Files\Common Files\VST3, fixed location, all users) and the standalone app plus manual
+  (C:\Program Files\Studio 87\Stretch Cat, the folder the installer asks about).
+  Windows may show a blue "unknown publisher" screen because the installer is not signed:
+  click "More info", then "Run anyway".
+  Remove: Settings > Apps > Stretch Cat > Uninstall. It asks if you also want your saved presets deleted
+  (default is No, so they stay).
+
+macOS
+  Open macos\StretchCat-macOS.pkg. It installs the VST3 plugin, the standalone app, the manual and "Uninstall Stretch Cat".
+  The installer is not notarized: if macOS blocks it, open System Settings > Privacy & Security and choose "Open Anyway".
+  Remove: open "Uninstall Stretch Cat" in the Applications folder. It asks if you also want your saved presets deleted
+  (default is Keep).
+
+Linux, DAW installed as a Flatpak (for example Bitwig, Reaper or Ardour from Flathub)
+  1. Your DAW should use the org.freedesktop.Platform 25.08 runtime (check with: flatpak info <DAW id>, Runtime line).
+  2. Install the file from the linux folder:
+       flatpak install --user linux/StretchCat-flatpak-25.08.flatpak
+  3. Restart the DAW and rescan plugins.
+  Remove: flatpak uninstall --user org.freedesktop.LinuxAudio.Plugins.StretchCat   (removes the plugin completely)
+
+Linux, DAW installed natively
+  Extract linux/StretchCat-linux-vst3.tar.gz into ~/.vst3  (create the folder if needed), then rescan plugins.
+  Remove: delete the "Stretch Cat.vst3" folder from ~/.vst3.
+
+Your saved presets (kept on remove unless you choose to delete them)
+  Windows : %APPDATA%\Studio 87\StretchCat\presets
+  macOS   : ~/Library/Application Support/Studio 87/StretchCat/presets
+  Linux   : ~/.config/Studio 87/StretchCat/presets  (a Flatpak DAW keeps its own copy under ~/.var/app/<DAW id>/config/)
+  To delete them yourself, remove the Studio 87/StretchCat folder at that place.
+
+Manual: StretchCat-manual.pdf (every control plus recommendations).
+Checksums: SHA256SUMS.
+Licence: AGPL-3.0-or-later (see LICENSE). Free to use, copy and change.
