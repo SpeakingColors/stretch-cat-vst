@@ -43,20 +43,20 @@ Call Stack (most recent call first):
   CMakeLists.txt:9 (juce_add_plugin)
 
 
--- Configuring done (63.6s)
+-- Configuring done (86.6s)
 -- Generating done (0.0s)
 -- Build files have been written to: /home/runner/work/stretch-cat-vst/stretch-cat-vst/build
 [  2%] Building VST3 manifest helper for StretchCat
+[  6%] Building CXX object CMakeFiles/StretchCat.dir/src/stretch/StretchCat.cpp.o
 [  4%] Building CXX object CMakeFiles/StretchCat.dir/src/Plugins.cpp.o
-[  6%] Building CXX object CMakeFiles/StretchCat.dir/_deps/juce-src/modules/juce_audio_processors/juce_audio_processors.cpp.o
-[  9%] Building CXX object CMakeFiles/StretchCat.dir/src/stretch/StretchCat.cpp.o
+[  9%] Building CXX object CMakeFiles/StretchCat.dir/_deps/juce-src/modules/juce_audio_processors/juce_audio_processors.cpp.o
 -- The CXX compiler identification is GNU 13.3.0
 -- Detecting CXX compiler ABI info
 -- Detecting CXX compiler ABI info - done
 -- Check for working CXX compiler: /usr/bin/c++ - skipped
 -- Detecting CXX compile features
 -- Detecting CXX compile features - done
--- Configuring done (0.1s)
+-- Configuring done (0.2s)
 -- Generating done (0.0s)
 -- Build files have been written to: /home/runner/work/stretch-cat-vst/stretch-cat-vst/build/vst3_helpers/StretchCat
 gmake[3]: warning: jobserver unavailable: using -j1.  Add '+' to parent make rule.
@@ -68,7 +68,7 @@ gmake[3]: warning: jobserver unavailable: using -j1.  Add '+' to parent make rul
 In file included from /home/runner/work/stretch-cat-vst/stretch-cat-vst/build/_deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless.h:145,
                  from /home/runner/work/stretch-cat-vst/stretch-cat-vst/build/_deps/juce-src/modules/juce_audio_processors/juce_audio_processors.h:64,
                  from /home/runner/work/stretch-cat-vst/stretch-cat-vst/src/stretch/StretchCat.h:5,
-                 from /home/runner/work/stretch-cat-vst/stretch-cat-vst/src/stretch/StretchCat.cpp:1:
+                 from /home/runner/work/stretch-cat-vst/stretch-cat-vst/src/Plugins.cpp:2:
 /home/runner/work/stretch-cat-vst/stretch-cat-vst/build/_deps/juce-src/modules/juce_audio_processors_headless/processors/juce_AudioProcessor.h:292:18: warning: ‘virtual void juce::AudioProcessor::processBlock(juce::AudioBuffer<double>&, juce::MidiBuffer&)’ was hidden [-Woverloaded-virtual=]
   292 |     virtual void processBlock (AudioBuffer<double>& buffer,
       |                  ^~~~~~~~~~~~
@@ -78,7 +78,7 @@ In file included from /home/runner/work/stretch-cat-vst/stretch-cat-vst/build/_d
 In file included from /home/runner/work/stretch-cat-vst/stretch-cat-vst/build/_deps/juce-src/modules/juce_audio_processors_headless/juce_audio_processors_headless.h:145,
                  from /home/runner/work/stretch-cat-vst/stretch-cat-vst/build/_deps/juce-src/modules/juce_audio_processors/juce_audio_processors.h:64,
                  from /home/runner/work/stretch-cat-vst/stretch-cat-vst/src/stretch/StretchCat.h:5,
-                 from /home/runner/work/stretch-cat-vst/stretch-cat-vst/src/Plugins.cpp:2:
+                 from /home/runner/work/stretch-cat-vst/stretch-cat-vst/src/stretch/StretchCat.cpp:1:
 /home/runner/work/stretch-cat-vst/stretch-cat-vst/build/_deps/juce-src/modules/juce_audio_processors_headless/processors/juce_AudioProcessor.h:292:18: warning: ‘virtual void juce::AudioProcessor::processBlock(juce::AudioBuffer<double>&, juce::MidiBuffer&)’ was hidden [-Woverloaded-virtual=]
   292 |     virtual void processBlock (AudioBuffer<double>& buffer,
       |                  ^~~~~~~~~~~~
@@ -107,22 +107,22 @@ In file included from /home/runner/work/stretch-cat-vst/stretch-cat-vst/build/_d
 [ 56%] Building CXX object CMakeFiles/StretchCat.dir/_deps/juce-src/modules/juce_dsp/juce_dsp.cpp.o
 [ 59%] Linking CXX static library "StretchCat_artefacts/Release/libStretch Cat_SharedCode.a"
 [ 59%] Built target StretchCat
-[ 61%] Building CXX object CMakeFiles/StretchCat_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX.cpp.o
-[ 65%] Building CXX object CMakeFiles/StretchCat_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX_utils.cpp.o
-[ 65%] Building CXX object CMakeFiles/StretchCat_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX.cpp.o
+[ 61%] Building CXX object CMakeFiles/StretchCat_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX.cpp.o
+[ 63%] Building CXX object CMakeFiles/StretchCat_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX.cpp.o
+[ 65%] Building CXX object CMakeFiles/StretchCat_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_ARA.cpp.o
 [ 68%] Building CXX object CMakeFiles/StretchCat_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX_utils.cpp.o
-[ 70%] Building CXX object CMakeFiles/StretchCat_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_ARA.cpp.o
-[ 72%] Building CXX object CMakeFiles/StretchCat_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_LV2.cpp.o
-[ 75%] Building CXX object CMakeFiles/StretchCat_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_ARA.cpp.o
-[ 77%] Building CXX object CMakeFiles/StretchCat_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Standalone.cpp.o
-[ 81%] Building CXX object CMakeFiles/StretchCat_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Unity.cpp.o
-[ 81%] Building CXX object CMakeFiles/StretchCat_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_LV2.cpp.o
-[ 84%] Building CXX object CMakeFiles/StretchCat_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST2.cpp.o
-[ 86%] Building CXX object CMakeFiles/StretchCat_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Standalone.cpp.o
-[ 88%] Building CXX object CMakeFiles/StretchCat_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST3.cpp.o
-[ 90%] Building CXX object CMakeFiles/StretchCat_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Unity.cpp.o
-[ 93%] Building CXX object CMakeFiles/StretchCat_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST2.cpp.o
-[ 95%] Building CXX object CMakeFiles/StretchCat_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST3.cpp.o
+[ 72%] Building CXX object CMakeFiles/StretchCat_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_LV2.cpp.o
+[ 72%] Building CXX object CMakeFiles/StretchCat_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_AAX_utils.cpp.o
+[ 75%] Building CXX object CMakeFiles/StretchCat_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Standalone.cpp.o
+[ 77%] Building CXX object CMakeFiles/StretchCat_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Unity.cpp.o
+[ 79%] Building CXX object CMakeFiles/StretchCat_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_ARA.cpp.o
+[ 81%] Building CXX object CMakeFiles/StretchCat_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_LV2.cpp.o
+[ 84%] Building CXX object CMakeFiles/StretchCat_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Standalone.cpp.o
+[ 86%] Building CXX object CMakeFiles/StretchCat_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST2.cpp.o
+[ 88%] Building CXX object CMakeFiles/StretchCat_VST3.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST3.cpp.o
+[ 90%] Building CXX object CMakeFiles/StretchCat_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_Unity.cpp.o
+[ 93%] Building CXX object CMakeFiles/StretchCat_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST2.cpp.o
+[ 95%] Building CXX object CMakeFiles/StretchCat_Standalone.dir/_deps/juce-src/modules/juce_audio_plugin_client/juce_audio_plugin_client_VST3.cpp.o
 [ 97%] Linking CXX executable "StretchCat_artefacts/Release/Standalone/Stretch Cat"
 [ 97%] Built target StretchCat_Standalone
 [100%] Linking CXX shared module "StretchCat_artefacts/Release/VST3/Stretch Cat.vst3/Contents/x86_64-linux/Stretch Cat.so"
