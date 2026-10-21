@@ -4,6 +4,10 @@
 
 Sampler with time stretch, for VST3 and standalone: change the speed without changing the pitch, or the pitch without changing the speed.
 
+<p align="center"><img src="docs/screenshot.png" alt="Stretch Cat editor" width="900"><br><sub>Screenshot of the interactive mockup in docs/mockups.</sub></p>
+
+**Manual:** [PDF, opens in the browser](https://github.com/SpeakingColors/stretch-cat-vst/blob/main/docs/stretch-cat-vst-manual.pdf)
+
 ## Status
 Early. What exists today:
 - A tested pure C++ engine (`src/core`): the stretch engine from the [mockup](docs/mockup/) (grains aligned by correlation, modes Beats, Tones, Texture, Re-Pitch, Complex, Formant+, speed and pitch lanes over time), transient slicing, and an 8 voice sampler (loop, one shot, gate, note repitch).
