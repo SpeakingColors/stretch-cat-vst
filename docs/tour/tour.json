@@ -1,0 +1,1338 @@
+{
+ "title": "Stretch Cat",
+ "page": "docs/mockup/stretchcat.html",
+ "tabs": [
+  {
+   "label": "STRETCH SAMPLER",
+   "img": "window_1.png",
+   "items": [
+    {
+     "n": 1,
+     "name": "Previous preset",
+     "tip": "Previous preset.",
+     "kind": "button",
+     "sec": "Header bar",
+     "fresh": true
+    },
+    {
+     "n": 2,
+     "name": "Init",
+     "tip": "Open the preset list: factory presets and your own.",
+     "kind": "button",
+     "sec": "Header bar",
+     "fresh": true
+    },
+    {
+     "n": 3,
+     "name": "Next preset",
+     "tip": "Next preset.",
+     "kind": "button",
+     "sec": "Header bar",
+     "fresh": true
+    },
+    {
+     "n": 4,
+     "name": "Save",
+     "tip": "Save the current settings as your own preset (stays on this device).",
+     "kind": "button",
+     "sec": "Header bar",
+     "fresh": true
+    },
+    {
+     "n": 5,
+     "name": "Delete, export or import your presets",
+     "tip": "Delete, export or import your presets.",
+     "kind": "button",
+     "sec": "Header bar",
+     "fresh": true
+    },
+    {
+     "n": 6,
+     "name": "Guide",
+     "tip": "Quick guide: what each part does.",
+     "kind": "button",
+     "sec": "Header bar",
+     "fresh": true
+    },
+    {
+     "n": 7,
+     "name": "Settings",
+     "tip": "Info bubbles and eco mode.",
+     "kind": "button",
+     "sec": "Header bar",
+     "fresh": true
+    },
+    {
+     "n": 8,
+     "name": "About & Support",
+     "tip": "About Studio 87, privacy, and ways to support the project.",
+     "kind": "button",
+     "sec": "Header bar",
+     "fresh": true
+    },
+    {
+     "n": 9,
+     "name": "Stretch Cat Sampler",
+     "tip": "Stretch Cat Sampler: a sampler instrument. Warp a loop, slice it, play slices from your keyboard, transpose over time.",
+     "kind": "button",
+     "sec": "Window",
+     "fresh": true
+    },
+    {
+     "n": 10,
+     "name": "Stretch Cat FX",
+     "tip": "Stretch Cat FX: an effect. It grabs the last bars of your DAW audio and lets you stretch it, bend its pitch and perform tape stops, freezes and risers.",
+     "kind": "button",
+     "sec": "Window",
+     "fresh": true
+    },
+    {
+     "n": 11,
+     "name": "Source",
+     "tip": "Sampler: the sample that gets warped. FX: the audio your DAW sends in.",
+     "kind": "button",
+     "sec": "Window",
+     "fresh": true
+    },
+    {
+     "n": 12,
+     "name": "Play",
+     "tip": "Play the stretched result. Shortcut: Space.",
+     "kind": "button",
+     "sec": "Window",
+     "fresh": true
+    },
+    {
+     "n": 13,
+     "name": "Load file",
+     "tip": "Load your own audio file (wav, mp3, flac, ogg). It stays in this browser tab and is never uploaded.",
+     "kind": "button",
+     "sec": "Window",
+     "fresh": true
+    },
+    {
+     "n": 14,
+     "name": "Host BPM",
+     "tip": "The tempo your DAW runs at. Keep length stretches the loop to match it. Double-click resets.",
+     "kind": "button",
+     "sec": "Window",
+     "fresh": true
+    },
+    {
+     "n": 15,
+     "name": "MIDI root",
+     "tip": "The key that plays the sample at its original pitch.",
+     "kind": "button",
+     "sec": "Window",
+     "fresh": true
+    },
+    {
+     "n": 16,
+     "name": "Source",
+     "tip": "The whole sample. The bright part is the selection that gets stretched. Drag the orange handles; in the sampler drag the yellow slice marks.",
+     "kind": "button",
+     "sec": "Window",
+     "fresh": true
+    },
+    {
+     "n": 17,
+     "name": "C3·1",
+     "tip": "Slice 1: press to hear it, with your stretch and pitch settings. Keys 1 to 8 do the same.",
+     "kind": "button",
+     "sec": "Window",
+     "fresh": true
+    },
+    {
+     "n": 18,
+     "name": "C3·2",
+     "tip": "Slice 2: press to hear it, with your stretch and pitch settings. Keys 1 to 8 do the same.",
+     "kind": "button",
+     "sec": "Window",
+     "fresh": true
+    },
+    {
+     "n": 19,
+     "name": "C3·3",
+     "tip": "Slice 3: press to hear it, with your stretch and pitch settings. Keys 1 to 8 do the same.",
+     "kind": "button",
+     "sec": "Window",
+     "fresh": true
+    },
+    {
+     "n": 20,
+     "name": "C3·4",
+     "tip": "Slice 4: press to hear it, with your stretch and pitch settings. Keys 1 to 8 do the same.",
+     "kind": "button",
+     "sec": "Window",
+     "fresh": true
+    },
+    {
+     "n": 21,
+     "name": "C3·5",
+     "tip": "Slice 5: press to hear it, with your stretch and pitch settings. Keys 1 to 8 do the same.",
+     "kind": "button",
+     "sec": "Window",
+     "fresh": true
+    },
+    {
+     "n": 22,
+     "name": "C3·6",
+     "tip": "Slice 6: press to hear it, with your stretch and pitch settings. Keys 1 to 8 do the same.",
+     "kind": "button",
+     "sec": "Window",
+     "fresh": true
+    },
+    {
+     "n": 23,
+     "name": "C3·7",
+     "tip": "Slice 7: press to hear it, with your stretch and pitch settings. Keys 1 to 8 do the same.",
+     "kind": "button",
+     "sec": "Window",
+     "fresh": true
+    },
+    {
+     "n": 24,
+     "name": "C3·8",
+     "tip": "Slice 8: press to hear it, with your stretch and pitch settings. Keys 1 to 8 do the same.",
+     "kind": "button",
+     "sec": "Window",
+     "fresh": true
+    },
+    {
+     "n": 25,
+     "name": "BY TRANSIENT",
+     "tip": "Place slice marks on the strongest hits in the selection.",
+     "kind": "button",
+     "sec": "Window",
+     "fresh": true
+    },
+    {
+     "n": 26,
+     "name": "EVEN",
+     "tip": "Cut the selection into eight equal parts.",
+     "kind": "button",
+     "sec": "Window",
+     "fresh": true
+    },
+    {
+     "n": 27,
+     "name": "NORMALIZE",
+     "tip": "Make the selection as loud as it can be without clipping (applies to the whole source).",
+     "kind": "button",
+     "sec": "Window",
+     "fresh": true
+    },
+    {
+     "n": 28,
+     "name": "REVERSE",
+     "tip": "Play the selection backwards.",
+     "kind": "button",
+     "sec": "Window",
+     "fresh": true
+    },
+    {
+     "n": 29,
+     "name": "RESET",
+     "tip": "Reload the original sample.",
+     "kind": "button",
+     "sec": "Window",
+     "fresh": true
+    },
+    {
+     "n": 30,
+     "name": "Result",
+     "tip": "What the stretch engine made from the selection, with your pitch, speed and curves. The white line is the play position.",
+     "kind": "button",
+     "sec": "Window",
+     "fresh": true
+    },
+    {
+     "n": 31,
+     "name": "PITCH",
+     "tip": "Transposition over the length of the selection. Drag the dots, click to add one, double-click to remove it.",
+     "kind": "button",
+     "sec": "Window",
+     "fresh": true
+    },
+    {
+     "n": 32,
+     "name": "SPEED",
+     "tip": "Playback speed over time (with Keep pitch it only changes length, with Tape linked it changes pitch too).",
+     "kind": "button",
+     "sec": "Window",
+     "fresh": true
+    },
+    {
+     "n": 33,
+     "name": "CUTOFF",
+     "tip": "Low-pass cutoff over time: close it to make a swell or a wash.",
+     "kind": "button",
+     "sec": "Window",
+     "fresh": true
+    },
+    {
+     "n": 34,
+     "name": "FORMANT",
+     "tip": "Formant shift over time. Plugin only: it is drawn here but not audible in this mockup.",
+     "kind": "button",
+     "sec": "Window",
+     "fresh": true
+    },
+    {
+     "n": 35,
+     "name": "WIDTH",
+     "tip": "Stereo width over time.",
+     "kind": "button",
+     "sec": "Window",
+     "fresh": true
+    },
+    {
+     "n": 36,
+     "name": "FLAT",
+     "tip": "Reset this lane to a straight line.",
+     "kind": "button",
+     "sec": "Window",
+     "fresh": true
+    },
+    {
+     "n": 37,
+     "name": "Curve editor",
+     "tip": "Draw what changes over the length of the selection: pitch, speed, cutoff, formant or width. Drag a dot, click empty space to add one, double-click a dot to remove it.",
+     "kind": "button",
+     "sec": "Window",
+     "fresh": true
+    },
+    {
+     "n": 38,
+     "name": "Stretch mode",
+     "tip": "In the mockup each mode is a different grain setting. Beats: short grains for drums. Tones: long grains for sustained sounds. Texture: random grains for pads. Re-Pitch: tape speed. Complex and Formant+: all-rounders. The plugin will use dedicated algorithms.",
+     "kind": "button",
+     "sec": "Window",
+     "fresh": true
+    },
+    {
+     "n": 39,
+     "name": "Grain",
+     "tip": "Grain size: smaller is tighter in time, larger is smoother. Double-click resets.",
+     "kind": "button",
+     "sec": "Window",
+     "fresh": true
+    },
+    {
+     "n": 40,
+     "name": "Transients",
+     "tip": "How hard the engine searches for the best splice point. More keeps hits sharper. Double-click resets.",
+     "kind": "button",
+     "sec": "Window",
+     "fresh": true
+    },
+    {
+     "n": 41,
+     "name": "Smooth",
+     "tip": "Length of the crossfade between grains. Double-click resets.",
+     "kind": "button",
+     "sec": "Window",
+     "fresh": true
+    },
+    {
+     "n": 42,
+     "name": "Transpose",
+     "tip": "Pitch in semitones. Double-click resets.",
+     "kind": "button",
+     "sec": "Window",
+     "fresh": true
+    },
+    {
+     "n": 43,
+     "name": "Fine",
+     "tip": "Pitch in cents. Double-click resets.",
+     "kind": "button",
+     "sec": "Window",
+     "fresh": true
+    },
+    {
+     "n": 44,
+     "name": "Speed",
+     "tip": "Overall playback speed. 2 is twice as fast. Double-click resets.",
+     "kind": "button",
+     "sec": "Window",
+     "fresh": true
+    },
+    {
+     "n": 45,
+     "name": "Link",
+     "tip": "Keep length: the loop is stretched to your host tempo. Keep pitch: speed changes only the length. Tape linked: speed and pitch move together, like a record.",
+     "kind": "button",
+     "sec": "Window",
+     "fresh": true
+    },
+    {
+     "n": 46,
+     "name": "Length",
+     "tip": "Sets how long the stretched sample lasts, in note values or bars at the host tempo (4/4). The stretch fits the selection to that length, so the Speed knob is ignored while a length is chosen. Auto: the length follows Speed and Link.",
+     "kind": "button",
+     "sec": "Window",
+     "fresh": true
+    },
+    {
+     "n": 47,
+     "name": "Playback",
+     "tip": "One-shot: plays once. Loop: repeats. Gate: plays while you hold Play. Slices to keys: keys 1 to 8 play the slices.",
+     "kind": "button",
+     "sec": "Window",
+     "fresh": true
+    },
+    {
+     "n": 48,
+     "name": "Attack",
+     "tip": "Fade in. Double-click resets.",
+     "kind": "button",
+     "sec": "Window",
+     "fresh": true
+    },
+    {
+     "n": 49,
+     "name": "Release",
+     "tip": "Fade out. Double-click resets.",
+     "kind": "button",
+     "sec": "Window",
+     "fresh": true
+    },
+    {
+     "n": 50,
+     "name": "Glide",
+     "tip": "Time to slide between notes (plugin only: needs MIDI). Double-click resets.",
+     "kind": "button",
+     "sec": "Window",
+     "fresh": true
+    },
+    {
+     "n": 51,
+     "name": "On",
+     "tip": "Turn the filter on or off.",
+     "kind": "button",
+     "sec": "FX rackrender 126 ms",
+     "fresh": true
+    },
+    {
+     "n": 52,
+     "name": "Type",
+     "tip": "Filter shape.",
+     "kind": "button",
+     "sec": "FX rackrender 126 ms",
+     "fresh": true
+    },
+    {
+     "n": 53,
+     "name": "Cutoff",
+     "tip": "Cutoff frequency. Double-click resets.",
+     "kind": "button",
+     "sec": "FX rackrender 126 ms",
+     "fresh": true
+    },
+    {
+     "n": 54,
+     "name": "Reso",
+     "tip": "Resonance. Double-click resets.",
+     "kind": "button",
+     "sec": "FX rackrender 126 ms",
+     "fresh": true
+    },
+    {
+     "n": 55,
+     "name": "On",
+     "tip": "Turn the EQ on or off.",
+     "kind": "button",
+     "sec": "FX rackrender 126 ms",
+     "fresh": true
+    },
+    {
+     "n": 56,
+     "name": "Low",
+     "tip": "Low shelf (200 Hz). Double-click resets.",
+     "kind": "button",
+     "sec": "FX rackrender 126 ms",
+     "fresh": true
+    },
+    {
+     "n": 57,
+     "name": "Mid",
+     "tip": "Mid band (1 kHz). Double-click resets.",
+     "kind": "button",
+     "sec": "FX rackrender 126 ms",
+     "fresh": true
+    },
+    {
+     "n": 58,
+     "name": "High",
+     "tip": "High shelf (5 kHz). Double-click resets.",
+     "kind": "button",
+     "sec": "FX rackrender 126 ms",
+     "fresh": true
+    },
+    {
+     "n": 59,
+     "name": "On",
+     "tip": "Turn the compressor on or off.",
+     "kind": "button",
+     "sec": "FX rackrender 126 ms",
+     "fresh": true
+    },
+    {
+     "n": 60,
+     "name": "Thresh",
+     "tip": "Level where compression starts. Double-click resets.",
+     "kind": "button",
+     "sec": "FX rackrender 126 ms",
+     "fresh": true
+    },
+    {
+     "n": 61,
+     "name": "Ratio",
+     "tip": "How hard it squeezes. Double-click resets.",
+     "kind": "button",
+     "sec": "FX rackrender 126 ms",
+     "fresh": true
+    },
+    {
+     "n": 62,
+     "name": "Attack",
+     "tip": "How fast it reacts. Double-click resets.",
+     "kind": "button",
+     "sec": "FX rackrender 126 ms",
+     "fresh": true
+    },
+    {
+     "n": 63,
+     "name": "Release",
+     "tip": "How fast it lets go. Double-click resets.",
+     "kind": "button",
+     "sec": "FX rackrender 126 ms",
+     "fresh": true
+    },
+    {
+     "n": 64,
+     "name": "On",
+     "tip": "Formant control. Plugin only: not audible in this mockup.",
+     "kind": "button",
+     "sec": "FX rackrender 126 ms",
+     "fresh": true
+    },
+    {
+     "n": 65,
+     "name": "Shift",
+     "tip": "Natural to chipmunk. Plugin only: not audible in this mockup. Double-click resets.",
+     "kind": "button",
+     "sec": "FX rackrender 126 ms",
+     "fresh": true
+    },
+    {
+     "n": 66,
+     "name": "Keep",
+     "tip": "Keep the formants where they were when you transpose. Plugin only.",
+     "kind": "button",
+     "sec": "FX rackrender 126 ms",
+     "fresh": true
+    },
+    {
+     "n": 67,
+     "name": "On",
+     "tip": "Turn the detune voices on or off. Takes effect the next time you press Play.",
+     "kind": "button",
+     "sec": "FX rackrender 126 ms",
+     "fresh": true
+    },
+    {
+     "n": 68,
+     "name": "Detune",
+     "tip": "Spread of the voices in cents. Double-click resets.",
+     "kind": "button",
+     "sec": "FX rackrender 126 ms",
+     "fresh": true
+    },
+    {
+     "n": 69,
+     "name": "Voices",
+     "tip": "How many copies. Double-click resets.",
+     "kind": "button",
+     "sec": "FX rackrender 126 ms",
+     "fresh": true
+    },
+    {
+     "n": 70,
+     "name": "Width",
+     "tip": "Haas widening: a delayed copy on the right. Double-click resets.",
+     "kind": "button",
+     "sec": "FX rackrender 126 ms",
+     "fresh": true
+    },
+    {
+     "n": 71,
+     "name": "Haas",
+     "tip": "Delay of the widening copy. Double-click resets.",
+     "kind": "button",
+     "sec": "FX rackrender 126 ms",
+     "fresh": true
+    },
+    {
+     "n": 72,
+     "name": "On",
+     "tip": "Turn the output stage on or off.",
+     "kind": "button",
+     "sec": "FX rackrender 126 ms",
+     "fresh": true
+    },
+    {
+     "n": 73,
+     "name": "Limit",
+     "tip": "Limiter on the output.",
+     "kind": "button",
+     "sec": "FX rackrender 126 ms",
+     "fresh": true
+    },
+    {
+     "n": 74,
+     "name": "Mix",
+     "tip": "Blend between the unprocessed stretch (left) and the whole rack (right). Double-click resets.",
+     "kind": "button",
+     "sec": "FX rackrender 126 ms",
+     "fresh": true
+    },
+    {
+     "n": 75,
+     "name": "Gain",
+     "tip": "Output gain before the limiter. Double-click resets.",
+     "kind": "button",
+     "sec": "FX rackrender 126 ms",
+     "fresh": true
+    },
+    {
+     "n": 76,
+     "name": "Ceiling",
+     "tip": "Limiter ceiling. Double-click resets.",
+     "kind": "button",
+     "sec": "FX rackrender 126 ms",
+     "fresh": true
+    },
+    {
+     "n": 77,
+     "name": "Window 100 %",
+     "tip": "Window size. Drag any edge or corner of the plugin to resize it; the shape stays the same. Double-click here for 100 %.",
+     "kind": "button",
+     "sec": "Window",
+     "fresh": true
+    },
+    {
+     "n": 78,
+     "name": "Resize",
+     "tip": "Drag to resize the window. Every edge and corner works, and the shape stays the same.",
+     "kind": "button",
+     "sec": "Window",
+     "fresh": true
+    },
+    {
+     "n": 78,
+     "name": "Resize",
+     "tip": "Drag to resize the window. Every edge and corner works, and the shape stays the same.",
+     "kind": "button",
+     "sec": "Window",
+     "fresh": false
+    },
+    {
+     "n": 78,
+     "name": "Resize",
+     "tip": "Drag to resize the window. Every edge and corner works, and the shape stays the same.",
+     "kind": "button",
+     "sec": "Window",
+     "fresh": false
+    },
+    {
+     "n": 78,
+     "name": "Resize",
+     "tip": "Drag to resize the window. Every edge and corner works, and the shape stays the same.",
+     "kind": "button",
+     "sec": "Window",
+     "fresh": false
+    },
+    {
+     "n": 78,
+     "name": "Resize",
+     "tip": "Drag to resize the window. Every edge and corner works, and the shape stays the same.",
+     "kind": "button",
+     "sec": "Window",
+     "fresh": false
+    },
+    {
+     "n": 78,
+     "name": "Resize",
+     "tip": "Drag to resize the window. Every edge and corner works, and the shape stays the same.",
+     "kind": "button",
+     "sec": "Window",
+     "fresh": false
+    },
+    {
+     "n": 78,
+     "name": "Resize",
+     "tip": "Drag to resize the window. Every edge and corner works, and the shape stays the same.",
+     "kind": "button",
+     "sec": "Window",
+     "fresh": false
+    },
+    {
+     "n": 78,
+     "name": "Resize",
+     "tip": "Drag to resize the window. Every edge and corner works, and the shape stays the same.",
+     "kind": "button",
+     "sec": "Window",
+     "fresh": false
+    }
+   ]
+  },
+  {
+   "label": "STRETCH FX",
+   "img": "window_2.png",
+   "items": [
+    {
+     "n": 1,
+     "name": "Previous preset",
+     "tip": "Previous preset.",
+     "kind": "button",
+     "sec": "Header bar",
+     "fresh": false
+    },
+    {
+     "n": 2,
+     "name": "Init",
+     "tip": "Open the preset list: factory presets and your own.",
+     "kind": "button",
+     "sec": "Header bar",
+     "fresh": false
+    },
+    {
+     "n": 3,
+     "name": "Next preset",
+     "tip": "Next preset.",
+     "kind": "button",
+     "sec": "Header bar",
+     "fresh": false
+    },
+    {
+     "n": 4,
+     "name": "Save",
+     "tip": "Save the current settings as your own preset (stays on this device).",
+     "kind": "button",
+     "sec": "Header bar",
+     "fresh": false
+    },
+    {
+     "n": 5,
+     "name": "Delete, export or import your presets",
+     "tip": "Delete, export or import your presets.",
+     "kind": "button",
+     "sec": "Header bar",
+     "fresh": false
+    },
+    {
+     "n": 6,
+     "name": "Guide",
+     "tip": "Quick guide: what each part does.",
+     "kind": "button",
+     "sec": "Header bar",
+     "fresh": false
+    },
+    {
+     "n": 7,
+     "name": "Settings",
+     "tip": "Info bubbles and eco mode.",
+     "kind": "button",
+     "sec": "Header bar",
+     "fresh": false
+    },
+    {
+     "n": 8,
+     "name": "About & Support",
+     "tip": "About Studio 87, privacy, and ways to support the project.",
+     "kind": "button",
+     "sec": "Header bar",
+     "fresh": false
+    },
+    {
+     "n": 9,
+     "name": "Stretch Cat Sampler",
+     "tip": "Stretch Cat Sampler: a sampler instrument. Warp a loop, slice it, play slices from your keyboard, transpose over time.",
+     "kind": "button",
+     "sec": "Window",
+     "fresh": false
+    },
+    {
+     "n": 10,
+     "name": "Stretch Cat FX",
+     "tip": "Stretch Cat FX: an effect. It grabs the last bars of your DAW audio and lets you stretch it, bend its pitch and perform tape stops, freezes and risers.",
+     "kind": "button",
+     "sec": "Window",
+     "fresh": false
+    },
+    {
+     "n": 11,
+     "name": "Source",
+     "tip": "Sampler: the sample that gets warped. FX: the audio your DAW sends in.",
+     "kind": "button",
+     "sec": "Window",
+     "fresh": false
+    },
+    {
+     "n": 12,
+     "name": "Play",
+     "tip": "Play the stretched result. Shortcut: Space.",
+     "kind": "button",
+     "sec": "Window",
+     "fresh": false
+    },
+    {
+     "n": 13,
+     "name": "Load file",
+     "tip": "Load your own audio file (wav, mp3, flac, ogg). It stays in this browser tab and is never uploaded.",
+     "kind": "button",
+     "sec": "Window",
+     "fresh": false
+    },
+    {
+     "n": 79,
+     "name": "DAW play",
+     "tip": "Play the unprocessed source like your DAW would. Shortcut: P.",
+     "kind": "button",
+     "sec": "Window",
+     "fresh": true
+    },
+    {
+     "n": 80,
+     "name": "Grab now",
+     "tip": "Grab the last bars of the DAW input into the capture buffer. Shortcut: G.",
+     "kind": "button",
+     "sec": "Window",
+     "fresh": true
+    },
+    {
+     "n": 14,
+     "name": "Host BPM",
+     "tip": "The tempo your DAW runs at. Keep length stretches the loop to match it. Double-click resets.",
+     "kind": "button",
+     "sec": "Window",
+     "fresh": false
+    },
+    {
+     "n": 16,
+     "name": "Source",
+     "tip": "The whole sample. The bright part is the selection that gets stretched. Drag the orange handles; in the sampler drag the yellow slice marks.",
+     "kind": "button",
+     "sec": "Window",
+     "fresh": false
+    },
+    {
+     "n": 81,
+     "name": "1/4 BAR",
+     "tip": "Capture the last 1/4 bar of the DAW input.",
+     "kind": "button",
+     "sec": "Window",
+     "fresh": true
+    },
+    {
+     "n": 82,
+     "name": "1/2 BAR",
+     "tip": "Capture the last 1/2 bar of the DAW input.",
+     "kind": "button",
+     "sec": "Window",
+     "fresh": true
+    },
+    {
+     "n": 83,
+     "name": "1 BAR",
+     "tip": "Capture the last 1 bar of the DAW input.",
+     "kind": "button",
+     "sec": "Window",
+     "fresh": true
+    },
+    {
+     "n": 84,
+     "name": "2 BARS",
+     "tip": "Capture the last 2 bars of the DAW input.",
+     "kind": "button",
+     "sec": "Window",
+     "fresh": true
+    },
+    {
+     "n": 85,
+     "name": "Auto-grab",
+     "tip": "Grab a new capture whenever you change the length, and at the start of every bar while the DAW plays.",
+     "kind": "button",
+     "sec": "Window",
+     "fresh": true
+    },
+    {
+     "n": 30,
+     "name": "Result",
+     "tip": "What the stretch engine made from the selection, with your pitch, speed and curves. The white line is the play position.",
+     "kind": "button",
+     "sec": "Window",
+     "fresh": false
+    },
+    {
+     "n": 31,
+     "name": "PITCH",
+     "tip": "Transposition over the length of the selection. Drag the dots, click to add one, double-click to remove it.",
+     "kind": "button",
+     "sec": "Window",
+     "fresh": false
+    },
+    {
+     "n": 32,
+     "name": "SPEED",
+     "tip": "Playback speed over time (with Keep pitch it only changes length, with Tape linked it changes pitch too).",
+     "kind": "button",
+     "sec": "Window",
+     "fresh": false
+    },
+    {
+     "n": 33,
+     "name": "CUTOFF",
+     "tip": "Low-pass cutoff over time: close it to make a swell or a wash.",
+     "kind": "button",
+     "sec": "Window",
+     "fresh": false
+    },
+    {
+     "n": 34,
+     "name": "FORMANT",
+     "tip": "Formant shift over time. Plugin only: it is drawn here but not audible in this mockup.",
+     "kind": "button",
+     "sec": "Window",
+     "fresh": false
+    },
+    {
+     "n": 35,
+     "name": "WIDTH",
+     "tip": "Stereo width over time.",
+     "kind": "button",
+     "sec": "Window",
+     "fresh": false
+    },
+    {
+     "n": 36,
+     "name": "FLAT",
+     "tip": "Reset this lane to a straight line.",
+     "kind": "button",
+     "sec": "Window",
+     "fresh": false
+    },
+    {
+     "n": 37,
+     "name": "Curve editor",
+     "tip": "Draw what changes over the length of the selection: pitch, speed, cutoff, formant or width. Drag a dot, click empty space to add one, double-click a dot to remove it.",
+     "kind": "button",
+     "sec": "Window",
+     "fresh": false
+    },
+    {
+     "n": 38,
+     "name": "Stretch mode",
+     "tip": "In the mockup each mode is a different grain setting. Beats: short grains for drums. Tones: long grains for sustained sounds. Texture: random grains for pads. Re-Pitch: tape speed. Complex and Formant+: all-rounders. The plugin will use dedicated algorithms.",
+     "kind": "button",
+     "sec": "Window",
+     "fresh": false
+    },
+    {
+     "n": 39,
+     "name": "Grain",
+     "tip": "Grain size: smaller is tighter in time, larger is smoother. Double-click resets.",
+     "kind": "button",
+     "sec": "Window",
+     "fresh": false
+    },
+    {
+     "n": 40,
+     "name": "Transients",
+     "tip": "How hard the engine searches for the best splice point. More keeps hits sharper. Double-click resets.",
+     "kind": "button",
+     "sec": "Window",
+     "fresh": false
+    },
+    {
+     "n": 41,
+     "name": "Smooth",
+     "tip": "Length of the crossfade between grains. Double-click resets.",
+     "kind": "button",
+     "sec": "Window",
+     "fresh": false
+    },
+    {
+     "n": 42,
+     "name": "Transpose",
+     "tip": "Pitch in semitones. Double-click resets.",
+     "kind": "button",
+     "sec": "Window",
+     "fresh": false
+    },
+    {
+     "n": 43,
+     "name": "Fine",
+     "tip": "Pitch in cents. Double-click resets.",
+     "kind": "button",
+     "sec": "Window",
+     "fresh": false
+    },
+    {
+     "n": 44,
+     "name": "Speed",
+     "tip": "Overall playback speed. 2 is twice as fast. Double-click resets.",
+     "kind": "button",
+     "sec": "Window",
+     "fresh": false
+    },
+    {
+     "n": 45,
+     "name": "Link",
+     "tip": "Keep length: the loop is stretched to your host tempo. Keep pitch: speed changes only the length. Tape linked: speed and pitch move together, like a record.",
+     "kind": "button",
+     "sec": "Window",
+     "fresh": false
+    },
+    {
+     "n": 46,
+     "name": "Length",
+     "tip": "Sets how long the stretched sample lasts, in note values or bars at the host tempo (4/4). The stretch fits the selection to that length, so the Speed knob is ignored while a length is chosen. Auto: the length follows Speed and Link.",
+     "kind": "button",
+     "sec": "Window",
+     "fresh": false
+    },
+    {
+     "n": 86,
+     "name": "TAPE STOP",
+     "tip": "Hold: the DAW audio slows to a halt like a turntable.",
+     "kind": "button",
+     "sec": "Window",
+     "fresh": true
+    },
+    {
+     "n": 87,
+     "name": "TAPE START",
+     "tip": "Hold: the audio spins up from a standstill.",
+     "kind": "button",
+     "sec": "Window",
+     "fresh": true
+    },
+    {
+     "n": 88,
+     "name": "FREEZE",
+     "tip": "Hold: freezes a tiny slice of the sound and holds it.",
+     "kind": "button",
+     "sec": "Window",
+     "fresh": true
+    },
+    {
+     "n": 89,
+     "name": "STUTTER",
+     "tip": "Hold: repeats the last 1/16 note.",
+     "kind": "button",
+     "sec": "Window",
+     "fresh": true
+    },
+    {
+     "n": 90,
+     "name": "REVERSE",
+     "tip": "Hold: plays the DAW audio backwards.",
+     "kind": "button",
+     "sec": "Window",
+     "fresh": true
+    },
+    {
+     "n": 91,
+     "name": "RISER",
+     "tip": "Hold: pitch and filter climb for as long as you press.",
+     "kind": "button",
+     "sec": "Window",
+     "fresh": true
+    },
+    {
+     "n": 51,
+     "name": "On",
+     "tip": "Turn the filter on or off.",
+     "kind": "button",
+     "sec": "FX rackrender 46 ms",
+     "fresh": false
+    },
+    {
+     "n": 52,
+     "name": "Type",
+     "tip": "Filter shape.",
+     "kind": "button",
+     "sec": "FX rackrender 46 ms",
+     "fresh": false
+    },
+    {
+     "n": 53,
+     "name": "Cutoff",
+     "tip": "Cutoff frequency. Double-click resets.",
+     "kind": "button",
+     "sec": "FX rackrender 46 ms",
+     "fresh": false
+    },
+    {
+     "n": 54,
+     "name": "Reso",
+     "tip": "Resonance. Double-click resets.",
+     "kind": "button",
+     "sec": "FX rackrender 46 ms",
+     "fresh": false
+    },
+    {
+     "n": 55,
+     "name": "On",
+     "tip": "Turn the EQ on or off.",
+     "kind": "button",
+     "sec": "FX rackrender 46 ms",
+     "fresh": false
+    },
+    {
+     "n": 56,
+     "name": "Low",
+     "tip": "Low shelf (200 Hz). Double-click resets.",
+     "kind": "button",
+     "sec": "FX rackrender 46 ms",
+     "fresh": false
+    },
+    {
+     "n": 57,
+     "name": "Mid",
+     "tip": "Mid band (1 kHz). Double-click resets.",
+     "kind": "button",
+     "sec": "FX rackrender 46 ms",
+     "fresh": false
+    },
+    {
+     "n": 58,
+     "name": "High",
+     "tip": "High shelf (5 kHz). Double-click resets.",
+     "kind": "button",
+     "sec": "FX rackrender 46 ms",
+     "fresh": false
+    },
+    {
+     "n": 59,
+     "name": "On",
+     "tip": "Turn the compressor on or off.",
+     "kind": "button",
+     "sec": "FX rackrender 46 ms",
+     "fresh": false
+    },
+    {
+     "n": 60,
+     "name": "Thresh",
+     "tip": "Level where compression starts. Double-click resets.",
+     "kind": "button",
+     "sec": "FX rackrender 46 ms",
+     "fresh": false
+    },
+    {
+     "n": 61,
+     "name": "Ratio",
+     "tip": "How hard it squeezes. Double-click resets.",
+     "kind": "button",
+     "sec": "FX rackrender 46 ms",
+     "fresh": false
+    },
+    {
+     "n": 62,
+     "name": "Attack",
+     "tip": "How fast it reacts. Double-click resets.",
+     "kind": "button",
+     "sec": "FX rackrender 46 ms",
+     "fresh": false
+    },
+    {
+     "n": 63,
+     "name": "Release",
+     "tip": "How fast it lets go. Double-click resets.",
+     "kind": "button",
+     "sec": "FX rackrender 46 ms",
+     "fresh": false
+    },
+    {
+     "n": 64,
+     "name": "On",
+     "tip": "Formant control. Plugin only: not audible in this mockup.",
+     "kind": "button",
+     "sec": "FX rackrender 46 ms",
+     "fresh": false
+    },
+    {
+     "n": 65,
+     "name": "Shift",
+     "tip": "Natural to chipmunk. Plugin only: not audible in this mockup. Double-click resets.",
+     "kind": "button",
+     "sec": "FX rackrender 46 ms",
+     "fresh": false
+    },
+    {
+     "n": 66,
+     "name": "Keep",
+     "tip": "Keep the formants where they were when you transpose. Plugin only.",
+     "kind": "button",
+     "sec": "FX rackrender 46 ms",
+     "fresh": false
+    },
+    {
+     "n": 67,
+     "name": "On",
+     "tip": "Turn the detune voices on or off. Takes effect the next time you press Play.",
+     "kind": "button",
+     "sec": "FX rackrender 46 ms",
+     "fresh": false
+    },
+    {
+     "n": 68,
+     "name": "Detune",
+     "tip": "Spread of the voices in cents. Double-click resets.",
+     "kind": "button",
+     "sec": "FX rackrender 46 ms",
+     "fresh": false
+    },
+    {
+     "n": 69,
+     "name": "Voices",
+     "tip": "How many copies. Double-click resets.",
+     "kind": "button",
+     "sec": "FX rackrender 46 ms",
+     "fresh": false
+    },
+    {
+     "n": 70,
+     "name": "Width",
+     "tip": "Haas widening: a delayed copy on the right. Double-click resets.",
+     "kind": "button",
+     "sec": "FX rackrender 46 ms",
+     "fresh": false
+    },
+    {
+     "n": 71,
+     "name": "Haas",
+     "tip": "Delay of the widening copy. Double-click resets.",
+     "kind": "button",
+     "sec": "FX rackrender 46 ms",
+     "fresh": false
+    },
+    {
+     "n": 72,
+     "name": "On",
+     "tip": "Turn the output stage on or off.",
+     "kind": "button",
+     "sec": "FX rackrender 46 ms",
+     "fresh": false
+    },
+    {
+     "n": 73,
+     "name": "Limit",
+     "tip": "Limiter on the output.",
+     "kind": "button",
+     "sec": "FX rackrender 46 ms",
+     "fresh": false
+    },
+    {
+     "n": 74,
+     "name": "Mix",
+     "tip": "Blend between the unprocessed stretch (left) and the whole rack (right). Double-click resets.",
+     "kind": "button",
+     "sec": "FX rackrender 46 ms",
+     "fresh": false
+    },
+    {
+     "n": 75,
+     "name": "Gain",
+     "tip": "Output gain before the limiter. Double-click resets.",
+     "kind": "button",
+     "sec": "FX rackrender 46 ms",
+     "fresh": false
+    },
+    {
+     "n": 76,
+     "name": "Ceiling",
+     "tip": "Limiter ceiling. Double-click resets.",
+     "kind": "button",
+     "sec": "FX rackrender 46 ms",
+     "fresh": false
+    },
+    {
+     "n": 77,
+     "name": "Window 100 %",
+     "tip": "Window size. Drag any edge or corner of the plugin to resize it; the shape stays the same. Double-click here for 100 %.",
+     "kind": "button",
+     "sec": "Window",
+     "fresh": false
+    },
+    {
+     "n": 78,
+     "name": "Resize",
+     "tip": "Drag to resize the window. Every edge and corner works, and the shape stays the same.",
+     "kind": "button",
+     "sec": "Window",
+     "fresh": false
+    },
+    {
+     "n": 78,
+     "name": "Resize",
+     "tip": "Drag to resize the window. Every edge and corner works, and the shape stays the same.",
+     "kind": "button",
+     "sec": "Window",
+     "fresh": false
+    },
+    {
+     "n": 78,
+     "name": "Resize",
+     "tip": "Drag to resize the window. Every edge and corner works, and the shape stays the same.",
+     "kind": "button",
+     "sec": "Window",
+     "fresh": false
+    },
+    {
+     "n": 78,
+     "name": "Resize",
+     "tip": "Drag to resize the window. Every edge and corner works, and the shape stays the same.",
+     "kind": "button",
+     "sec": "Window",
+     "fresh": false
+    },
+    {
+     "n": 78,
+     "name": "Resize",
+     "tip": "Drag to resize the window. Every edge and corner works, and the shape stays the same.",
+     "kind": "button",
+     "sec": "Window",
+     "fresh": false
+    },
+    {
+     "n": 78,
+     "name": "Resize",
+     "tip": "Drag to resize the window. Every edge and corner works, and the shape stays the same.",
+     "kind": "button",
+     "sec": "Window",
+     "fresh": false
+    },
+    {
+     "n": 78,
+     "name": "Resize",
+     "tip": "Drag to resize the window. Every edge and corner works, and the shape stays the same.",
+     "kind": "button",
+     "sec": "Window",
+     "fresh": false
+    },
+    {
+     "n": 78,
+     "name": "Resize",
+     "tip": "Drag to resize the window. Every edge and corner works, and the shape stays the same.",
+     "kind": "button",
+     "sec": "Window",
+     "fresh": false
+    }
+   ]
+  }
+ ]
+}

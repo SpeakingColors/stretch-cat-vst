@@ -9,7 +9,7 @@ from reportlab.lib.units import mm
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, ListFlowable, ListItem
 
 _, txt, out = sys.argv[1:4]
-h1 = ParagraphStyle('h1', fontName='Helvetica-Bold', fontSize=22, textColor=colors.HexColor('#1B0264'), spaceAfter=6)
+h1 = ParagraphStyle('h1', fontName='Helvetica-Bold', fontSize=22, leading=27, textColor=colors.HexColor('#1B0264'), spaceAfter=6)
 h2 = ParagraphStyle('h2', fontName='Helvetica-Bold', fontSize=13, textColor=colors.HexColor('#7900E3'), spaceBefore=12, spaceAfter=4)
 body = ParagraphStyle('b', fontName='Helvetica', fontSize=10, leading=13.5, spaceAfter=4)
 esc = lambda s: s.replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;')
@@ -31,4 +31,11 @@ for title, lines in sections:
         elif not l.strip(): flush_para(); flush_items()
         else: flush_items(); para.append(l.strip())
     flush_para(); flush_items()
+import os
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+try:
+    from tour_generic import tour_story
+    story += tour_story(os.path.join(os.path.dirname(os.path.abspath(txt)), 'tour'), h2, body, esc)
+except ImportError:
+    pass
 SimpleDocTemplate(out, pagesize=A4, leftMargin=18*mm, rightMargin=18*mm, topMargin=16*mm, bottomMargin=16*mm, title='Stretch Cat manual').build(story)
