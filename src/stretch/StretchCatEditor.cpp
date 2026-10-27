@@ -85,7 +85,16 @@ public:
         k[6].init(c, ap, "atk", "Attack", "Fade in time in milliseconds."); k[7].init(c, ap, "rel", "Release", "Fade out time in milliseconds.");
         k[8].init(c, ap, "gain", "Gain", "Output level in dB."); k[9].init(c, ap, "root", "Root note", "The MIDI note that plays the sound at its original pitch (60 is C3 in most hosts, C4 in some).");
         k[10].init(c, ap, "hostbpm", "Fit tempo", "Tempo used by Length. Follows the host tempo while a Length is chosen.");
-        k[9].s.setNumDecimalPlacesToDisplay(0);
+        auto fmt = [](Knob& kb, std::function<String(double)> f) { kb.s.textFromValueFunction = f; kb.s.updateText(); };
+        const char* nn[] = { "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B" };
+        for (int i : { 0, 1, 2 }) fmt(k[i], [](double v) { return String(juce::roundToInt(v * 100)) + " %"; });
+        fmt(k[3], [](double v) { return "x" + String(v, 2); });
+        fmt(k[4], [](double v) { return String(juce::roundToInt(v)) + " st"; });
+        fmt(k[5], [](double v) { return String(juce::roundToInt(v)) + " c"; });
+        fmt(k[6], [](double v) { return String(v, 1) + " ms"; }); fmt(k[7], [](double v) { return String(juce::roundToInt(v)) + " ms"; });
+        fmt(k[8], [](double v) { return String(v, 1) + " dB"; });
+        fmt(k[9], [nn](double v) { const int m = juce::roundToInt(v); return String(nn[((m % 12) + 12) % 12]) + String(m / 12 - 2) + "  (" + String(m) + ")"; });
+        fmt(k[10], [](double v) { return String(v, 1) + " BPM"; });
         constrainer.setFixedAspectRatio((double) kBaseW / kBaseH); constrainer.setSizeLimits(kBaseW / 2, kBaseH / 2, kBaseW * 2, kBaseH * 2);
         setConstrainer(&constrainer); setResizable(true, true); setSize(kBaseW, kBaseH);
         gate.onFrame = [this] { tick(); }; gate.start(10);
@@ -140,7 +149,7 @@ private:
         g.setColour(kEdge); g.drawHorizontalLine(84, 14.f, 1126.f);
         g.setColour(kDim); g.setFont(mono(13.f)); g.drawText(shownStatus, 160, 96, 960, 36, juce::Justification::centredLeft);
         label(g, "Stretch mode", 14, 432); label(g, "Playback", 14, 564); label(g, "Length", 14, 614);
-        g.setColour(kDim); g.setFont(mono(11.f)); g.drawText("STUDIO 87  ·  STRETCH CAT  ·  hover a control for help", 14, 676, 700, 16, juce::Justification::left);
+        g.setColour(kDim); g.setFont(mono(11.f)); g.drawText("STUDIO 87 | STRETCH CAT | hover a control for help", 14, 676, 700, 16, juce::Justification::left);
     }
 };
 }

@@ -12,7 +12,8 @@ Sampler and track effect.
 - [ ] Lanes, slices and the filter / EQ / compressor rack in the plugin
 - [ ] Real formant shift (the mockup says plugin only)
 - [ ] Track effect version (stretch the DAW audio)
-- [ ] cat-ui editor from the mockup (wood cheeks, waveform, lanes, info bubbles) drawn through `catui::RenderGate`
+- [x] cat-ui editor v1: wood cheeks, waveforms, controls, hover help, drawn through `catui::RenderGate`
+- [ ] editor: slice markers and pads, over-time lanes, FX rack (as in the mockup)
 - [ ] Listen on real material and tune the modes
 
 ## Every cat plugin
