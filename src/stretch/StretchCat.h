@@ -1,6 +1,6 @@
 // Stretch Cat: the plugin. Sampler with time stretch: load a sound, the stretched version is rendered on a
 // background thread whenever a stretch control changes, and MIDI notes play it. Engine in src/core.
-// The editor is JUCE's generic one plus a Load button; the cat-ui editor from docs/mockup is on the ROADMAP.
+// The editor (StretchCatEditor.cpp) is the cat-ui window built from docs/mockup/stretchcat.html.
 #pragma once
 #include <juce_audio_processors/juce_audio_processors.h>
 #include <juce_audio_formats/juce_audio_formats.h>
@@ -33,6 +33,13 @@ public:
 
     bool loadFile(const juce::File& f);          // message thread; reads the whole file, then schedules a render
     juce::String status() const { return statusText; }
+    // for the editor (message thread only): waveform peaks of the loaded sound and of the stretched result
+    const std::vector<float>& srcPeaks() const { return peaksSrc; }
+    const std::vector<float>& resultPeaks() const { return peaksRes; }
+    int dataRevision() const { return revision; }
+    double resultSeconds() const { return resSeconds; }
+    double sourceSeconds() const { return srcL.empty() ? 0.0 : (double) srcL.size() / srcSr; }
+    juce::String sourceName() const { return fileName; }
     juce::AudioProcessorValueTreeState apvts;
 
 private:
@@ -52,5 +59,7 @@ private:
     juce::SpinLock handoff; std::shared_ptr<const stretchcat::Stereo> pending; double pendingSr = 44100; bool hasPending = false;
     std::vector<std::shared_ptr<const stretchcat::Stereo>> retired;     // old buffers are freed on the message thread, not the audio thread
     juce::File lastFile;
+    std::vector<float> peaksSrc, peaksRes; int revision = 0; double resSeconds = 0.0;
+    static std::vector<float> makePeaks(const std::vector<float>& l, const std::vector<float>& r, int bins);
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(StretchCatProcessor)
 };

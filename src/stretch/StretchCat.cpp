@@ -74,6 +74,7 @@ void StretchCatProcessor::renderNow()
     }
     auto out = std::make_shared<stretchcat::Stereo>(stretchcat::render(srcL, srcR, 0, (long long) srcL.size(), p));      // TODO: move to a background thread
     if (out->L.size() < 4) { statusText = "Nothing to play."; return; }
+    peaksSrc = makePeaks(srcL, srcR, 1024); peaksRes = makePeaks(out->L, out->R, 1024); resSeconds = (double) out->L.size() / srcSr; ++revision;
     { const juce::SpinLock::ScopedLockType sl(handoff); pending = out; pendingSr = srcSr; hasPending = true; }
     statusText = fileName + ": " + juce::String((double) out->L.size() / srcSr, 2) + " s";
 }
@@ -101,28 +102,18 @@ void StretchCatProcessor::processBlock(juce::AudioBuffer<float>& buf, juce::Midi
     if (n > done) sampler.process(sp, buf.getWritePointer(0) + done, buf.getWritePointer(1) + done, n - done);
 }
 
-// ---- editor: generic parameters plus a Load button and the status line ----
-namespace {
-class StretchEditor : public juce::AudioProcessorEditor, private juce::Timer
+std::vector<float> StretchCatProcessor::makePeaks(const std::vector<float>& l, const std::vector<float>& r, int bins)
 {
-public:
-    explicit StretchEditor(StretchCatProcessor& p) : AudioProcessorEditor(p), proc(p), generic(p)
+    std::vector<float> p((size_t) bins, 0.f); const size_t n = l.size(); if (n == 0) return p;
+    for (int b = 0; b < bins; ++b)
     {
-        addAndMakeVisible(generic); addAndMakeVisible(load); addAndMakeVisible(status);
-        load.setButtonText("Load sound...");
-        load.onClick = [this] {
-            chooser = std::make_unique<juce::FileChooser>("Pick a sound", juce::File(), "*.wav;*.aif;*.aiff;*.flac;*.ogg;*.mp3");
-            chooser->launchAsync(juce::FileBrowserComponent::openMode | juce::FileBrowserComponent::canSelectFiles, [this](const juce::FileChooser& c) { if (c.getResult().existsAsFile()) proc.loadFile(c.getResult()); });
-        };
-        setSize(520, 640); startTimerHz(4);
+        const size_t a = n * (size_t) b / (size_t) bins, e = std::max(a + 1, n * (size_t) (b + 1) / (size_t) bins); float m = 0.f;
+        for (size_t i = a; i < e && i < n; ++i) m = std::max(m, std::max(std::fabs(l[i]), std::fabs(r.size() == n ? r[i] : l[i])));
+        p[(size_t) b] = m;
     }
-    void resized() override { auto r = getLocalBounds(); auto top = r.removeFromTop(34); load.setBounds(top.removeFromLeft(140).reduced(4)); status.setBounds(top.reduced(4)); generic.setBounds(r); }
-    void timerCallback() override { status.setText(proc.status(), juce::dontSendNotification); }
-private:
-    StretchCatProcessor& proc; juce::GenericAudioProcessorEditor generic; juce::TextButton load; juce::Label status; std::unique_ptr<juce::FileChooser> chooser;
-};
+    return p;
 }
-juce::AudioProcessorEditor* StretchCatProcessor::createEditor() { return new StretchEditor(*this); }
+
 
 void StretchCatProcessor::getStateInformation(juce::MemoryBlock& dest)
 {
