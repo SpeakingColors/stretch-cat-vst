@@ -8,6 +8,8 @@
 #include <algorithm>
 #include <cstdint>
 #include <functional>
+#include <atomic>
+#include <utility>
 
 namespace stretchcat {
 
@@ -43,8 +45,27 @@ struct Params {
     double speed = 1.0;              // overall, 0.25..4
     double semitones = 0.0;          // transpose + fine already added together
     Lane speedLane, pitchLane;       // lane value 0..1 -> speed 0.25..4 (log) and pitch -12..+12 st; 0.5 is neutral
+    // Formant: a real spectral envelope warp (Formant.h), applied after the stretch. Lane value 0..1 -> -12..+12 st.
+    bool formantOn = false, formantKeep = true; double formantSemis = 0.0; Lane formantLane;
     static double laneSpeed(double y) { return 0.25 * std::pow(16.0, y); }          // y 0.5 -> 1.0
     static double lanePitch(double y) { return -12.0 + 24.0 * y; }
+    static double laneFormant(double y) { return -12.0 + 24.0 * y; }
+    bool usesTape() const { return modeInfo(mode).G == 0 || tapeLink; }
+    double pitchAt(double t) const { return semitones + lanePitch(pitchLane.at(t)); }
+    // Formant shift still to apply to the rendered audio, in semitones, at source time t (0..1 over the selection).
+    // The grain engine moves formants together with the pitch (it resamples the grains). "Keep" (and the Formant+ mode)
+    // brings them back to where they were, plus the Shift knob and the formant lane.
+    bool keepsFormants() const { return !usesTape() && ((formantOn && formantKeep) || mode == Mode::FormantPlus); }
+    double formantAt(double t) const { return (formantOn ? formantSemis : 0.0) + laneFormant(formantLane.at(t)) - (keepsFormants() ? pitchAt(t) : 0.0); }
+    bool needsFormant() const {
+        if (!formantLane.isFlat(0.5)) return true;
+        if (formantOn && std::fabs(formantSemis) > 0.01) return true;
+        return keepsFormants() && (std::fabs(semitones) > 0.01 || !pitchLane.isFlat(0.5));
+    }
+    bool operator==(const Params& o) const {
+        return mode == o.mode && tapeLink == o.tapeLink && grain == o.grain && transients == o.transients && smooth == o.smooth && speed == o.speed && semitones == o.semitones
+            && speedLane.pts == o.speedLane.pts && pitchLane.pts == o.pitchLane.pts && formantOn == o.formantOn && formantKeep == o.formantKeep && formantSemis == o.formantSemis && formantLane.pts == o.formantLane.pts;
+    }
 };
 
 // Length choices: beats at the host tempo (4/4). Index 0 is Auto (free: the Speed knob decides).
@@ -55,7 +76,8 @@ inline double fitSpeed(double srcSamples, double srcRate, double hostBpm, double
     return (srcSamples / srcRate) / (beats * 60.0 / hostBpm);
 }
 
-struct Stereo { std::vector<float> L, R; };
+// Rendered audio plus a map of where it came from: (output sample, source sample) points, rising.
+struct Stereo { std::vector<float> L, R; std::vector<std::pair<double, double>> map; };
 
 inline float hermite(const std::vector<float>& a, double p) {
     const long long n = (long long) a.size(), i = (long long) std::floor(p); const float f = (float)(p - (double) i);
@@ -66,7 +88,8 @@ inline float hermite(const std::vector<float>& a, double p) {
 }
 
 // Renders source frames [a, b) to a new buffer. The source may be mono (R empty) or stereo.
-inline Stereo render(const std::vector<float>& srcL, const std::vector<float>& srcR, long long a, long long b, const Params& p) {
+// `cancel` (optional) is polled while rendering: when it turns true the render stops and returns an empty result.
+inline Stereo render(const std::vector<float>& srcL, const std::vector<float>& srcR, long long a, long long b, const Params& p, const std::atomic<bool>* cancel = nullptr) {
     Stereo out; const long long n = (long long) srcL.size();
     a = std::max(0LL, a); b = std::min(n, b); if (b - a < 16) return out;
     const std::vector<float>& R = srcR.empty() ? srcL : srcR;
@@ -74,7 +97,8 @@ inline Stereo render(const std::vector<float>& srcL, const std::vector<float>& s
     for (long long i = 0; i < n; ++i) mono[(size_t) i] = 0.5f * (srcL[(size_t) i] + R[(size_t) i]);
     const ModeInfo& md = modeInfo(p.mode);
     auto speedAt = [&](double t) { return std::max(0.05, p.speed * Params::laneSpeed(p.speedLane.at(t))); };
-    auto pitchAt = [&](double t) { return p.semitones + Params::lanePitch(p.pitchLane.at(t)); };
+    auto pitchAt = [&](double t) { return p.pitchAt(t); };
+    auto stop = [&] { return cancel != nullptr && cancel->load(std::memory_order_relaxed); };
 
     if (md.G == 0 || p.tapeLink) {            // tape: one read head, speed and pitch are one thing
         const long long cap = 60LL * 48000;
@@ -82,8 +106,10 @@ inline Stereo render(const std::vector<float>& srcL, const std::vector<float>& s
         while (pos < (double) b && k < cap) {
             const double t = (pos - (double) a) / (double) std::max(1LL, b - a);
             const double rate = speedAt(t) * std::pow(2.0, pitchAt(t) / 12.0); if (rate <= 0.001) break;
+            if ((k & 255) == 0) { out.map.push_back({ (double) k, pos }); if (stop()) return Stereo(); }
             out.L.push_back(hermite(srcL, pos)); out.R.push_back(hermite(R, pos)); pos += rate; ++k;
         }
+        out.map.push_back({ (double) out.L.size(), (double) b });
         return out;
     }
     const int Gs = std::max(256, (int) std::lround(md.G * (0.5 + p.grain) / 2.0) * 2), H = Gs / 2;
@@ -94,8 +120,10 @@ inline Stereo render(const std::vector<float>& srcL, const std::vector<float>& s
     const size_t est = (size_t) std::min<double>((double)(b - a) / 0.05 + Gs * 2, 120.0 * 48000.0);
     std::vector<float> oL(est, 0.f), oR(est, 0.f), ws(est, 0.f);
     uint32_t rnd = 12345; auto rd = [&rnd] { rnd = rnd * 1664525u + 1013904223u; return (double) rnd / 4294967296.0; };
+    out.map.push_back({ 0.0, (double) a });
     size_t outPos = 0; double pos = (double) a, prev = (double) a - H; bool first = true; int guard = 0;
     while (pos < (double) b && guard++ < 400000) {
+        if ((guard & 15) == 0 && stop()) return Stereo();
         const double t = (pos - (double) a) / (double) std::max(1LL, b - a);
         const double r = std::pow(2.0, pitchAt(t) / 12.0), sp = speedAt(t), len = Gs * r;
         double cand = pos - len / 2.0 + (md.jit > 0 ? (rd() - 0.5) * Gs * md.jit : 0.0);
@@ -120,11 +148,13 @@ inline Stereo render(const std::vector<float>& srcL, const std::vector<float>& s
             const double sp2 = cand + (double) i * r; if (sp2 >= (double) n - 2) break;
             const float w = win[(size_t) i]; oL[outPos + (size_t) i] += hermite(srcL, sp2) * w; oR[outPos + (size_t) i] += hermite(R, sp2) * w; ws[outPos + (size_t) i] += w;
         }
+        if ((outPos / (size_t) H) % 2 == 0) out.map.push_back({ (double) (outPos + (size_t) H), pos });
         outPos += (size_t) H; pos += sp * H;
     }
     const size_t tot = std::min(est, outPos + (size_t) H);
     for (size_t i = 0; i < tot; ++i) if (ws[i] > 0.0001f) { oL[i] /= ws[i]; oR[i] /= ws[i]; }
     out.L.assign(oL.begin(), oL.begin() + (long) tot); out.R.assign(oR.begin(), oR.begin() + (long) tot);
+    out.map.push_back({ (double) tot, (double) b });
     return out;
 }
 
