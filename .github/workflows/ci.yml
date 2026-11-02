@@ -1,0 +1,74 @@
+# Builds on every push: the engine tests (no JUCE, with sanitizers), then the plugin and the self tests on Linux and Windows.
+name: ci
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: stretchcat-ci-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  engine-tests:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run the engine tests
+        run: sh tests/run.sh
+  plugin:
+    needs: engine-tests
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-24.04, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Linux packages
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libasound2-dev libx11-dev libxinerama-dev libxext-dev libxrandr-dev libxcursor-dev libxcomposite-dev libfreetype-dev libfontconfig1-dev libgl1-mesa-dev xvfb
+      - name: Build the plugin and the snapshot tool
+        shell: bash
+        run: |
+          (cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DSC_BUILD_SNAPSHOT=ON && cmake --build build --config Release --parallel 4) 2>&1 | tee ci.log; test ${PIPESTATUS[0]} -eq 0
+          find build -name "*.vst3" -maxdepth 6
+      - name: Plugin self tests (Linux)
+        if: runner.os == 'Linux'
+        run: xvfb-run -a build/StretchCatSnapshot_artefacts/Release/StretchCatSnapshot --selftest tests/fixtures/state-v1.xml
+      - name: Render the real editor (screenshots)
+        if: runner.os == 'Linux'
+        run: |
+          S=build/StretchCatSnapshot_artefacts/Release/StretchCatSnapshot
+          mkdir -p shots
+          xvfb-run -a $S shots/main.png 1 none -1 -1
+          xvfb-run -a $S shots/main2x.png 2 none -1 -1
+          xvfb-run -a $S shots/lane-pitch.png 1 none 0 -1
+          xvfb-run -a $S shots/lane-speed.png 1 none 1 -1
+          xvfb-run -a $S shots/lane-cutoff.png 1 none 2 -1
+          xvfb-run -a $S shots/lane-formant.png 1 none 3 -1
+          xvfb-run -a $S shots/lane-width.png 1 none 4 -1
+          xvfb-run -a $S shots/pad.png 1 none -1 2
+          xvfb-run -a $S shots/settings.png 1 settings -1 -1
+          xvfb-run -a $S shots/about.png 1 about -1 -1
+          xvfb-run -a $S shots/guide.png 1 guide -1 -1
+          xvfb-run -a $S shots/presets.png 1 presets -1 -1
+          ls -l shots
+      - name: Publish screenshots to the snapshots branch
+        if: runner.os == 'Linux' && github.ref == 'refs/heads/main'
+        run: |
+          cd shots && git init -q && git checkout -q -b snapshots
+          git config user.name SpeakingColors && git config user.email SpeakingColors@users.noreply.github.com
+          git add . && git commit -q -m "Editor renders from CI"
+          git push -q -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" snapshots
+      - name: Publish the build log tail to the ci-log branch
+        if: always() && runner.os == 'Linux' && github.ref == 'refs/heads/main'
+        run: |
+          mkdir -p logpub && tail -n 300 ci.log > logpub/build-tail.log || true
+          cd logpub && git init -q && git checkout -q -b ci-log
+          git config user.name SpeakingColors && git config user.email SpeakingColors@users.noreply.github.com
+          git add . && git commit -q -m "Build log tail" || true
+          git push -q -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" ci-log || true

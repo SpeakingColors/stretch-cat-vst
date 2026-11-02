@@ -1,0 +1,2917 @@
+{
+ "win": [
+  0,
+  0,
+  1400,
+  940
+ ],
+ "cheekL": [
+  0,
+  0,
+  30,
+  940
+ ],
+ "cheekR": [
+  1370,
+  0,
+  30,
+  940
+ ],
+ "panel": [
+  30,
+  0,
+  1340,
+  940
+ ],
+ "header": [
+  44,
+  10,
+  1312,
+  57
+ ],
+ "brandSvg": [
+  44,
+  14,
+  38,
+  38
+ ],
+ "brandName": [
+  92,
+  10,
+  294.2,
+  34
+ ],
+ "brandSub": [
+  92,
+  42,
+  294.2,
+  14
+ ],
+ "rig": [
+  44,
+  139,
+  1312,
+  66
+ ],
+ "srcBox": [
+  44,
+  213,
+  914,
+  104
+ ],
+ "resBox": [
+  44,
+  401,
+  914,
+  76
+ ],
+ "laneBox": [
+  44,
+  521,
+  914,
+  166
+ ],
+ "ctlBox": [
+  44,
+  693,
+  914,
+  202
+ ],
+ "rackcol": [
+  966,
+  213,
+  390,
+  682
+ ],
+ "foot": [
+  44,
+  905,
+  1312,
+  23
+ ],
+ "sizeT": [
+  1269.61,
+  914,
+  86.39,
+  14
+ ],
+ "footL": [
+  44,
+  914,
+  273.23,
+  14
+ ],
+ "cvM": [
+  976,
+  791,
+  370,
+  94
+ ],
+ "rackInfo": [
+  1258.23,
+  222,
+  88.77,
+  14
+ ],
+ "latInfo": [
+  1251.5,
+  770,
+  95.5,
+  14
+ ],
+ "anaInfo": [
+  1109.84,
+  165,
+  235.16,
+  14
+ ],
+ "lenInfo": [
+  55,
+  785,
+  93.61,
+  16
+ ],
+ "laneTabs": [
+  44,
+  483,
+  914,
+  32
+ ],
+ "sliceRow": [
+  44,
+  323,
+  914,
+  72
+ ],
+ "tips": {
+  "cheek": "",
+  "srcBox": "",
+  "resBox": "",
+  "laneBox": "",
+  "cvM": ""
+ },
+ "items": [
+  {
+   "tag": "button",
+   "id": "pPrev",
+   "cls": "",
+   "text": "\u2039",
+   "r": [
+    402.2,
+    17,
+    28.92,
+    32
+   ],
+   "tip": "Previous preset.",
+   "style": {
+    "fs": 13,
+    "fw": "600",
+    "ls": 1.04,
+    "tt": "uppercase",
+    "col": "rgb(244, 245, 247)",
+    "mono": false
+   },
+   "par": "header",
+   "pressed": null
+  },
+  {
+   "tag": "button",
+   "id": "pName",
+   "cls": "pname",
+   "text": "Init\u25be",
+   "r": [
+    437.13,
+    16,
+    498.55,
+    34
+   ],
+   "tip": "Open the preset list: factory presets and your own.",
+   "style": {
+    "fs": 14,
+    "fw": "600",
+    "ls": 0,
+    "tt": "none",
+    "col": "rgb(244, 245, 247)",
+    "mono": true
+   },
+   "par": "header",
+   "pressed": null
+  },
+  {
+   "tag": "button",
+   "id": "pNext",
+   "cls": "",
+   "text": "\u203a",
+   "r": [
+    941.67,
+    17,
+    29.09,
+    32
+   ],
+   "tip": "Next preset.",
+   "style": {
+    "fs": 13,
+    "fw": "600",
+    "ls": 1.04,
+    "tt": "uppercase",
+    "col": "rgb(244, 245, 247)",
+    "mono": false
+   },
+   "par": "header",
+   "pressed": null
+  },
+  {
+   "tag": "button",
+   "id": "pSave",
+   "cls": "",
+   "text": "Save",
+   "r": [
+    976.77,
+    17,
+    50.63,
+    32
+   ],
+   "tip": "Save the current settings as your own preset (stays on this device).",
+   "style": {
+    "fs": 13,
+    "fw": "600",
+    "ls": 1.04,
+    "tt": "uppercase",
+    "col": "rgb(244, 245, 247)",
+    "mono": false
+   },
+   "par": "header",
+   "pressed": null
+  },
+  {
+   "tag": "button",
+   "id": "pMore",
+   "cls": "",
+   "text": "\u22ef",
+   "r": [
+    1033.39,
+    17,
+    38.05,
+    32
+   ],
+   "tip": "Delete, export or import your presets.",
+   "style": {
+    "fs": 13,
+    "fw": "600",
+    "ls": 1.04,
+    "tt": "uppercase",
+    "col": "rgb(244, 245, 247)",
+    "mono": false
+   },
+   "par": "header",
+   "pressed": null
+  },
+  {
+   "tag": "button",
+   "id": "bHelp",
+   "cls": "",
+   "text": "Guide",
+   "r": [
+    1087.44,
+    17,
+    56.08,
+    32
+   ],
+   "tip": "Quick guide: what each part does.",
+   "style": {
+    "fs": 13,
+    "fw": "600",
+    "ls": 1.04,
+    "tt": "uppercase",
+    "col": "rgb(244, 245, 247)",
+    "mono": false
+   },
+   "par": "header",
+   "pressed": null
+  },
+  {
+   "tag": "button",
+   "id": "bSet",
+   "cls": "",
+   "text": "Settings",
+   "r": [
+    1149.52,
+    17,
+    76.47,
+    32
+   ],
+   "tip": "Info bubbles and eco mode.",
+   "style": {
+    "fs": 13,
+    "fw": "600",
+    "ls": 1.04,
+    "tt": "uppercase",
+    "col": "rgb(244, 245, 247)",
+    "mono": false
+   },
+   "par": "header",
+   "pressed": null
+  },
+  {
+   "tag": "button",
+   "id": "bAbout",
+   "cls": "",
+   "text": "About & Support",
+   "r": [
+    1231.98,
+    17,
+    124.02,
+    32
+   ],
+   "tip": "About Studio 87, privacy, and ways to support the project.",
+   "style": {
+    "fs": 13,
+    "fw": "600",
+    "ls": 1.04,
+    "tt": "uppercase",
+    "col": "rgb(244, 245, 247)",
+    "mono": false
+   },
+   "par": "header",
+   "pressed": null
+  },
+  {
+   "tag": "button",
+   "id": "",
+   "cls": "",
+   "text": "Stretch Samplerinstrument, VST3 and Standalone",
+   "r": [
+    44,
+    77,
+    653,
+    54
+   ],
+   "tip": "Stretch Cat Sampler: a sampler instrument. Warp a loop, slice it, play slices from your keyboard, transpose over time.",
+   "style": {
+    "fs": 17,
+    "fw": "600",
+    "ls": 2.72,
+    "tt": "uppercase",
+    "col": "rgb(179, 136, 255)",
+    "mono": false
+   },
+   "par": "modes",
+   "pressed": "true"
+  },
+  {
+   "tag": "button",
+   "id": "",
+   "cls": "",
+   "text": "Stretch FXeffect, VST3 and Standalone",
+   "r": [
+    703,
+    77,
+    653,
+    54
+   ],
+   "tip": "Stretch Cat FX: an effect. It grabs the last bars of your DAW audio and lets you stretch it, bend its pitch and perform tape stops, freezes and risers.",
+   "style": {
+    "fs": 17,
+    "fw": "600",
+    "ls": 2.72,
+    "tt": "uppercase",
+    "col": "rgb(244, 245, 247)",
+    "mono": false
+   },
+   "par": "modes",
+   "pressed": "false"
+  },
+  {
+   "tag": "button",
+   "id": "bPlay",
+   "cls": "",
+   "text": "\u25b6 Play",
+   "r": [
+    287.59,
+    156,
+    67.67,
+    32
+   ],
+   "tip": "Play the stretched result. Shortcut: Space.",
+   "style": {
+    "fs": 13,
+    "fw": "600",
+    "ls": 1.04,
+    "tt": "uppercase",
+    "col": "rgb(244, 245, 247)",
+    "mono": false
+   },
+   "par": "rig",
+   "pressed": "false"
+  },
+  {
+   "tag": "button",
+   "id": "bFile",
+   "cls": "",
+   "text": "Load file",
+   "r": [
+    363.27,
+    156,
+    78.72,
+    32
+   ],
+   "tip": "Load your own audio file (wav, mp3, flac, ogg). It stays in this browser tab and is never uploaded.",
+   "style": {
+    "fs": 13,
+    "fw": "600",
+    "ls": 1.04,
+    "tt": "uppercase",
+    "col": "rgb(244, 245, 247)",
+    "mono": false
+   },
+   "par": "rig",
+   "pressed": null
+  },
+  {
+   "tag": "div",
+   "id": "",
+   "cls": "kw",
+   "text": "Host BPM140.0",
+   "r": [
+    457.98,
+    156.5,
+    91.97,
+    31
+   ],
+   "tip": "",
+   "style": {
+    "fs": 15,
+    "fw": "400",
+    "ls": 0.6,
+    "tt": "none",
+    "col": "rgb(244, 245, 247)",
+    "mono": false
+   },
+   "par": "rigHost",
+   "label": "Host BPM",
+   "knob": [
+    459.14,
+    156.16,
+    31.68,
+    31.68
+   ],
+   "kl": [
+    499.98,
+    156.5,
+    49.97,
+    13
+   ],
+   "kv": [
+    499.98,
+    171.5,
+    39.02,
+    16
+   ],
+   "val": "140.0",
+   "ticks": null
+  },
+  {
+   "tag": "span",
+   "id": "",
+   "cls": "",
+   "text": "MIDI root",
+   "r": [
+    557.95,
+    148,
+    55.83,
+    13
+   ],
+   "tip": "",
+   "style": {
+    "fs": 11,
+    "fw": "400",
+    "ls": 1.98,
+    "tt": "uppercase",
+    "col": "rgb(169, 173, 184)",
+    "mono": false
+   },
+   "par": "rigHost"
+  },
+  {
+   "tag": "select",
+   "id": "",
+   "cls": "",
+   "text": "C2C3C4",
+   "r": [
+    557.95,
+    164,
+    55.83,
+    32
+   ],
+   "tip": "",
+   "style": {
+    "fs": 13,
+    "fw": "400",
+    "ls": 0.52,
+    "tt": "none",
+    "col": "rgb(244, 245, 247)",
+    "mono": false
+   },
+   "par": "rigHost",
+   "options": [
+    "C2",
+    "C3",
+    "C4"
+   ],
+   "sel": "C3",
+   "fld": "MIDI root",
+   "fldR": [
+    557.95,
+    148,
+    55.83,
+    13
+   ]
+  },
+  {
+   "tag": "span",
+   "id": "",
+   "cls": "mini",
+   "text": "Slices",
+   "r": [
+    44,
+    332.5,
+    37.88,
+    13
+   ],
+   "tip": "",
+   "style": {
+    "fs": 11,
+    "fw": "400",
+    "ls": 1.98,
+    "tt": "uppercase",
+    "col": "rgb(169, 173, 184)",
+    "mono": false
+   },
+   "par": "sliceRow"
+  },
+  {
+   "tag": "button",
+   "id": "",
+   "cls": "pad8",
+   "text": "C3\u00b71",
+   "r": [
+    91.88,
+    324,
+    66,
+    30
+   ],
+   "tip": "Slice 1: press to hear it, with your stretch and pitch settings. Keys 1 to 8 do the same.",
+   "style": {
+    "fs": 13,
+    "fw": "600",
+    "ls": 1.04,
+    "tt": "uppercase",
+    "col": "rgb(244, 245, 247)",
+    "mono": false
+   },
+   "par": "sliceRow",
+   "pressed": null
+  },
+  {
+   "tag": "button",
+   "id": "",
+   "cls": "pad8",
+   "text": "C3\u00b72",
+   "r": [
+    165.88,
+    324,
+    66,
+    30
+   ],
+   "tip": "Slice 2: press to hear it, with your stretch and pitch settings. Keys 1 to 8 do the same.",
+   "style": {
+    "fs": 13,
+    "fw": "600",
+    "ls": 1.04,
+    "tt": "uppercase",
+    "col": "rgb(244, 245, 247)",
+    "mono": false
+   },
+   "par": "sliceRow",
+   "pressed": null
+  },
+  {
+   "tag": "button",
+   "id": "",
+   "cls": "pad8",
+   "text": "C3\u00b73",
+   "r": [
+    239.88,
+    324,
+    66,
+    30
+   ],
+   "tip": "Slice 3: press to hear it, with your stretch and pitch settings. Keys 1 to 8 do the same.",
+   "style": {
+    "fs": 13,
+    "fw": "600",
+    "ls": 1.04,
+    "tt": "uppercase",
+    "col": "rgb(244, 245, 247)",
+    "mono": false
+   },
+   "par": "sliceRow",
+   "pressed": null
+  },
+  {
+   "tag": "button",
+   "id": "",
+   "cls": "pad8",
+   "text": "C3\u00b74",
+   "r": [
+    313.88,
+    324,
+    66,
+    30
+   ],
+   "tip": "Slice 4: press to hear it, with your stretch and pitch settings. Keys 1 to 8 do the same.",
+   "style": {
+    "fs": 13,
+    "fw": "600",
+    "ls": 1.04,
+    "tt": "uppercase",
+    "col": "rgb(244, 245, 247)",
+    "mono": false
+   },
+   "par": "sliceRow",
+   "pressed": null
+  },
+  {
+   "tag": "button",
+   "id": "",
+   "cls": "pad8",
+   "text": "C3\u00b75",
+   "r": [
+    387.88,
+    324,
+    66,
+    30
+   ],
+   "tip": "Slice 5: press to hear it, with your stretch and pitch settings. Keys 1 to 8 do the same.",
+   "style": {
+    "fs": 13,
+    "fw": "600",
+    "ls": 1.04,
+    "tt": "uppercase",
+    "col": "rgb(244, 245, 247)",
+    "mono": false
+   },
+   "par": "sliceRow",
+   "pressed": null
+  },
+  {
+   "tag": "button",
+   "id": "",
+   "cls": "pad8",
+   "text": "C3\u00b76",
+   "r": [
+    461.88,
+    324,
+    66,
+    30
+   ],
+   "tip": "Slice 6: press to hear it, with your stretch and pitch settings. Keys 1 to 8 do the same.",
+   "style": {
+    "fs": 13,
+    "fw": "600",
+    "ls": 1.04,
+    "tt": "uppercase",
+    "col": "rgb(244, 245, 247)",
+    "mono": false
+   },
+   "par": "sliceRow",
+   "pressed": null
+  },
+  {
+   "tag": "button",
+   "id": "",
+   "cls": "pad8",
+   "text": "C3\u00b77",
+   "r": [
+    535.88,
+    324,
+    66,
+    30
+   ],
+   "tip": "Slice 7: press to hear it, with your stretch and pitch settings. Keys 1 to 8 do the same.",
+   "style": {
+    "fs": 13,
+    "fw": "600",
+    "ls": 1.04,
+    "tt": "uppercase",
+    "col": "rgb(244, 245, 247)",
+    "mono": false
+   },
+   "par": "sliceRow",
+   "pressed": null
+  },
+  {
+   "tag": "button",
+   "id": "",
+   "cls": "pad8",
+   "text": "C3\u00b78",
+   "r": [
+    609.88,
+    324,
+    66,
+    30
+   ],
+   "tip": "Slice 8: press to hear it, with your stretch and pitch settings. Keys 1 to 8 do the same.",
+   "style": {
+    "fs": 13,
+    "fw": "600",
+    "ls": 1.04,
+    "tt": "uppercase",
+    "col": "rgb(244, 245, 247)",
+    "mono": false
+   },
+   "par": "sliceRow",
+   "pressed": null
+  },
+  {
+   "tag": "button",
+   "id": "",
+   "cls": "",
+   "text": "By transient",
+   "r": [
+    683.88,
+    323,
+    101.84,
+    32
+   ],
+   "tip": "Place slice marks on the strongest hits in the selection.",
+   "style": {
+    "fs": 13,
+    "fw": "600",
+    "ls": 1.04,
+    "tt": "uppercase",
+    "col": "rgb(244, 245, 247)",
+    "mono": false
+   },
+   "par": "sliceRow",
+   "pressed": null
+  },
+  {
+   "tag": "button",
+   "id": "",
+   "cls": "",
+   "text": "Even",
+   "r": [
+    793.72,
+    323,
+    52.19,
+    32
+   ],
+   "tip": "Cut the selection into eight equal parts.",
+   "style": {
+    "fs": 13,
+    "fw": "600",
+    "ls": 1.04,
+    "tt": "uppercase",
+    "col": "rgb(244, 245, 247)",
+    "mono": false
+   },
+   "par": "sliceRow",
+   "pressed": null
+  },
+  {
+   "tag": "button",
+   "id": "",
+   "cls": "",
+   "text": "Normalize",
+   "r": [
+    853.91,
+    323,
+    84.19,
+    32
+   ],
+   "tip": "Make the selection as loud as it can be without clipping (applies to the whole source).",
+   "style": {
+    "fs": 13,
+    "fw": "600",
+    "ls": 1.04,
+    "tt": "uppercase",
+    "col": "rgb(244, 245, 247)",
+    "mono": false
+   },
+   "par": "sliceRow",
+   "pressed": null
+  },
+  {
+   "tag": "button",
+   "id": "",
+   "cls": "",
+   "text": "Reverse",
+   "r": [
+    44,
+    363,
+    72,
+    32
+   ],
+   "tip": "Play the selection backwards.",
+   "style": {
+    "fs": 13,
+    "fw": "600",
+    "ls": 1.04,
+    "tt": "uppercase",
+    "col": "rgb(244, 245, 247)",
+    "mono": false
+   },
+   "par": "sliceRow",
+   "pressed": null
+  },
+  {
+   "tag": "button",
+   "id": "",
+   "cls": "",
+   "text": "Reset",
+   "r": [
+    124,
+    363,
+    57.98,
+    32
+   ],
+   "tip": "Reload the original sample.",
+   "style": {
+    "fs": 13,
+    "fw": "600",
+    "ls": 1.04,
+    "tt": "uppercase",
+    "col": "rgb(244, 245, 247)",
+    "mono": false
+   },
+   "par": "sliceRow",
+   "pressed": null
+  },
+  {
+   "tag": "span",
+   "id": "",
+   "cls": "mini",
+   "text": "Over time",
+   "r": [
+    44,
+    492.5,
+    57.69,
+    13
+   ],
+   "tip": "",
+   "style": {
+    "fs": 11,
+    "fw": "400",
+    "ls": 1.98,
+    "tt": "uppercase",
+    "col": "rgb(169, 173, 184)",
+    "mono": false
+   },
+   "par": "laneTabs"
+  },
+  {
+   "tag": "button",
+   "id": "",
+   "cls": "",
+   "text": "Pitch",
+   "r": [
+    111.69,
+    483,
+    55.77,
+    32
+   ],
+   "tip": "Transposition over the length of the selection. Drag the dots, click to add one, double-click to remove it.",
+   "style": {
+    "fs": 13,
+    "fw": "600",
+    "ls": 1.04,
+    "tt": "uppercase",
+    "col": "rgb(179, 136, 255)",
+    "mono": false
+   },
+   "par": "laneTabs",
+   "pressed": "true"
+  },
+  {
+   "tag": "button",
+   "id": "",
+   "cls": "",
+   "text": "Speed",
+   "r": [
+    175.45,
+    483,
+    58.19,
+    32
+   ],
+   "tip": "Playback speed over time (with Keep pitch it only changes length, with Tape linked it changes pitch too).",
+   "style": {
+    "fs": 13,
+    "fw": "600",
+    "ls": 1.04,
+    "tt": "uppercase",
+    "col": "rgb(244, 245, 247)",
+    "mono": false
+   },
+   "par": "laneTabs",
+   "pressed": "false"
+  },
+  {
+   "tag": "button",
+   "id": "",
+   "cls": "",
+   "text": "Cutoff",
+   "r": [
+    241.64,
+    483,
+    64.83,
+    32
+   ],
+   "tip": "Low-pass cutoff over time: close it to make a swell or a wash.",
+   "style": {
+    "fs": 13,
+    "fw": "600",
+    "ls": 1.04,
+    "tt": "uppercase",
+    "col": "rgb(244, 245, 247)",
+    "mono": false
+   },
+   "par": "laneTabs",
+   "pressed": "false"
+  },
+  {
+   "tag": "button",
+   "id": "",
+   "cls": "",
+   "text": "Formant",
+   "r": [
+    314.47,
+    483,
+    74.14,
+    32
+   ],
+   "tip": "Formant shift over time. Plugin only: it is drawn here but not audible in this mockup.",
+   "style": {
+    "fs": 13,
+    "fw": "600",
+    "ls": 1.04,
+    "tt": "uppercase",
+    "col": "rgb(244, 245, 247)",
+    "mono": false
+   },
+   "par": "laneTabs",
+   "pressed": "false"
+  },
+  {
+   "tag": "button",
+   "id": "",
+   "cls": "",
+   "text": "Width",
+   "r": [
+    396.61,
+    483,
+    58.98,
+    32
+   ],
+   "tip": "Stereo width over time.",
+   "style": {
+    "fs": 13,
+    "fw": "600",
+    "ls": 1.04,
+    "tt": "uppercase",
+    "col": "rgb(244, 245, 247)",
+    "mono": false
+   },
+   "par": "laneTabs",
+   "pressed": "false"
+  },
+  {
+   "tag": "button",
+   "id": "",
+   "cls": "",
+   "text": "Flat",
+   "r": [
+    463.59,
+    483,
+    50.33,
+    32
+   ],
+   "tip": "Reset this lane to a straight line.",
+   "style": {
+    "fs": 13,
+    "fw": "600",
+    "ls": 1.04,
+    "tt": "uppercase",
+    "col": "rgb(244, 245, 247)",
+    "mono": false
+   },
+   "par": "laneTabs",
+   "pressed": null
+  },
+  {
+   "tag": "span",
+   "id": "",
+   "cls": "",
+   "text": "Stretch mode",
+   "r": [
+    55,
+    716.5,
+    86,
+    13
+   ],
+   "tip": "",
+   "style": {
+    "fs": 11,
+    "fw": "400",
+    "ls": 1.98,
+    "tt": "uppercase",
+    "col": "rgb(169, 173, 184)",
+    "mono": false
+   },
+   "par": "cSt"
+  },
+  {
+   "tag": "select",
+   "id": "",
+   "cls": "",
+   "text": "BeatsTonesTextureRe-PitchComplexFormant+",
+   "r": [
+    55,
+    732.5,
+    86,
+    32
+   ],
+   "tip": "",
+   "style": {
+    "fs": 13,
+    "fw": "400",
+    "ls": 0.52,
+    "tt": "none",
+    "col": "rgb(244, 245, 247)",
+    "mono": false
+   },
+   "par": "cSt",
+   "options": [
+    "Beats",
+    "Tones",
+    "Texture",
+    "Re-Pitch",
+    "Complex",
+    "Formant+"
+   ],
+   "sel": "Complex",
+   "fld": "Stretch mode",
+   "fldR": [
+    55,
+    716.5,
+    86,
+    13
+   ]
+  },
+  {
+   "tag": "div",
+   "id": "",
+   "cls": "kw",
+   "text": "Grain50%",
+   "r": [
+    147,
+    702,
+    76,
+    77
+   ],
+   "tip": "",
+   "style": {
+    "fs": 15,
+    "fw": "400",
+    "ls": 0.6,
+    "tt": "none",
+    "col": "rgb(244, 245, 247)",
+    "mono": false
+   },
+   "par": "cSt",
+   "label": "Grain",
+   "knob": [
+    163,
+    702,
+    44,
+    44
+   ],
+   "kl": [
+    169.72,
+    748,
+    30.55,
+    13
+   ],
+   "kv": [
+    173.3,
+    763,
+    23.41,
+    16
+   ],
+   "val": "50%",
+   "ticks": null
+  },
+  {
+   "tag": "div",
+   "id": "",
+   "cls": "kw",
+   "text": "Transients50%",
+   "r": [
+    229,
+    702,
+    76,
+    77
+   ],
+   "tip": "",
+   "style": {
+    "fs": 15,
+    "fw": "400",
+    "ls": 0.6,
+    "tt": "none",
+    "col": "rgb(244, 245, 247)",
+    "mono": false
+   },
+   "par": "cSt",
+   "label": "Transients",
+   "knob": [
+    245,
+    702,
+    44,
+    44
+   ],
+   "kl": [
+    235.73,
+    748,
+    62.52,
+    13
+   ],
+   "kv": [
+    255.3,
+    763,
+    23.41,
+    16
+   ],
+   "val": "50%",
+   "ticks": null
+  },
+  {
+   "tag": "div",
+   "id": "",
+   "cls": "kw",
+   "text": "Smooth70%",
+   "r": [
+    311,
+    702,
+    76,
+    77
+   ],
+   "tip": "",
+   "style": {
+    "fs": 15,
+    "fw": "400",
+    "ls": 0.6,
+    "tt": "none",
+    "col": "rgb(244, 245, 247)",
+    "mono": false
+   },
+   "par": "cSt",
+   "label": "Smooth",
+   "knob": [
+    327,
+    702,
+    44,
+    44
+   ],
+   "kl": [
+    329,
+    748,
+    39.98,
+    13
+   ],
+   "kv": [
+    337.3,
+    763,
+    23.41,
+    16
+   ],
+   "val": "70%",
+   "ticks": null
+  },
+  {
+   "tag": "div",
+   "id": "",
+   "cls": "kw",
+   "text": "Transpose0 st",
+   "r": [
+    393,
+    702,
+    76,
+    77
+   ],
+   "tip": "",
+   "style": {
+    "fs": 15,
+    "fw": "400",
+    "ls": 0.6,
+    "tt": "none",
+    "col": "rgb(244, 245, 247)",
+    "mono": false
+   },
+   "par": "cSt",
+   "label": "Transpose",
+   "knob": [
+    409,
+    702,
+    44,
+    44
+   ],
+   "kl": [
+    401.94,
+    748,
+    58.13,
+    13
+   ],
+   "kv": [
+    415.39,
+    763,
+    31.2,
+    16
+   ],
+   "val": "0 st",
+   "ticks": null
+  },
+  {
+   "tag": "div",
+   "id": "",
+   "cls": "kw",
+   "text": "Fine0 c",
+   "r": [
+    475,
+    702,
+    76,
+    77
+   ],
+   "tip": "",
+   "style": {
+    "fs": 15,
+    "fw": "400",
+    "ls": 0.6,
+    "tt": "none",
+    "col": "rgb(244, 245, 247)",
+    "mono": false
+   },
+   "par": "cSt",
+   "label": "Fine",
+   "knob": [
+    491,
+    702,
+    44,
+    44
+   ],
+   "kl": [
+    501.31,
+    748,
+    23.36,
+    13
+   ],
+   "kv": [
+    501.3,
+    763,
+    23.41,
+    16
+   ],
+   "val": "0 c",
+   "ticks": null
+  },
+  {
+   "tag": "div",
+   "id": "",
+   "cls": "kw",
+   "text": "Speedx1.00",
+   "r": [
+    557,
+    702,
+    76,
+    77
+   ],
+   "tip": "",
+   "style": {
+    "fs": 15,
+    "fw": "400",
+    "ls": 0.6,
+    "tt": "none",
+    "col": "rgb(244, 245, 247)",
+    "mono": false
+   },
+   "par": "cSt",
+   "label": "Speed",
+   "knob": [
+    573,
+    702,
+    44,
+    44
+   ],
+   "kl": [
+    579.02,
+    748,
+    31.95,
+    13
+   ],
+   "kv": [
+    575.48,
+    763,
+    39.02,
+    16
+   ],
+   "val": "x1.00",
+   "ticks": null
+  },
+  {
+   "tag": "span",
+   "id": "",
+   "cls": "",
+   "text": "Link",
+   "r": [
+    639,
+    716.5,
+    98,
+    13
+   ],
+   "tip": "",
+   "style": {
+    "fs": 11,
+    "fw": "400",
+    "ls": 1.98,
+    "tt": "uppercase",
+    "col": "rgb(169, 173, 184)",
+    "mono": false
+   },
+   "par": "cSt"
+  },
+  {
+   "tag": "select",
+   "id": "",
+   "cls": "",
+   "text": "Keep lengthKeep pitchTape linked",
+   "r": [
+    639,
+    732.5,
+    98,
+    32
+   ],
+   "tip": "",
+   "style": {
+    "fs": 13,
+    "fw": "400",
+    "ls": 0.52,
+    "tt": "none",
+    "col": "rgb(244, 245, 247)",
+    "mono": false
+   },
+   "par": "cSt",
+   "options": [
+    "Keep length",
+    "Keep pitch",
+    "Tape linked"
+   ],
+   "sel": "Keep pitch",
+   "fld": "Link",
+   "fldR": [
+    639,
+    716.5,
+    98,
+    13
+   ]
+  },
+  {
+   "tag": "span",
+   "id": "",
+   "cls": "",
+   "text": "Length",
+   "r": [
+    743,
+    716.5,
+    126,
+    13
+   ],
+   "tip": "",
+   "style": {
+    "fs": 11,
+    "fw": "400",
+    "ls": 1.98,
+    "tt": "uppercase",
+    "col": "rgb(169, 173, 184)",
+    "mono": false
+   },
+   "par": "cSt"
+  },
+  {
+   "tag": "select",
+   "id": "",
+   "cls": "",
+   "text": "Auto (free)1/16 note1/8 note1/4 note (1 beat)1/2 note (2 beats)1 bar2 bars4 bars8 bars16 bars32 bars",
+   "r": [
+    743,
+    732.5,
+    126,
+    32
+   ],
+   "tip": "",
+   "style": {
+    "fs": 13,
+    "fw": "400",
+    "ls": 0.52,
+    "tt": "none",
+    "col": "rgb(244, 245, 247)",
+    "mono": false
+   },
+   "par": "cSt",
+   "options": [
+    "Auto (free)",
+    "1/16 note",
+    "1/8 note",
+    "1/4 note (1 beat)",
+    "1/2 note (2 beats)",
+    "1 bar",
+    "2 bars",
+    "4 bars",
+    "8 bars",
+    "16 bars",
+    "32 bars"
+   ],
+   "sel": "Auto (free)",
+   "fld": "Length",
+   "fldR": [
+    743,
+    716.5,
+    126,
+    13
+   ]
+  },
+  {
+   "tag": "div",
+   "id": "lenInfo",
+   "cls": "rd",
+   "text": "Free: 3.46 s",
+   "r": [
+    55,
+    785,
+    93.61,
+    16
+   ],
+   "tip": "",
+   "style": {
+    "fs": 12,
+    "fw": "400",
+    "ls": 0.6,
+    "tt": "none",
+    "col": "rgb(255, 209, 0)",
+    "mono": true
+   },
+   "par": "cSt"
+  },
+  {
+   "tag": "span",
+   "id": "",
+   "cls": "",
+   "text": "Playback",
+   "r": [
+    55,
+    823.5,
+    107,
+    13
+   ],
+   "tip": "",
+   "style": {
+    "fs": 11,
+    "fw": "400",
+    "ls": 1.98,
+    "tt": "uppercase",
+    "col": "rgb(169, 173, 184)",
+    "mono": false
+   },
+   "par": "cPb"
+  },
+  {
+   "tag": "select",
+   "id": "",
+   "cls": "",
+   "text": "One-shotLoopGateSlices to keys",
+   "r": [
+    55,
+    839.5,
+    107,
+    32
+   ],
+   "tip": "",
+   "style": {
+    "fs": 13,
+    "fw": "400",
+    "ls": 0.52,
+    "tt": "none",
+    "col": "rgb(244, 245, 247)",
+    "mono": false
+   },
+   "par": "cPb",
+   "options": [
+    "One-shot",
+    "Loop",
+    "Gate",
+    "Slices to keys"
+   ],
+   "sel": "Loop",
+   "fld": "Playback",
+   "fldR": [
+    55,
+    823.5,
+    107,
+    13
+   ]
+  },
+  {
+   "tag": "div",
+   "id": "",
+   "cls": "kw",
+   "text": "Attack5.0 ms",
+   "r": [
+    168,
+    809,
+    76,
+    77
+   ],
+   "tip": "",
+   "style": {
+    "fs": 15,
+    "fw": "400",
+    "ls": 0.6,
+    "tt": "none",
+    "col": "rgb(244, 245, 247)",
+    "mono": false
+   },
+   "par": "cPb",
+   "label": "Attack",
+   "knob": [
+    184,
+    809,
+    44,
+    44
+   ],
+   "kl": [
+    187.33,
+    855,
+    37.33,
+    13
+   ],
+   "kv": [
+    182.59,
+    870,
+    46.81,
+    16
+   ],
+   "val": "5.0 ms",
+   "ticks": null
+  },
+  {
+   "tag": "div",
+   "id": "",
+   "cls": "kw",
+   "text": "Release80 ms",
+   "r": [
+    250,
+    809,
+    76,
+    77
+   ],
+   "tip": "",
+   "style": {
+    "fs": 15,
+    "fw": "400",
+    "ls": 0.6,
+    "tt": "none",
+    "col": "rgb(244, 245, 247)",
+    "mono": false
+   },
+   "par": "cPb",
+   "label": "Release",
+   "knob": [
+    266,
+    809,
+    44,
+    44
+   ],
+   "kl": [
+    266.03,
+    855,
+    43.92,
+    13
+   ],
+   "kv": [
+    268.48,
+    870,
+    39.02,
+    16
+   ],
+   "val": "80 ms",
+   "ticks": null
+  },
+  {
+   "tag": "div",
+   "id": "",
+   "cls": "kw",
+   "text": "Glide0.0 ms",
+   "r": [
+    332,
+    809,
+    76,
+    77
+   ],
+   "tip": "",
+   "style": {
+    "fs": 15,
+    "fw": "400",
+    "ls": 0.6,
+    "tt": "none",
+    "col": "rgb(244, 245, 247)",
+    "mono": false
+   },
+   "par": "cPb",
+   "label": "Glide",
+   "knob": [
+    348,
+    809,
+    44,
+    44
+   ],
+   "kl": [
+    355.25,
+    855,
+    29.48,
+    13
+   ],
+   "kv": [
+    346.59,
+    870,
+    46.81,
+    16
+   ],
+   "val": "0.0 ms",
+   "ticks": null
+  },
+  {
+   "tag": "span",
+   "id": "",
+   "cls": "",
+   "text": "FX rack",
+   "r": [
+    975,
+    222,
+    51.83,
+    14
+   ],
+   "tip": "",
+   "style": {
+    "fs": 12,
+    "fw": "600",
+    "ls": 2.4,
+    "tt": "uppercase",
+    "col": "rgb(169, 173, 184)",
+    "mono": false
+   },
+   "par": "rackcol"
+  },
+  {
+   "tag": "span",
+   "id": "rackInfo",
+   "cls": "",
+   "text": "render 65 ms",
+   "r": [
+    1258.23,
+    222,
+    88.77,
+    14
+   ],
+   "tip": "",
+   "style": {
+    "fs": 12,
+    "fw": "600",
+    "ls": 2.4,
+    "tt": "uppercase",
+    "col": "rgb(169, 173, 184)",
+    "mono": false
+   },
+   "par": "rackcol"
+  },
+  {
+   "tag": "div",
+   "id": "",
+   "cls": "rh",
+   "text": "FilterOnTypeLow-passHigh-passBand-passNotch",
+   "r": [
+    975,
+    247,
+    368,
+    48
+   ],
+   "tip": "",
+   "style": {
+    "fs": 11,
+    "fw": "400",
+    "ls": 2.2,
+    "tt": "uppercase",
+    "col": "rgb(179, 136, 255)",
+    "mono": false
+   },
+   "par": "rack"
+  },
+  {
+   "tag": "button",
+   "id": "",
+   "cls": "",
+   "text": "On",
+   "r": [
+    1021.41,
+    255,
+    38.75,
+    32
+   ],
+   "tip": "",
+   "style": {
+    "fs": 13,
+    "fw": "600",
+    "ls": 1.04,
+    "tt": "uppercase",
+    "col": "rgb(179, 136, 255)",
+    "mono": false
+   },
+   "par": "rack",
+   "pressed": "true"
+  },
+  {
+   "tag": "span",
+   "id": "",
+   "cls": "",
+   "text": "Type",
+   "r": [
+    1068.16,
+    247,
+    91,
+    13
+   ],
+   "tip": "",
+   "style": {
+    "fs": 11,
+    "fw": "400",
+    "ls": 1.98,
+    "tt": "uppercase",
+    "col": "rgb(169, 173, 184)",
+    "mono": false
+   },
+   "par": "rack"
+  },
+  {
+   "tag": "select",
+   "id": "",
+   "cls": "",
+   "text": "Low-passHigh-passBand-passNotch",
+   "r": [
+    1068.16,
+    263,
+    91,
+    32
+   ],
+   "tip": "",
+   "style": {
+    "fs": 13,
+    "fw": "400",
+    "ls": 0.52,
+    "tt": "none",
+    "col": "rgb(244, 245, 247)",
+    "mono": false
+   },
+   "par": "rack",
+   "options": [
+    "Low-pass",
+    "High-pass",
+    "Band-pass",
+    "Notch"
+   ],
+   "sel": "Low-pass",
+   "fld": "Type",
+   "fldR": [
+    1068.16,
+    247,
+    91,
+    13
+   ]
+  },
+  {
+   "tag": "div",
+   "id": "",
+   "cls": "kw",
+   "text": "Cutoff16 kHz",
+   "r": [
+    975,
+    299,
+    68,
+    77
+   ],
+   "tip": "",
+   "style": {
+    "fs": 15,
+    "fw": "400",
+    "ls": 0.6,
+    "tt": "none",
+    "col": "rgb(244, 245, 247)",
+    "mono": false
+   },
+   "par": "rack",
+   "label": "Cutoff",
+   "knob": [
+    987,
+    299,
+    44,
+    44
+   ],
+   "kl": [
+    989.95,
+    345,
+    38.09,
+    13
+   ],
+   "kv": [
+    985.59,
+    360,
+    46.81,
+    16
+   ],
+   "val": "16 kHz",
+   "ticks": null
+  },
+  {
+   "tag": "div",
+   "id": "",
+   "cls": "kw",
+   "text": "ResoQ 0.7",
+   "r": [
+    1045,
+    299,
+    68,
+    77
+   ],
+   "tip": "",
+   "style": {
+    "fs": 15,
+    "fw": "400",
+    "ls": 0.6,
+    "tt": "none",
+    "col": "rgb(244, 245, 247)",
+    "mono": false
+   },
+   "par": "rack",
+   "label": "Reso",
+   "knob": [
+    1057,
+    299,
+    44,
+    44
+   ],
+   "kl": [
+    1066.16,
+    345,
+    25.67,
+    13
+   ],
+   "kv": [
+    1059.48,
+    360,
+    39.02,
+    16
+   ],
+   "val": "Q 0.7",
+   "ticks": null
+  },
+  {
+   "tag": "div",
+   "id": "",
+   "cls": "rh",
+   "text": "EQOn",
+   "r": [
+    975,
+    385,
+    368,
+    32
+   ],
+   "tip": "",
+   "style": {
+    "fs": 11,
+    "fw": "400",
+    "ls": 2.2,
+    "tt": "uppercase",
+    "col": "rgb(179, 136, 255)",
+    "mono": false
+   },
+   "par": "rack"
+  },
+  {
+   "tag": "button",
+   "id": "",
+   "cls": "",
+   "text": "On",
+   "r": [
+    997.11,
+    385,
+    38.75,
+    32
+   ],
+   "tip": "",
+   "style": {
+    "fs": 13,
+    "fw": "600",
+    "ls": 1.04,
+    "tt": "uppercase",
+    "col": "rgb(179, 136, 255)",
+    "mono": false
+   },
+   "par": "rack",
+   "pressed": "true"
+  },
+  {
+   "tag": "div",
+   "id": "",
+   "cls": "kw",
+   "text": "Low0.0 dB",
+   "r": [
+    975,
+    421,
+    68,
+    77
+   ],
+   "tip": "",
+   "style": {
+    "fs": 15,
+    "fw": "400",
+    "ls": 0.6,
+    "tt": "none",
+    "col": "rgb(244, 245, 247)",
+    "mono": false
+   },
+   "par": "rack",
+   "label": "Low",
+   "knob": [
+    987,
+    421,
+    44,
+    44
+   ],
+   "kl": [
+    998.38,
+    467,
+    21.25,
+    13
+   ],
+   "kv": [
+    985.59,
+    482,
+    46.81,
+    16
+   ],
+   "val": "0.0 dB",
+   "ticks": null
+  },
+  {
+   "tag": "div",
+   "id": "",
+   "cls": "kw",
+   "text": "Mid0.0 dB",
+   "r": [
+    1045,
+    421,
+    68,
+    77
+   ],
+   "tip": "",
+   "style": {
+    "fs": 15,
+    "fw": "400",
+    "ls": 0.6,
+    "tt": "none",
+    "col": "rgb(244, 245, 247)",
+    "mono": false
+   },
+   "par": "rack",
+   "label": "Mid",
+   "knob": [
+    1057,
+    421,
+    44,
+    44
+   ],
+   "kl": [
+    1069.98,
+    467,
+    18.03,
+    13
+   ],
+   "kv": [
+    1055.59,
+    482,
+    46.81,
+    16
+   ],
+   "val": "0.0 dB",
+   "ticks": null
+  },
+  {
+   "tag": "div",
+   "id": "",
+   "cls": "kw",
+   "text": "High0.0 dB",
+   "r": [
+    1115,
+    421,
+    68,
+    77
+   ],
+   "tip": "",
+   "style": {
+    "fs": 15,
+    "fw": "400",
+    "ls": 0.6,
+    "tt": "none",
+    "col": "rgb(244, 245, 247)",
+    "mono": false
+   },
+   "par": "rack",
+   "label": "High",
+   "knob": [
+    1127,
+    421,
+    44,
+    44
+   ],
+   "kl": [
+    1136.97,
+    467,
+    24.06,
+    13
+   ],
+   "kv": [
+    1125.59,
+    482,
+    46.81,
+    16
+   ],
+   "val": "0.0 dB",
+   "ticks": null
+  },
+  {
+   "tag": "div",
+   "id": "",
+   "cls": "rh",
+   "text": "CompressorOn",
+   "r": [
+    975,
+    507,
+    368,
+    32
+   ],
+   "tip": "",
+   "style": {
+    "fs": 11,
+    "fw": "400",
+    "ls": 2.2,
+    "tt": "uppercase",
+    "col": "rgb(179, 136, 255)",
+    "mono": false
+   },
+   "par": "rack"
+  },
+  {
+   "tag": "button",
+   "id": "",
+   "cls": "",
+   "text": "On",
+   "r": [
+    1055.03,
+    507,
+    38.75,
+    32
+   ],
+   "tip": "",
+   "style": {
+    "fs": 13,
+    "fw": "600",
+    "ls": 1.04,
+    "tt": "uppercase",
+    "col": "rgb(244, 245, 247)",
+    "mono": false
+   },
+   "par": "rack",
+   "pressed": "false"
+  },
+  {
+   "tag": "div",
+   "id": "",
+   "cls": "kw",
+   "text": "Thresh-18.0 dB",
+   "r": [
+    975,
+    543,
+    68,
+    77
+   ],
+   "tip": "",
+   "style": {
+    "fs": 15,
+    "fw": "400",
+    "ls": 0.6,
+    "tt": "none",
+    "col": "rgb(244, 245, 247)",
+    "mono": false
+   },
+   "par": "rack",
+   "label": "Thresh",
+   "knob": [
+    987,
+    543,
+    44,
+    44
+   ],
+   "kl": [
+    989.52,
+    589,
+    38.95,
+    13
+   ],
+   "kv": [
+    977.8,
+    604,
+    62.41,
+    16
+   ],
+   "val": "-18.0 dB",
+   "ticks": null
+  },
+  {
+   "tag": "div",
+   "id": "",
+   "cls": "kw",
+   "text": "Ratio3.0:1",
+   "r": [
+    1045,
+    543,
+    68,
+    77
+   ],
+   "tip": "",
+   "style": {
+    "fs": 15,
+    "fw": "400",
+    "ls": 0.6,
+    "tt": "none",
+    "col": "rgb(244, 245, 247)",
+    "mono": false
+   },
+   "par": "rack",
+   "label": "Ratio",
+   "knob": [
+    1057,
+    543,
+    44,
+    44
+   ],
+   "kl": [
+    1064.36,
+    589,
+    29.27,
+    13
+   ],
+   "kv": [
+    1059.48,
+    604,
+    39.02,
+    16
+   ],
+   "val": "3.0:1",
+   "ticks": null
+  },
+  {
+   "tag": "div",
+   "id": "",
+   "cls": "kw",
+   "text": "Attack10 ms",
+   "r": [
+    1115,
+    543,
+    68,
+    77
+   ],
+   "tip": "",
+   "style": {
+    "fs": 15,
+    "fw": "400",
+    "ls": 0.6,
+    "tt": "none",
+    "col": "rgb(244, 245, 247)",
+    "mono": false
+   },
+   "par": "rack",
+   "label": "Attack",
+   "knob": [
+    1127,
+    543,
+    44,
+    44
+   ],
+   "kl": [
+    1130.33,
+    589,
+    37.33,
+    13
+   ],
+   "kv": [
+    1129.48,
+    604,
+    39.02,
+    16
+   ],
+   "val": "10 ms",
+   "ticks": null
+  },
+  {
+   "tag": "div",
+   "id": "",
+   "cls": "kw",
+   "text": "Release120 ms",
+   "r": [
+    1185,
+    543,
+    68,
+    77
+   ],
+   "tip": "",
+   "style": {
+    "fs": 15,
+    "fw": "400",
+    "ls": 0.6,
+    "tt": "none",
+    "col": "rgb(244, 245, 247)",
+    "mono": false
+   },
+   "par": "rack",
+   "label": "Release",
+   "knob": [
+    1197,
+    543,
+    44,
+    44
+   ],
+   "kl": [
+    1197.03,
+    589,
+    43.92,
+    13
+   ],
+   "kv": [
+    1195.59,
+    604,
+    46.81,
+    16
+   ],
+   "val": "120 ms",
+   "ticks": null
+  },
+  {
+   "tag": "div",
+   "id": "",
+   "cls": "rh",
+   "text": "FormantOn",
+   "r": [
+    975,
+    629,
+    368,
+    32
+   ],
+   "tip": "",
+   "style": {
+    "fs": 11,
+    "fw": "400",
+    "ls": 2.2,
+    "tt": "uppercase",
+    "col": "rgb(179, 136, 255)",
+    "mono": false
+   },
+   "par": "rack"
+  },
+  {
+   "tag": "button",
+   "id": "",
+   "cls": "",
+   "text": "On",
+   "r": [
+    1033.95,
+    629,
+    38.75,
+    32
+   ],
+   "tip": "",
+   "style": {
+    "fs": 13,
+    "fw": "600",
+    "ls": 1.04,
+    "tt": "uppercase",
+    "col": "rgb(244, 245, 247)",
+    "mono": false
+   },
+   "par": "rack",
+   "pressed": "false"
+  },
+  {
+   "tag": "div",
+   "id": "",
+   "cls": "kw",
+   "text": "Shift0.0 st",
+   "r": [
+    975,
+    665,
+    68,
+    77
+   ],
+   "tip": "",
+   "style": {
+    "fs": 15,
+    "fw": "400",
+    "ls": 0.6,
+    "tt": "none",
+    "col": "rgb(244, 245, 247)",
+    "mono": false
+   },
+   "par": "rack",
+   "label": "Shift",
+   "knob": [
+    987,
+    665,
+    44,
+    44
+   ],
+   "kl": [
+    994.31,
+    711,
+    29.38,
+    13
+   ],
+   "kv": [
+    985.59,
+    726,
+    46.81,
+    16
+   ],
+   "val": "0.0 st",
+   "ticks": null
+  },
+  {
+   "tag": "button",
+   "id": "",
+   "cls": "",
+   "text": "Keep",
+   "r": [
+    1045,
+    687.5,
+    51.63,
+    32
+   ],
+   "tip": "",
+   "style": {
+    "fs": 13,
+    "fw": "600",
+    "ls": 1.04,
+    "tt": "uppercase",
+    "col": "rgb(179, 136, 255)",
+    "mono": false
+   },
+   "par": "rack",
+   "pressed": "true"
+  },
+  {
+   "tag": "div",
+   "id": "",
+   "cls": "rh",
+   "text": "Detune and widenOn",
+   "r": [
+    975,
+    751,
+    368,
+    32
+   ],
+   "tip": "",
+   "style": {
+    "fs": 11,
+    "fw": "400",
+    "ls": 2.2,
+    "tt": "uppercase",
+    "col": "rgb(179, 136, 255)",
+    "mono": false
+   },
+   "par": "rack"
+  },
+  {
+   "tag": "button",
+   "id": "",
+   "cls": "",
+   "text": "On",
+   "r": [
+    1093.02,
+    751,
+    38.75,
+    32
+   ],
+   "tip": "",
+   "style": {
+    "fs": 13,
+    "fw": "600",
+    "ls": 1.04,
+    "tt": "uppercase",
+    "col": "rgb(244, 245, 247)",
+    "mono": false
+   },
+   "par": "rack",
+   "pressed": "false"
+  },
+  {
+   "tag": "div",
+   "id": "",
+   "cls": "kw",
+   "text": "Detune\u00b112 c",
+   "r": [
+    975,
+    787,
+    68,
+    77
+   ],
+   "tip": "",
+   "style": {
+    "fs": 15,
+    "fw": "400",
+    "ls": 0.6,
+    "tt": "none",
+    "col": "rgb(244, 245, 247)",
+    "mono": false
+   },
+   "par": "rack",
+   "label": "Detune",
+   "knob": [
+    987,
+    787,
+    44,
+    44
+   ],
+   "kl": [
+    989.34,
+    833,
+    39.31,
+    13
+   ],
+   "kv": [
+    989.48,
+    848,
+    39.02,
+    16
+   ],
+   "val": "\u00b112 c",
+   "ticks": null
+  },
+  {
+   "tag": "div",
+   "id": "",
+   "cls": "kw",
+   "text": "Voices3",
+   "r": [
+    1045,
+    787,
+    68,
+    77
+   ],
+   "tip": "",
+   "style": {
+    "fs": 15,
+    "fw": "400",
+    "ls": 0.6,
+    "tt": "none",
+    "col": "rgb(244, 245, 247)",
+    "mono": false
+   },
+   "par": "rack",
+   "label": "Voices",
+   "knob": [
+    1057,
+    787,
+    44,
+    44
+   ],
+   "kl": [
+    1060.97,
+    833,
+    36.05,
+    13
+   ],
+   "kv": [
+    1075.09,
+    848,
+    7.81,
+    16
+   ],
+   "val": "3",
+   "ticks": null
+  },
+  {
+   "tag": "div",
+   "id": "",
+   "cls": "kw",
+   "text": "Width0%",
+   "r": [
+    1115,
+    787,
+    68,
+    77
+   ],
+   "tip": "",
+   "style": {
+    "fs": 15,
+    "fw": "400",
+    "ls": 0.6,
+    "tt": "none",
+    "col": "rgb(244, 245, 247)",
+    "mono": false
+   },
+   "par": "rack",
+   "label": "Width",
+   "knob": [
+    1127,
+    787,
+    44,
+    44
+   ],
+   "kl": [
+    1132.77,
+    833,
+    32.45,
+    13
+   ],
+   "kv": [
+    1141.19,
+    848,
+    15.61,
+    16
+   ],
+   "val": "0%",
+   "ticks": null
+  },
+  {
+   "tag": "div",
+   "id": "",
+   "cls": "kw",
+   "text": "Haas12 ms",
+   "r": [
+    1185,
+    787,
+    68,
+    77
+   ],
+   "tip": "",
+   "style": {
+    "fs": 15,
+    "fw": "400",
+    "ls": 0.6,
+    "tt": "none",
+    "col": "rgb(244, 245, 247)",
+    "mono": false
+   },
+   "par": "rack",
+   "label": "Haas",
+   "knob": [
+    1197,
+    787,
+    44,
+    44
+   ],
+   "kl": [
+    1206.13,
+    833,
+    25.75,
+    13
+   ],
+   "kv": [
+    1199.48,
+    848,
+    39.02,
+    16
+   ],
+   "val": "12 ms",
+   "ticks": null
+  },
+  {
+   "tag": "div",
+   "id": "",
+   "cls": "rh",
+   "text": "OutputOnLimit",
+   "r": [
+    975,
+    873,
+    368,
+    32
+   ],
+   "tip": "",
+   "style": {
+    "fs": 11,
+    "fw": "400",
+    "ls": 2.2,
+    "tt": "uppercase",
+    "col": "rgb(179, 136, 255)",
+    "mono": false
+   },
+   "par": "rack"
+  },
+  {
+   "tag": "button",
+   "id": "",
+   "cls": "",
+   "text": "On",
+   "r": [
+    1026.41,
+    873,
+    38.75,
+    32
+   ],
+   "tip": "",
+   "style": {
+    "fs": 13,
+    "fw": "600",
+    "ls": 1.04,
+    "tt": "uppercase",
+    "col": "rgb(179, 136, 255)",
+    "mono": false
+   },
+   "par": "rack",
+   "pressed": "true"
+  },
+  {
+   "tag": "button",
+   "id": "",
+   "cls": "",
+   "text": "Limit",
+   "r": [
+    1073.16,
+    873,
+    53.3,
+    32
+   ],
+   "tip": "",
+   "style": {
+    "fs": 13,
+    "fw": "600",
+    "ls": 1.04,
+    "tt": "uppercase",
+    "col": "rgb(179, 136, 255)",
+    "mono": false
+   },
+   "par": "rack",
+   "pressed": "true"
+  },
+  {
+   "tag": "div",
+   "id": "",
+   "cls": "kw",
+   "text": "Mix100 %",
+   "r": [
+    975,
+    909,
+    68,
+    77
+   ],
+   "tip": "",
+   "style": {
+    "fs": 15,
+    "fw": "400",
+    "ls": 0.6,
+    "tt": "none",
+    "col": "rgb(244, 245, 247)",
+    "mono": false
+   },
+   "par": "rack",
+   "label": "Mix",
+   "knob": [
+    987,
+    909,
+    44,
+    44
+   ],
+   "kl": [
+    1000.09,
+    955,
+    17.81,
+    13
+   ],
+   "kv": [
+    989.48,
+    970,
+    39.02,
+    16
+   ],
+   "val": "100 %",
+   "ticks": null
+  },
+  {
+   "tag": "div",
+   "id": "",
+   "cls": "kw",
+   "text": "Gain0.0 dB",
+   "r": [
+    1045,
+    909,
+    68,
+    77
+   ],
+   "tip": "",
+   "style": {
+    "fs": 15,
+    "fw": "400",
+    "ls": 0.6,
+    "tt": "none",
+    "col": "rgb(244, 245, 247)",
+    "mono": false
+   },
+   "par": "rack",
+   "label": "Gain",
+   "knob": [
+    1057,
+    909,
+    44,
+    44
+   ],
+   "kl": [
+    1067.06,
+    955,
+    23.86,
+    13
+   ],
+   "kv": [
+    1055.59,
+    970,
+    46.81,
+    16
+   ],
+   "val": "0.0 dB",
+   "ticks": null
+  },
+  {
+   "tag": "div",
+   "id": "",
+   "cls": "kw",
+   "text": "Ceiling-0.3 dB",
+   "r": [
+    1115,
+    909,
+    68,
+    77
+   ],
+   "tip": "",
+   "style": {
+    "fs": 15,
+    "fw": "400",
+    "ls": 0.6,
+    "tt": "none",
+    "col": "rgb(244, 245, 247)",
+    "mono": false
+   },
+   "par": "rack",
+   "label": "Ceiling",
+   "knob": [
+    1127,
+    909,
+    44,
+    44
+   ],
+   "kl": [
+    1128.81,
+    955,
+    40.36,
+    13
+   ],
+   "kv": [
+    1121.69,
+    970,
+    54.61,
+    16
+   ],
+   "val": "-0.3 dB",
+   "ticks": null
+  },
+  {
+   "tag": "span",
+   "id": "",
+   "cls": "",
+   "text": "Level",
+   "r": [
+    975,
+    770,
+    38.06,
+    14
+   ],
+   "tip": "",
+   "style": {
+    "fs": 12,
+    "fw": "600",
+    "ls": 2.4,
+    "tt": "uppercase",
+    "col": "rgb(169, 173, 184)",
+    "mono": false
+   },
+   "par": "rackcol"
+  },
+  {
+   "tag": "span",
+   "id": "latInfo",
+   "cls": "",
+   "text": "Latency 23 ms",
+   "r": [
+    1251.5,
+    770,
+    95.5,
+    14
+   ],
+   "tip": "",
+   "style": {
+    "fs": 12,
+    "fw": "600",
+    "ls": 2.4,
+    "tt": "uppercase",
+    "col": "rgb(169, 173, 184)",
+    "mono": false
+   },
+   "par": "rackcol"
+  }
+ ],
+ "rkSecs": [
+  {
+   "r": [
+    975,
+    242,
+    368,
+    138
+   ],
+   "h": "FilterOnTypeLow-passHigh-passBand-passNo"
+  },
+  {
+   "r": [
+    975,
+    380,
+    368,
+    122
+   ],
+   "h": "EQOn"
+  },
+  {
+   "r": [
+    975,
+    502,
+    368,
+    122
+   ],
+   "h": "CompressorOn"
+  },
+  {
+   "r": [
+    975,
+    624,
+    368,
+    122
+   ],
+   "h": "FormantOn"
+  },
+  {
+   "r": [
+    975,
+    746,
+    368,
+    122
+   ],
+   "h": "Detune and widenOn"
+  },
+  {
+   "r": [
+    975,
+    868,
+    368,
+    122
+   ],
+   "h": "OutputOnLimit"
+  }
+ ],
+ "rackInnerR": [
+  975,
+  242,
+  372,
+  522
+ ],
+ "rackScrollH": 748
+}

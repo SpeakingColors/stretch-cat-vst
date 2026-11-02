@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<STATE>
+  <PARAM id="mode" value="1"/>
+  <PARAM id="tape" value="1"/>
+  <PARAM id="grain" value="0.30000001192092896"/>
+  <PARAM id="speed" value="0.5"/>
+  <PARAM id="tr" value="7"/>
+  <PARAM id="fine" value="-20"/>
+  <PARAM id="pb" value="2"/>
+  <PARAM id="len" value="5"/>
+  <PARAM id="hostbpm" value="140"/>
+  <PARAM id="atk" value="12"/>
+  <PARAM id="rel" value="300"/>
+  <PARAM id="root" value="48"/>
+  <PARAM id="gain" value="-3"/>
+</STATE>

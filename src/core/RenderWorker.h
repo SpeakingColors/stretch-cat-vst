@@ -86,7 +86,7 @@ public:
     void post(const Request& r) { { std::lock_guard<std::mutex> l(m); pending = r; has = true; cancel.store(true); } cv.notify_all(); }
     bool fetchUi(UiResult& u) { std::lock_guard<std::mutex> l(m); if (!uiNew) return false; u = ui; uiNew = false; return true; }
     std::thread::id threadId() const { return th.get_id(); }
-    bool idle() { std::lock_guard<std::mutex> l(m); return !has && !busy; }
+    bool idle() const { std::lock_guard<std::mutex> l(m); return !has && !busy; }
     uint64_t rendersDone() const { return done.load(); }
     std::function<void()> onRenderStart;              // test hook, called on the worker thread
 private:
@@ -113,7 +113,7 @@ private:
             { std::lock_guard<std::mutex> l(m); busy = false; }
         }
     }
-    ResultBus& bus; std::mutex m; std::condition_variable cv; Request pending; bool has = false, quit = false, busy = false, uiNew = false; UiResult ui;
+    ResultBus& bus; mutable std::mutex m; std::condition_variable cv; Request pending; bool has = false, quit = false, busy = false, uiNew = false; UiResult ui;
     std::atomic<bool> cancel { false }; std::atomic<uint64_t> done { 0 };
     uint64_t counter = 0; bool lastValid = false; std::shared_ptr<const Source> lastSrc; Params lastP; double lastA = 0, lastB = 1;
     std::thread th;
