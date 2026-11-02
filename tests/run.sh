@@ -5,9 +5,13 @@ set -e
 cd "$(dirname "$0")"
 g++ -std=c++17 -O2 -Wall -Wextra -pthread -o /tmp/stretch_test test_core.cpp
 /tmp/stretch_test
+g++ -std=c++17 -O2 -Wall -Wextra -Wno-mismatched-new-delete -pthread -o /tmp/trackfx_test test_trackfx.cpp
+/tmp/trackfx_test
 if [ "${SANITIZE:-1}" = "1" ]; then
   g++ -std=c++17 -O1 -g -pthread -fsanitize=address,undefined -fno-sanitize-recover=undefined -o /tmp/stretch_test_asan test_core.cpp
   /tmp/stretch_test_asan > /tmp/stretch_asan.log 2>&1 && echo "asan+ubsan: clean" || { tail -30 /tmp/stretch_asan.log; exit 1; }
   g++ -std=c++17 -O1 -g -pthread -fsanitize=thread -o /tmp/stretch_test_tsan test_core.cpp
   /tmp/stretch_test_tsan > /tmp/stretch_tsan.log 2>&1 && echo "tsan: clean" || { tail -40 /tmp/stretch_tsan.log; exit 1; }
+  g++ -std=c++17 -O1 -g -pthread -fsanitize=address,undefined -fno-sanitize-recover=undefined -o /tmp/trackfx_asan test_trackfx.cpp
+  /tmp/trackfx_asan > /tmp/trackfx_asan.log 2>&1 && echo "trackfx asan+ubsan: clean" || { tail -30 /tmp/trackfx_asan.log; exit 1; }
 fi

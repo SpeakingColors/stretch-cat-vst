@@ -43,20 +43,21 @@ jobs:
         if: runner.os == 'Linux'
         run: |
           S=build/StretchCatSnapshot_artefacts/Release/StretchCatSnapshot
-          mkdir -p shots
-          xvfb-run -a $S shots/main.png 1 none -1 -1
-          xvfb-run -a $S shots/main2x.png 2 none -1 -1
-          xvfb-run -a $S shots/lane-pitch.png 1 none 0 -1
-          xvfb-run -a $S shots/lane-speed.png 1 none 1 -1
-          xvfb-run -a $S shots/lane-cutoff.png 1 none 2 -1
-          xvfb-run -a $S shots/lane-formant.png 1 none 3 -1
-          xvfb-run -a $S shots/lane-width.png 1 none 4 -1
-          xvfb-run -a $S shots/pad.png 1 none -1 2
-          xvfb-run -a $S shots/settings.png 1 settings -1 -1
-          xvfb-run -a $S shots/about.png 1 about -1 -1
-          xvfb-run -a $S shots/guide.png 1 guide -1 -1
-          xvfb-run -a $S shots/presets.png 1 presets -1 -1
-          ls -l shots
+          mkdir -p shots; : > shots.log; bad=0
+          shoot() { out=$1; shift; if timeout 120 xvfb-run -a $S "$out" "$@" >> shots.log 2>&1; then echo "ok $out" | tee -a shots.log; else echo "FAILED $out ($?)" | tee -a shots.log; bad=1; fi; }
+          shoot shots/main.png 1 none -1 -1
+          shoot shots/main2x.png 2 none -1 -1
+          shoot shots/lane-pitch.png 1 none 0 -1
+          shoot shots/lane-speed.png 1 none 1 -1
+          shoot shots/lane-cutoff.png 1 none 2 -1
+          shoot shots/lane-formant.png 1 none 3 -1
+          shoot shots/lane-width.png 1 none 4 -1
+          shoot shots/pad.png 1 none -1 2
+          shoot shots/settings.png 1 settings -1 -1
+          shoot shots/about.png 1 about -1 -1
+          shoot shots/guide.png 1 guide -1 -1
+          shoot shots/presets.png 1 presets -1 -1
+          ls -l shots; exit $bad
       - name: Publish screenshots to the snapshots branch
         if: runner.os == 'Linux' && github.ref == 'refs/heads/main'
         run: |
@@ -67,7 +68,7 @@ jobs:
       - name: Publish the build log tail to the ci-log branch
         if: always() && runner.os == 'Linux' && github.ref == 'refs/heads/main'
         run: |
-          mkdir -p logpub && tail -n 300 ci.log > logpub/build-tail.log || true
+          mkdir -p logpub && tail -n 300 ci.log > logpub/build-tail.log || true; tail -n 80 shots.log > logpub/shots-tail.log || true
           cd logpub && git init -q && git checkout -q -b ci-log
           git config user.name SpeakingColors && git config user.email SpeakingColors@users.noreply.github.com
           git add . && git commit -q -m "Build log tail" || true

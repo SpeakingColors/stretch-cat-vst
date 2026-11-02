@@ -138,6 +138,19 @@ button[aria-pressed="true"],button.on { background:color-mix(in srgb,var(--cL) 1
 .rackcol { background:var(--panel-2); border:1px solid var(--line); border-radius:4px; padding:8px; display:flex; flex-direction:column; gap:6px; min-height:0; overflow:hidden; }
 .modes { display:flex; gap:6px; } .modes button { flex:1 1 0; font-size:17px; padding:9px 12px; letter-spacing:.16em; } .modes button small { display:block; font-size:10.5px; letter-spacing:.14em; color:var(--ink-dim); margin-top:1px; text-transform:none; font-weight:500; }
 #win[data-mode="sam"] .only-fx, #win[data-mode="fx"] .only-sam { display:none !important; }
+
+/* ---- v2: Track effect page ---- */
+.only-trk { display:none; }
+#win[data-mode="trk"] .main, #win[data-mode="trk"] .rig { display:none !important; }
+#win[data-mode="trk"] .only-trk { display:flex; }
+.trk { flex-direction:column; gap:8px; min-height:0; }
+.trk .tgrid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:8px; }
+.trk .tbox { background:var(--panel-2); border:1px solid var(--line); border-radius:4px; padding:8px; display:flex; flex-direction:column; gap:6px; }
+.trk .tbox h3 { margin:0; font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:var(--cL); font-weight:600; }
+.trk .tbox .krow { display:flex; flex-wrap:wrap; gap:8px; align-items:flex-start; }
+.trk .holdbtn { font-size:22px; padding:14px 26px; letter-spacing:.2em; }
+.trk .holdbtn[aria-pressed="true"] { background:#241238; border-color:var(--cL); color:#cd92fe; }
+.trk .cv { height:400px; }
 .rk { border-top:1px solid var(--line); padding:4px 0; display:grid; grid-template-columns:auto 1fr; gap:4px 8px; align-items:center; }
 .rk > .rh { grid-column:1/-1; display:flex; align-items:center; gap:8px; color:var(--cL); font-size:11px; letter-spacing:.2em; text-transform:uppercase; }
 .rk .kw { margin:0; } .rkn { display:flex; gap:2px; flex-wrap:wrap; grid-column:1/-1; }
@@ -178,6 +191,7 @@ button[aria-pressed="true"],button.on { background:color-mix(in srgb,var(--cL) 1
       <nav class="modes" id="modes" aria-label="Plugin">
         <button data-mode="sam" data-tip="Stretch Cat Sampler: a sampler instrument. Warp a loop, slice it, play slices from your keyboard, transpose over time.">Stretch Sampler<small>instrument, VST3 and Standalone</small></button>
         <button data-mode="fx" data-tip="Stretch Cat FX: an effect. It grabs the last bars of your DAW audio and lets you stretch it, bend its pitch and perform tape stops, freezes and risers.">Stretch FX<small>effect, VST3 and Standalone</small></button>
+        <button data-mode="trk" data-tip="Track Effect: listens to your track in a ring buffer. Press HOLD to freeze that moment and repeat it as grains, at any speed and pitch.">Track Effect<small>effect: hold and repeat</small></button>
       </nav>
       <section class="rig" aria-label="Source">
         <span class="lab" id="rigLab">Sample</span>
@@ -208,8 +222,18 @@ button[aria-pressed="true"],button.on { background:color-mix(in srgb,var(--cL) 1
         </aside>
       </section>
 
+
+      <section class="trk only-trk" id="trkPage" aria-label="Track effect">
+        <div class="cv" id="trkBox"><canvas id="cvT"></canvas></div>
+        <div class="tgrid">
+          <div class="tbox"><h3>Time</h3><div class="krow" id="tTime"></div></div>
+          <div class="tbox"><h3>Grains</h3><div class="krow" id="tGr"></div></div>
+          <div class="tbox"><h3>Effects</h3><div class="krow" id="tFx"></div></div>
+          <div class="tbox"><h3>Transients</h3><div class="krow" id="tTr"></div></div>
+        </div>
+      </section>
     </div>
-    <footer class="foot"><span><b>Studio 87</b> &middot; Stretch Cat v0.1 design mockup</span><span id="sizeT" data-tip="Window size. Drag any edge or corner of the plugin to resize it; the shape stays the same. Double-click here for 100 %.">Window 100 %</span></footer>
+    <footer class="foot"><span><b>Studio 87</b> &middot; Stretch Cat v0.2 design mockup (v2: Track Effect page)</span><span id="sizeT" data-tip="Window size. Drag any edge or corner of the plugin to resize it; the shape stays the same. Double-click here for 100 %.">Window 100 %</span></footer>
   </div>
   <div class="cheek r"></div>
 </div>
@@ -1164,7 +1188,7 @@ $("#bPlay").addEventListener("click", function () { ensureCtx(); if (play.on) { 
 $("#bPlayRaw").addEventListener("click", function () { ensureCtx(); if (dawOn) stopDry(); else startDry(); });
 $("#bGrab").addEventListener("click", grab);
 $$("#modes button").forEach(function (b) { b.addEventListener("click", function () { setParam("mode", b.getAttribute("data-mode"), true); }); });
-function setMode() { $("#win").setAttribute("data-mode", S.mode); $$("#modes button").forEach(function (b) { b.setAttribute("aria-pressed", String(b.getAttribute("data-mode") === S.mode)); }); $("#rigLab").textContent = S.mode === "fx" ? "DAW input" : "Sample"; var nm = S.mode === "fx" ? "Stretch Cat FX" : "Stretch Cat Sampler"; $(".brand b").textContent = nm; stopAll(); }
+function setMode() { $("#win").setAttribute("data-mode", S.mode); $$("#modes button").forEach(function (b) { b.setAttribute("aria-pressed", String(b.getAttribute("data-mode") === S.mode)); }); $("#rigLab").textContent = S.mode === "fx" ? "DAW input" : "Sample"; var nm = S.mode === "trk" ? "Stretch Cat Track Effect" : S.mode === "fx" ? "Stretch Cat FX" : "Stretch Cat Sampler"; $(".brand b").textContent = nm; stopAll(); }
 window.onParam = function (id, v) {
   if (id === "src") loadSource(); else if (id === "mode") { setMode(); if (S.mode === "fx") { if (S.auto) grab(); } else { setParam("sa", 0, false); } }
   else if (id === "lane") $$("#laneTabs [data-l]").forEach(function (b) { b.setAttribute("aria-pressed", String(b.getAttribute("data-l") === v)); });
@@ -1205,6 +1229,41 @@ var FACT = [
 initPresets(FACT, KEYS, function () { setMode(); schedRender(0); applyRack(); });
 simpleCards("Stretch Cat", "<p>Stretch Cat has two plugins: the Sampler (a sampler instrument that warps and slices a loop) and the FX (an effect that grabs the last bars of your DAW audio and bends it). This page is a design mockup with test sounds. Each stretch mode here is a different grain setting; the plugin will use dedicated algorithms.</p>",
   "<h3>How to use</h3><ul><li>Pick a source. Drag the orange handles to choose the part to stretch.</li><li>Draw pitch, speed or cutoff over time in the curve editor.</li><li>Sampler: Slices cuts the sample; press the pads or keys 1 to 8.</li><li>FX: press DAW play, then hold Tape Stop, Freeze, Stutter, Reverse or Riser.</li><li>The FX rack processes the result.</li></ul>");
+
+/* ---------- v2: Track effect page (design preview: the sound is made by the plugin) ---------- */
+(function () {
+  var time = $("#tTime"), gr = $("#tGr"), fx = $("#tFx"), tr = $("#tTr");
+  var hold = mkTog(time, "tHold", "Hold", "Freeze the last moments of the track and repeat the held part. Release to return to the live signal. Automatable, so you can hold on a beat.", false, "holdbtn");
+  mkTog(time, "tLoop", "Loop", "On: the held part repeats until you release HOLD. Off: it plays once, then the live signal returns.", true);
+  mkKnob(time, { id: "tStart", label: "Start", min: 0, max: 8000, def: 1000, fmt: function (v) { return Math.round(v) + " ms"; }, tip: "Where the held part begins, measured back from the moment you press HOLD (0 = now, up to 8 s back)." });
+  mkKnob(time, { id: "tLen", label: "Length", min: 20, max: 4000, def: 500, log: true, fmt: function (v) { return Math.round(v) + " ms"; }, tip: "Length of the held part." });
+  mkKnob(time, { id: "tSpeed", label: "Speed", min: 0.25, max: 4, def: 1, log: true, fmt: function (v) { return "x" + v.toFixed(2); }, tip: "How fast the playhead moves through the held part. Slow gives a freeze, fast a stutter. The pitch stays the same." });
+  mkKnob(time, { id: "tKey", label: "Key to", min: -24, max: 24, def: 0, mid: 0, step: 1, fmt: function (v) { return (v > 0 ? "+" : "") + v + " st"; }, tip: "Transposes the grains in semitones, like a playback speed change of each grain." });
+  mkKnob(gr, { id: "gAtk", label: "Attack", min: 1, max: 500, def: 10, log: true, fmt: function (v) { return Math.round(v) + " ms"; }, tip: "Fade in and fade out time of every grain. Short is rough and clicky-free, long is soft." });
+  mkKnob(gr, { id: "gHold", label: "Hold", min: 1, max: 1000, def: 60, log: true, fmt: function (v) { return Math.round(v) + " ms"; }, tip: "How long each grain stays at full level between its fades." });
+  mkKnob(gr, { id: "gSp", label: "Grain spacing", min: 2, max: 500, def: 40, log: true, fmt: function (v) { return Math.round(v) + " ms"; }, tip: "Time between the starts of two grains. Smaller than the grain length makes them overlap." });
+  mkKnob(gr, { id: "gWave", label: "Wave spacing", min: 0, max: 100, def: 0, fmt: function (v) { return v.toFixed(1) + " ms"; }, tip: "Extra shift of the read position for each next grain. It smears or stacks copies of the wave (approximation, see the manual)." });
+  mkKnob(fx, { id: "ePan", label: "Pan", min: -1, max: 1, def: 0, mid: 0, fmt: function (v) { return v === 0 ? "C" : (v < 0 ? "L " : "R ") + Math.round(Math.abs(v) * 100); }, tip: "Where the grains sit between left and right." });
+  mkKnob(fx, { id: "eDepth", label: "Depth", min: 0, max: 1, def: 0, fmt: function (v) { return Math.round(v * 100) + " %"; }, tip: "Spreads the grains left and right and varies their level (approximation, see the manual)." });
+  mkKnob(fx, { id: "eRand", label: "Rand", min: 0, max: 1, def: 0, fmt: function (v) { return Math.round(v * 100) + " %"; }, tip: "Random jitter of grain timing and read position (up to 20 ms)." });
+  mkSel(tr, "trMode", "Mode", [["off", "Off"], ["reg", "Use regions"], ["det", "Detect"]], "Off: the held part is one piece. Use regions: your slice markers split it. Detect: transients in the held audio are found automatically.", "off");
+  mkKnob(tr, { id: "trAmt", label: "Hold amount", min: 0.05, max: 1, def: 1, fmt: function (v) { return Math.round(v * 100) + " %"; }, tip: "How much of each region is repeated. Small repeats only the hit itself." });
+  var t0 = performance.now(), held0 = 0;
+  function peaksAt(i) { return 0.15 + 0.7 * Math.abs(Math.sin(i * 0.013)) * (0.5 + 0.5 * Math.sin(i * 0.0031)) * (((i / 190) | 0) % 4 === 0 ? 1 : 0.45); }
+  window.drawTrack = function () {
+    var cc = fit($("#cvT")); if (!cc) return; var g = cc.g, w = cc.w, h = cc.h; g.clearRect(0, 0, w, h); g.fillStyle = "#05070a"; g.fillRect(0, 0, w, h);
+    var secs = 8, l = 40, r = w - 10, top = 10, bot = h - 18, mid = (top + bot) / 2; g.font = "10px 'JetBrains Mono',monospace"; g.textBaseline = "alphabetic";
+    for (var i = 0; i <= 8; i++) { var x = r - (r - l) * i / 8; g.fillStyle = "#1a2422"; g.fillRect(Math.round(x), top, 1, bot - top); g.fillStyle = "#6c7080"; g.textAlign = "center"; g.fillText(i === 0 ? "now" : "-" + i + " s", x, h - 5); }
+    g.fillStyle = "#b388ff"; for (var px = l; px < r; px += 2) { var a = peaksAt((px - l) * 5) * (bot - top) / 2; g.fillRect(px, mid - a, 1.4, 2 * a); }
+    var sx = r - (r - l) * (S.tStart / 1000) / secs, ex = sx + (r - l) * (S.tLen / 1000) / secs;
+    g.fillStyle = "rgba(255,138,61,.14)"; g.fillRect(sx, top, ex - sx, bot - top); g.fillStyle = "#ff8a3d"; g.fillRect(sx - 2, top, 4, bot - top); g.fillRect(ex - 1, top, 2, bot - top); g.fillRect(sx - 2, top, 9, 8);
+    g.fillStyle = "#cd92fe"; g.textAlign = "left"; g.fillText(S.tHold ? "HOLDING" : "LISTENING", l + 6, top + 12);
+    if (S.tHold) { var ph = ((performance.now() - t0) / 1000 * S.tSpeed * 1000) % Math.max(20, S.tLen); g.fillStyle = "#fff"; g.fillRect(sx + (r - l) * (ph / 1000) / secs, top, 2, bot - top); }
+    else { g.fillStyle = "#6c7080"; g.fillRect(r - 1, top, 2, bot - top); }
+  };
+  var f = function () { requestAnimationFrame(f); if ($("#win").getAttribute("data-mode") === "trk") window.drawTrack(); }; requestAnimationFrame(f);
+  addUI("tHold", function (v) { t0 = performance.now(); });
+})();
 loadSource(); setMode(); applyRack(); $$("#laneTabs [data-l]").forEach(function (b) { b.setAttribute("aria-pressed", String(b.getAttribute("data-l") === S.lane)); }); $$("#capRow [data-c]").forEach(function (b) { b.setAttribute("aria-pressed", String(+b.getAttribute("data-c") === +S.caplen)); }); initWin();
 
 
