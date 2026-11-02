@@ -163,7 +163,7 @@ static void testSwapWhilePlaying() {
     ResultBus::AudioHandle h; Sampler smp; smp.prepare(sr); SamplerParams sp; sp.attackMs = 1; sp.root = 60; sp.releaseMs = 30; sp.mode = Playback::Loop;
     while (!bus.poll(h)) std::this_thread::sleep_for(std::chrono::milliseconds(1));
     smp.swapTo(&bus.slot(h.cur)); smp.noteOn(60, 1.f, sp);
-    std::atomic<bool> stopPoster { false }; std::thread poster([&] { int k = 0; while (!stopPoster) { Request r = rq; r.p.speed = 0.8 + 0.05 * (k++ % 6); worker.post(r); std::this_thread::sleep_for(std::chrono::milliseconds(60)); } });
+    std::atomic<bool> stopPoster { false }; std::thread poster([&] { int k = 0; while (!stopPoster) { Request r = rq; r.p.speed = 0.8 + 0.05 * (k++ % 6); const auto done0 = worker.rendersDone(); worker.post(r); for (int w = 0; w < 4000 && !stopPoster && worker.rendersDone() == done0; ++w) std::this_thread::sleep_for(std::chrono::milliseconds(1)); std::this_thread::sleep_for(std::chrono::milliseconds(20)); } });   // wait for each render, so slow (sanitizer) builds are not cancelled forever
     std::vector<float> out; int swaps = 0; const int B = 128;
     for (int blk = 0; blk < 48000 * 4 / B; ++blk) {
         if (!smp.crossfading()) { if (bus.poll(h)) { smp.swapTo(&bus.slot(h.cur)); ++swaps; } }
