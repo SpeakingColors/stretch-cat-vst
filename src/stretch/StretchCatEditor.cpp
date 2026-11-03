@@ -154,7 +154,7 @@ public:
             text(g, name, { 2.f, y, 14.f, barH }, font(F::mono, 11.f), Colour(0xffa9adb8));
         };
         bar(yL, l, hl, clipL, "L"); bar(yR, r, hr, clipR, "R");
-        text(g, "dB", { x1 - 30.f, yS + 5.f, 30.f, 12.f }, font(F::mono, 10.f), Colour(0xff8f93a3), juce::Justification::right); (void) h;
+        text(g, "dB", { 1.f, yS + 5.f, 16.f, 12.f }, font(F::mono, 10.f), Colour(0xff8f93a3), juce::Justification::left); (void) h;
     }
 private:
     bool clipL = false, clipR = false;
@@ -345,8 +345,8 @@ void StretchCatEditor::paintContent(juce::Graphics& g)
     // rig row: the sample's name in the place of the mockup's source list (the plugin has no test signals)
     text(g, "SAMPLE", { 28.f, 164.f, 70.f, 32.f }, font(F::label, 12.f), kDim, juce::Justification::centredLeft, 2.0f);
     text(g, "SOURCE", { 104.f, 148.f, 100.f, 13.f }, font(F::label, 11.f), kDim, juce::Justification::centredLeft, 2.0f);
-    g.setColour(Colour(0xff0a0a0c)); g.fillRoundedRectangle(104.f, 164.f, 188.f, 32.f, 3.f); g.setColour(kLine); g.drawRoundedRectangle(104.5f, 164.5f, 187.f, 31.f, 3.f, 1.f);
-    text(g, proc.hasSource() ? proc.sourceName() : String("(none)"), { 112.f, 164.f, 172.f, 32.f }, font(F::label, 15.f), kInk, juce::Justification::centredLeft);
+    g.setColour(Colour(0xff0a0a0c)); g.fillRoundedRectangle(104.f, 164.f, 144.f, 32.f, 3.f); g.setColour(kLine); g.drawRoundedRectangle(104.5f, 164.5f, 143.f, 31.f, 3.f, 1.f);
+    text(g, proc.hasSource() ? proc.sourceName() : String("(none)"), { 112.f, 164.f, 130.f, 32.f }, font(F::label, 15.f), kInk, juce::Justification::centredLeft);
     for (const auto& it : items)
     {
         const String kind(it.kind), key(it.key);
