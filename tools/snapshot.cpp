@@ -72,9 +72,9 @@ static int selfTest(const juce::File& fixture)
     juce::MemoryBlock mb; a.getStateInformation(mb); b.setStateInformation(mb.getData(), (int) mb.getSize());
     check(real(b, "fo") > 0.5f && std::abs(real(b, "fc") - 900.f) < 1.f && std::abs(real(b, "fms") - 4.f) < 0.05f && (int) real(b, "tr") == 5, "parameters survive a state round trip");
     check(b.getLane('p').pts.size() == 3 && b.slices().count() == 8 && b.hasSource(), "lanes, slices and the sound survive a state round trip");
-    waitRender(b);
+    b.prepareToPlay(44100.0, 512); waitRender(b, 20000);
     // audio comes out, and a pad makes sound
-    b.prepareToPlay(44100.0, 512); b.triggerSlice(2, true); float peak = 0.f; juce::AudioBuffer<float> buf(2, 512);
+ b.triggerSlice(2, true); float peak = 0.f; juce::AudioBuffer<float> buf(2, 512);
     for (int i = 0; i < 40; ++i) { buf.clear(); juce::MidiBuffer m; b.processBlock(buf, m); peak = std::max(peak, buf.getMagnitude(0, 512)); juce::MessageManager::getInstance()->runDispatchLoopUntil(5); }
     std::printf("info: pad peak %.5f, rendering %d, result length %d, slices %d\n", (double) peak, (int) b.rendering(), (int) b.resultLength(), (int) b.slices().count());
     check(peak > 0.01f && std::isfinite(peak), "a slice pad plays sound");
