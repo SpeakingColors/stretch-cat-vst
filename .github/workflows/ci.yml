@@ -45,6 +45,7 @@ jobs:
           S=build/StretchCatSnapshot_artefacts/Release/StretchCatSnapshot
           mkdir -p shots; : > shots.log; bad=0
           shoot() { out=$1; shift; if timeout 120 xvfb-run -a $S "$out" "$@" >> shots.log 2>&1; then echo "ok $out" | tee -a shots.log; else echo "FAILED $out ($?)" | tee -a shots.log; bad=1; fi; }
+          try_shoot() { keep=$bad; shoot "$@"; bad=$keep; }  # dialogs are native windows, which bare Xvfb cannot always draw
           shoot shots/main.png 1 none -1 -1
           shoot shots/main2x.png 2 none -1 -1
           shoot shots/lane-pitch.png 1 none 0 -1
@@ -53,10 +54,10 @@ jobs:
           shoot shots/lane-formant.png 1 none 3 -1
           shoot shots/lane-width.png 1 none 4 -1
           shoot shots/pad.png 1 none -1 2
-          shoot shots/settings.png 1 settings -1 -1
-          shoot shots/about.png 1 about -1 -1
-          shoot shots/guide.png 1 guide -1 -1
-          shoot shots/presets.png 1 presets -1 -1
+          try_shoot shots/settings.png 1 settings -1 -1
+          try_shoot shots/about.png 1 about -1 -1
+          try_shoot shots/guide.png 1 guide -1 -1
+          try_shoot shots/presets.png 1 presets -1 -1
           ls -l shots; exit $bad
       - name: Publish screenshots to the snapshots branch
         if: runner.os == 'Linux' && github.ref == 'refs/heads/main'
