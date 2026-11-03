@@ -9,7 +9,7 @@ namespace sc
 class Presets
 {
 public:
-    static juce::File dir() { auto d = juce::File::getSpecialLocation(juce::File::userApplicationDataDirectory).getChildFile("Studio 87").getChildFile("Stretch Cat").getChildFile("presets"); d.createDirectory(); return d; }
+    static juce::File dir() { auto d = juce::File::getSpecialLocation(juce::File::userApplicationDataDirectory).getChildFile("Studio 87").getChildFile("StretchCat").getChildFile("presets"); d.createDirectory(); return d; }
 
     struct Factory { const char* name; std::vector<std::pair<const char*, float>> v; };
     static const std::vector<Factory>& factory()

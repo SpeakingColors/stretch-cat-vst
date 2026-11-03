@@ -383,7 +383,7 @@ void StretchCatEditor::showSettings()
 void StretchCatEditor::showAbout()
 {
     auto* w = new juce::AlertWindow("About & Support", "Stretch Cat by Studio 87. Free and open source (AGPL-3.0-or-later). It collects nothing and never connects to the network.\n\n"
-        "Version " + String(JucePlugin_VersionString) + ".\nYour presets live in the Studio 87 / Stretch Cat / presets folder of your user data folder (on Windows %APPDATA%, on macOS Application Support, on Linux ~/.config).\n"
+        "Version " + String(JucePlugin_VersionString) + ".\nYour presets live in the Studio 87 / StretchCat / presets folder of your user data folder (on Windows %APPDATA%, on macOS Application Support, on Linux ~/.config).\n"
         "To uninstall, use the uninstaller from the download (your presets are kept unless you choose to delete them).\n\nIf it helps your music, a coffee on Ko-fi keeps new plugins coming.", juce::MessageBoxIconType::NoIcon, this);
     w->addButton("Support Studio 87 on Ko-fi", 1); w->addButton("GitHub", 2); w->addButton("Close", 0);
     w->enterModalState(true, juce::ModalCallbackFunction::create([](int r) { if (r == 1) juce::URL("https://ko-fi.com/studio87").launchInDefaultBrowser(); else if (r == 2) juce::URL("https://github.com/SpeakingColors/stretch-cat-vst").launchInDefaultBrowser(); }), true);

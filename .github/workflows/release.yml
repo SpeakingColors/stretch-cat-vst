@@ -11,8 +11,16 @@ on:
         description: 'Publish a pre-release with this tag (for example v0.1.0). Leave empty to only build.'
         required: false
         default: ''
+      skip_macos:
+        description: 'Skip the macOS job (use if the macOS queue is stuck). The release then has no .pkg.'
+        type: boolean
+        required: false
+        default: false
 permissions:
-  contents: write
+  contents: read
+concurrency:
+  group: stretchcat-release-${{ github.ref }}-${{ inputs.tag }}
+  cancel-in-progress: false
 env:
   TAGIN: ${{ inputs.tag }}
   NAME: StretchCat
@@ -44,23 +52,24 @@ jobs:
           path: "manual"
       - name: Build
         run: |
-          ver="${TAGIN:-$GITHUB_REF_NAME}"; ver="${ver#v}"; case "$ver" in [0-9]*.[0-9]*.[0-9]*) sed -i.bak -E "s/^(project\([A-Za-z0-9_]+ VERSION )[0-9.]+/\1$ver/" CMakeLists.txt; rm -f CMakeLists.txt.bak;; esac
+          ver="${TAGIN:-$GITHUB_REF_NAME}"; ver="${ver#v}"; if echo "$ver" | grep -Eq '^[0-9]+\.[0-9]+\.[0-9]+$'; then sed -i.bak -E "s/^(project\([A-Za-z0-9_]+ VERSION )[0-9.]+/\1$ver/" CMakeLists.txt; rm -f CMakeLists.txt.bak; fi
           cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
           cmake --build build --config Release --parallel 4
       - name: Stage files
         run: |
           mkdir -p stage/vst3
-          v=$(find build -type d -name "*.vst3" | head -1); echo "VST3: $v"
+          v=$(find build -type d -name "*.vst3" | head -1); echo "VST3: $v"; test -n "$v"
           cp -r "$v"/. "stage/vst3/"
-          exe=$(find build -name "*.exe" -path "*Standalone*" | head -1); echo "EXE: $exe"
+          exe=$(find build -name "*.exe" -path "*Standalone*" | head -1); echo "EXE: $exe"; test -n "$exe"
           cp "$exe" "stage/$PRODUCT.exe"
           cp manual/*.pdf "stage/$NAME-manual.pdf"
       - name: Installer (Inno Setup)
         run: |
-          ver="${TAGIN:-$GITHUB_REF_NAME}"; ver="${ver#v}"; case "$ver" in [0-9]*) ;; *) ver=0.0.1;; esac
+          ver="${TAGIN:-$GITHUB_REF_NAME}"; ver="${ver#v}"; echo "$ver" | grep -Eq '^[0-9]+\.[0-9]+\.[0-9]+$' || ver=0.0.1
           iscc="/c/Program Files (x86)/Inno Setup 6/ISCC.exe"
           [ -f "$iscc" ] || { choco install innosetup -y --no-progress; }
           "$iscc" "//DName=$NAME" "//DProduct=$PRODUCT" "//DVersion=$ver" packaging/windows.iss
+          test -s "Output/$NAME-Setup.exe"
       - uses: actions/upload-artifact@v4
         with:
           name: windows
@@ -68,7 +77,8 @@ jobs:
 
   macos:
     needs: manual
-    runs-on: macos-latest
+    if: ${{ inputs.skip_macos != true }}
+    runs-on: macos-15
     steps:
       - uses: actions/checkout@v4
       - uses: actions/download-artifact@v4
@@ -77,17 +87,18 @@ jobs:
           path: "manual"
       - name: Build (universal)
         run: |
-          ver="${TAGIN:-$GITHUB_REF_NAME}"; ver="${ver#v}"; case "$ver" in [0-9]*.[0-9]*.[0-9]*) sed -i.bak -E "s/^(project\([A-Za-z0-9_]+ VERSION )[0-9.]+/\1$ver/" CMakeLists.txt; rm -f CMakeLists.txt.bak;; esac
+          ver="${TAGIN:-$GITHUB_REF_NAME}"; ver="${ver#v}"; if echo "$ver" | grep -Eq '^[0-9]+\.[0-9]+\.[0-9]+$'; then sed -i.bak -E "s/^(project\([A-Za-z0-9_]+ VERSION )[0-9.]+/\1$ver/" CMakeLists.txt; rm -f CMakeLists.txt.bak; fi
           cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_OSX_ARCHITECTURES="arm64;x86_64" -DCMAKE_OSX_DEPLOYMENT_TARGET=11.0
           cmake --build build --config Release --parallel 4
       - name: Installer (.pkg)
         run: |
-          ver="${TAGIN:-$GITHUB_REF_NAME}"; ver="${ver#v}"; case "$ver" in [0-9]*) ;; *) ver=0.0.1;; esac
+          ver="${TAGIN:-$GITHUB_REF_NAME}"; ver="${ver#v}"; echo "$ver" | grep -Eq '^[0-9]+\.[0-9]+\.[0-9]+$' || ver=0.0.1
           id="io.github.speakingcolors.$(echo "$NAME" | tr 'A-Z' 'a-z')"
           v=$(find build -type d -name "*.vst3" | head -1); a=$(find build -type d -name "*.app" | head -1)
-          echo "VST3: $v  APP: $a"
+          echo "VST3: $v  APP: $a"; test -n "$v"; test -n "$a"
           mkdir -p root/vst3 root/app root/doc
           osacompile -o "root/app/Uninstall $PRODUCT.app" packaging/macos-uninstall.applescript
+          cp assets/icon.icns "root/app/Uninstall $PRODUCT.app/Contents/Resources/applet.icns"
           cp -R "$v" root/vst3/; cp -R "$a" root/app/; cp manual/*.pdf "root/doc/$NAME-manual.pdf"
           codesign --force --deep -s - "root/vst3/$(basename "$v")"; codesign --force --deep -s - "root/app/$(basename "$a")"
           pkgbuild --root root/vst3 --identifier "$id.vst3" --version "$ver" --install-location "/Library/Audio/Plug-Ins/VST3" vst3.pkg
@@ -106,7 +117,7 @@ jobs:
       - run: |
           sudo apt-get update
           sudo apt-get install -y libasound2-dev libx11-dev libxinerama-dev libxext-dev libxrandr-dev libxcursor-dev libxcomposite-dev libfreetype-dev libfontconfig1-dev libgl1-mesa-dev
-          ver="${TAGIN:-$GITHUB_REF_NAME}"; ver="${ver#v}"; case "$ver" in [0-9]*.[0-9]*.[0-9]*) sed -i.bak -E "s/^(project\([A-Za-z0-9_]+ VERSION )[0-9.]+/\1$ver/" CMakeLists.txt; rm -f CMakeLists.txt.bak;; esac
+          ver="${TAGIN:-$GITHUB_REF_NAME}"; ver="${ver#v}"; if echo "$ver" | grep -Eq '^[0-9]+\.[0-9]+\.[0-9]+$'; then sed -i.bak -E "s/^(project\([A-Za-z0-9_]+ VERSION )[0-9.]+/\1$ver/" CMakeLists.txt; rm -f CMakeLists.txt.bak; fi
           cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
           cmake --build build --parallel 4
           v=$(find build -type d -name "*.vst3" | head -1); echo "VST3: $v"
@@ -150,7 +161,10 @@ jobs:
           path: "out/*"
 
   package:
+    permissions:
+      contents: write
     needs: [manual, windows, macos, linux-native, linux-flatpak]
+    if: ${{ !cancelled() && needs.manual.result == 'success' && needs.windows.result == 'success' && needs.linux-native.result == 'success' && needs.linux-flatpak.result == 'success' && (needs.macos.result == 'success' || needs.macos.result == 'skipped') }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -160,7 +174,8 @@ jobs:
         run: |
           tag="$GITHUB_REF_NAME"; if [ "$GITHUB_REF_TYPE" != "tag" ]; then tag="${TAGIN:-dev}"; fi
           d="$NAME-$tag"; mkdir -p "$d/windows" "$d/macos" "$d/linux"
-          cp parts/windows/*.exe "$d/windows/"; cp parts/macos/*.pkg "$d/macos/"
+          cp parts/windows/*.exe "$d/windows/"
+          if ls parts/macos/*.pkg >/dev/null 2>&1; then cp parts/macos/*.pkg "$d/macos/"; else rmdir "$d/macos"; echo "macOS was skipped in this run" > "$d/NO-MACOS.txt"; fi
           cp parts/linux-native/* parts/flatpak-*/* "$d/linux/"
           cp parts/manual/*.pdf "$d/"; cp LICENSE "$d/"
           cp packaging/INSTALL.txt "$d/INSTALL.txt"
@@ -177,5 +192,6 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          if gh release view "$TAG" >/dev/null 2>&1; then gh release upload "$TAG" "$ZIP" --clobber; exit 0; fi
-          gh release create "$TAG" "$ZIP" --target "$GITHUB_SHA" --prerelease --title "$PRODUCT $TAG (test build)" --notes "Test build, not tuned by ear yet. The plugin window is the host's plain parameter view plus a Load button for now (the designed window is only in the mockup). One zip: installers for Windows (.exe), macOS (.pkg), Linux (Flatpak extensions and a plain .vst3), the PDF manual and INSTALL.txt. Everything works offline. SHA-256 sums are inside the zip."
+          if gh release view "$TAG" >/dev/null 2>&1; then gh release upload "$TAG" "$ZIP" --clobber
+          else gh release create "$TAG" "$ZIP" --target "$GITHUB_SHA" --prerelease --title "$PRODUCT $TAG (test build)" --notes "Test build."; fi
+          if [ -f release/NOTES.md ]; then gh release edit "$TAG" --notes-file release/NOTES.md; fi

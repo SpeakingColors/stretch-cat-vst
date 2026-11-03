@@ -1,23 +1,59 @@
 # Intro
-Stretch Cat is a sampler with time stretch. Load a sound; change its speed without changing the pitch, or its pitch without changing the speed, and play it from MIDI keys.
+Stretch Cat is a sampler with time stretch and a small FX rack. Load a sound; change its speed without changing the pitch, or its pitch without changing the speed; slice it and play the slices from MIDI keys; draw pitch, speed, cutoff, formant and width over the length of the sound.
 
 # Quick start
-- Press Load and pick a sound file (wav, aiff, flac, ogg or mp3).
-- Play MIDI notes: the sound is repitched from the Root note. The stretched version is rendered when a control changes.
-- Note: this version uses the host's plain parameter view plus a Load button. The designed window (waveform, lanes, slices) is in the mockup in the repository and is not built into the plugin yet.
+- Press Load file and pick a sound (wav, aiff, flac, ogg or mp3). Drag the orange handles on the top waveform to choose the part to use.
+- Play MIDI notes: the sound plays from the Root note. The Play button plays the root note without a keyboard.
+- The stretched version is rendered in the background. While a new version renders, the previous one keeps playing; when it is ready it fades in over 20 ms. Knobs that need a new render (speed, pitch, mode, grain, formant, pitch and speed and formant lanes) therefore take effect a moment later, about 0.1 to 1 s for a short sample and longer for a long one. This is not instant. Cutoff and width lanes, the rack, gain, attack and release act at once.
+- Hover any control for one second to see what it does. Settings can turn the bubbles off.
 
 # Stretch
-- Stretch mode: Beats, Tones, Texture, Re-Pitch, Complex or Formant+. Beats keeps drums sharp, Tones suits sustained sounds, Texture suits noise and pads, Re-Pitch changes speed and pitch together like a record.
-- Speed and pitch linked (Tape): when on, speed and pitch move together.
+- Stretch mode: Beats, Tones, Texture, Re-Pitch, Complex or Formant+. Beats keeps drums sharp, Tones suits sustained sounds, Texture suits noise and pads, Re-Pitch changes speed and pitch together like a record. Formant+ keeps the vowel colour of a voice when you transpose it.
+- Link: Keep pitch (speed changes only the length) or Tape linked (speed and pitch move together).
 - Grain, Transients and Smooth shape how the stretch engine cuts and joins the sound.
 - Speed: 0.25 to 4 times. Transpose: -24 to +24 semitones. Fine: -100 to +100 cents.
 
 # Length and tempo
-- Length: Auto (free) or fit the sound to 1/16, 1/8, 1/4, 1/2 note, 1, 2, 4, 8, 16 or 32 bars (4/4). The stretch is set so the sound fills that length at the tempo; the Speed knob is ignored while a length is set.
-- Fit tempo (BPM): the tempo used for the length fit, 40 to 240. It follows the host tempo.
+- Length: Auto (free) or fit the sound to 1/16, 1/8, 1/4, 1/2 note, 1, 2, 4, 8, 16 or 32 bars (4/4). The Speed knob is ignored while a length is set.
+- Host BPM: the tempo used for the length fit, 40 to 240. It follows the host tempo.
+
+# Slices
+- By transient puts marks on the strongest hits of the selection (up to 8 slices). Even cuts it into 8 equal slices. Drag a mark to move it.
+- The eight pads play the slices. Set Playback to Slices to keys and the MIDI notes from the Root note upward play slice 1, 2, 3 and so on.
+- Normalize scales the source to full level, Reverse plays it backwards, Reset goes back to the loaded sound.
+
+# Over time (lanes)
+- Pitch, Speed, Cutoff, Formant and Width are drawn along the selection. Click to add a point, drag to move it, double-click to remove it, Flat resets the lane.
+- Pitch, Speed and Formant lanes are rendered in the background (see Quick start). Cutoff (100 Hz to 16 kHz, low-pass per voice) and Width (0 to 200 percent of the side signal) are applied live while you play.
+- Width is a plain mid and side gain. It does not add any delay.
+
+# Formant shift
+- Formant moves the vowel colour (the spectral envelope) without moving the pitch: a cepstral envelope warp on 2048 sample frames with 75 percent overlap. It works on the magnitudes and keeps the original phases.
+- Formant+ mode and the Keep switch cancel the formant movement that transposing causes, so a voice keeps its character.
+- Limits, honestly: it does not track the pitch, it smears on high voices (above about 400 Hz fundamental) and on dense mixes, and the result gets artificial beyond plus or minus 12 semitones. It has been measured (a +7 semitone shift moves the spectral centroid by about 1.4 times) but not judged by ear.
 
 # Playback
-- Playback: Loop, One shot or Gate. Attack up to 500 ms, Release up to 2 s. Root note sets the key where the sound plays unchanged. Gain: -24 to +12 dB. Eight notes can play at once.
+- Playback: Loop, One shot, Gate or Slices to keys. Attack up to 500 ms, Release up to 2 s. Root note sets the key where the sound plays unchanged. Gain: -24 to +12 dB. Eight notes can play at once.
+
+# FX rack
+- Filter: low-pass, high-pass, band-pass or notch (state variable filter), cutoff and resonance.
+- EQ: low shelf at 200 Hz, a peak at 1 kHz and a high shelf at 5 kHz, plus or minus 15 dB.
+- Compressor: threshold, ratio, attack and release, with a soft knee of 6 dB and half automatic make-up gain.
+- Formant: see above.
+- Every section can be switched on or off with a short crossfade. When a section is off the sound passes through it unchanged. All values are smoothed over 10 ms, so there is no zipper noise.
+- The level meter shows the left and right peak in dB with a hold line. Click it to reset the hold and the clip mark. The plugin adds no latency (0 samples).
+- Not in the rack yet: Detune and widen, Output section, a limiter (see the roadmap).
+
+# Track effect (design and engine, not yet in the plugin)
+- The Track Effect page is in the mockup (docs/mockup, version 2) and its engine is built and tested in src/core/TrackFx.h. It is not wired into the plugin window yet.
+- It listens to the track in a ring buffer. HOLD freezes the moment and repeats the held part as grains. Time: Start (how far back the held part begins), Length, Speed (how fast the playhead moves, pitch unchanged), Key to (transposes the grains), Loop, HOLD.
+- Grains: Attack and Hold set each grain's fades and flat part, Grain spacing the time between grain starts, Wave spacing an extra shift of each grain's read position.
+- Effects: Pan, Depth (random pan and level spread) and Rand (random timing and position jitter up to 20 ms).
+- Transients: Off, Use regions (your slice marks) or Detect (an onset detector). Hold amount is how much of each region is repeated.
+- Where the meaning of a control is not defined by any standard (Wave spacing, Depth, Rand, Hold amount) the descriptions above are what this plugin does. The latency is exactly 0 samples because it only looks at the past.
+
+# Your presets
+- Save asks before overwriting (overwrite, save as new, cancel). The "..." menu renames, deletes, exports and imports presets. Presets are files in the Studio 87 / StretchCat / presets folder of your user data folder. They hold the knobs and lanes, not the sound file, the selection or the slices.
 
 # Recommendations
 - For loops from a sample pack, set Length to the number of bars and let it fit.

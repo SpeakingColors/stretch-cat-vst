@@ -6,9 +6,11 @@
 AppName={#Product}
 AppVersion={#Version}
 AppPublisher=Studio 87
-AppPublisherURL=https://github.com/SpeakingColors
+AppId={{6E2B91C7-4D1A-4F0B-8A35-5C7D2E41B9F8}
+AppPublisherURL=https://github.com/SpeakingColors/stretch-cat-vst
 DefaultDirName={autopf}\Studio 87\{#Product}
 DefaultGroupName=Studio 87
+SetupIconFile=..\assets\icon.ico
 OutputDir=..\Output
 OutputBaseFilename={#Name}-Setup
 LicenseFile=..\LICENSE
@@ -18,18 +20,25 @@ ArchitecturesInstallIn64BitMode=x64compatible
 Compression=lzma2
 SolidCompression=yes
 UninstallDisplayName={#Product}
-UninstallDisplayIcon={app}\{#Product}.exe
+UninstallDisplayIcon={app}\icon.ico
 CloseApplications=yes
+DisableProgramGroupPage=yes
+
+[Messages]
+SelectDirDesc=Where should the standalone app, the manual and the uninstaller go?
+SelectDirLabel3=The VST3 plugin itself always goes to the common VST3 folder (C:\Program Files\Common Files\VST3). This folder holds the standalone app, the manual, the icon and the uninstaller.
+SelectDirBrowseLabel=To continue, click Next. Choose another folder only if you want them somewhere else.
 
 [Files]
 Source: "..\stage\vst3\*"; DestDir: "{commoncf64}\VST3\{#Product}.vst3"; Flags: recursesubdirs createallsubdirs ignoreversion
 Source: "..\stage\{#Product}.exe"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\stage\{#Name}-manual.pdf"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\assets\icon.ico"; DestDir: "{app}"; Flags: ignoreversion
 
 [Icons]
 Name: "{group}\{#Product}"; Filename: "{app}\{#Product}.exe"
-Name: "{group}\{#Product} manual"; Filename: "{app}\{#Name}-manual.pdf"
-Name: "{group}\Uninstall {#Product}"; Filename: "{uninstallexe}"
+Name: "{group}\{#Product} manual"; Filename: "{app}\{#Name}-manual.pdf"; IconFilename: "{app}\icon.ico"
+Name: "{group}\Uninstall {#Product}"; Filename: "{uninstallexe}"; IconFilename: "{app}\icon.ico"
 
 [UninstallDelete]
 ; the plugin folder is removed by the uninstall log; these catch anything the program wrote next to its files
