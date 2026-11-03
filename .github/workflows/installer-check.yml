@@ -15,7 +15,7 @@ jobs:
       - name: Dummy stage
         run: |
           NAME=$(grep -m1 '^  NAME:' .github/workflows/release.yml | sed 's/.*NAME: *//'); PRODUCT=$(grep -m1 '^  PRODUCT:' .github/workflows/release.yml | sed 's/.*PRODUCT: *//; s/"//g')
-          mkdir -p stage/vst3; echo x > stage/vst3/dummy.txt; echo x > "stage/$PRODUCT.exe"; echo x > "stage/Purrfect Cut.exe"; echo x > "stage/$NAME-manual.pdf"
+          mkdir -p stage/vst3 stage/vst3fx; echo x > stage/vst3/dummy.txt; echo x > stage/vst3fx/dummy.txt; echo x > "stage/$PRODUCT.exe"; echo x > "stage/Purrfect Cut.exe"; echo x > "stage/$NAME-manual.pdf"
           echo "NAME=$NAME" >> "$GITHUB_ENV"; echo "PRODUCT=$PRODUCT" >> "$GITHUB_ENV"
       - name: Compile
         run: |
