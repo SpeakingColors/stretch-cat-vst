@@ -143,7 +143,8 @@ public:
         g.fillAll(Colour(0xff06080a)); g.setColour(kLine); g.drawRect(getLocalBounds().toFloat(), 1.f);
         const float barH = 22.f, yL = 8.f, yR = 8.f + barH + 6.f, yS = yR + barH + 4.f;
         for (int d = -54; d <= 0; d += 6) { const float x = std::round(Xd((float) d)) + 0.5f; g.setColour(kGrid); g.drawVerticalLine((int) x, yL, yS); g.setColour(Colour(0xff3a3f4a)); g.drawVerticalLine((int) x, yS, yS + 4.f);
-            text(g, String(d), { x - 14.f, yS + 5.f, 28.f, 12.f }, font(F::mono, 10.f), d >= -6 ? Colour(0xffffb35c) : Colour(0xff8f8bd6)); }
+            if (d == 0) text(g, "0 dB", { x - 28.f, yS + 5.f, 46.f, 12.f }, font(F::mono, 10.f), Colour(0xffffb35c), juce::Justification::right);
+            else text(g, String(d), { x - 14.f, yS + 5.f, 28.f, 12.f }, font(F::mono, 10.f), d >= -6 ? Colour(0xffffb35c) : Colour(0xff8f8bd6)); }
         auto bar = [&](float y, float val, float hold, bool clip, const char* name)
         {
             g.setColour(Colour(0xff0e1114)); g.fillRect(x0, y, x1 - x0, barH);
@@ -154,7 +155,7 @@ public:
             text(g, name, { 2.f, y, 14.f, barH }, font(F::mono, 11.f), Colour(0xffa9adb8));
         };
         bar(yL, l, hl, clipL, "L"); bar(yR, r, hr, clipR, "R");
-        text(g, "dB", { 1.f, yS + 5.f, 16.f, 12.f }, font(F::mono, 10.f), Colour(0xff8f93a3), juce::Justification::left); (void) h;
+        (void) h;
     }
 private:
     bool clipL = false, clipR = false;
