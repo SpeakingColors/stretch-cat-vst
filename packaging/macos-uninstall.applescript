@@ -10,7 +10,7 @@ if hasPresets then
 	set r to display dialog "Also delete your saved presets?" & return & return & presetsDir buttons {"Keep presets", "Delete presets"} default button "Keep presets" with icon caution
 	if button returned of r is "Delete presets" then set keepPresets to false
 end if
-set cmds to "rm -rf '/Library/Audio/Plug-Ins/VST3/" & productName & ".vst3' '/Applications/" & productName & ".app' '/Library/Application Support/Studio 87/" & productName & "' '/Applications/Uninstall " & productName & ".app'; "
+set cmds to "rm -rf '/Library/Audio/Plug-Ins/VST3/" & productName & ".vst3' '/Library/Audio/Plug-Ins/VST3/" & productName & " Track Effect.vst3' '/Applications/" & productName & ".app' '/Library/Application Support/Studio 87/" & productName & "' '/Applications/Uninstall " & productName & ".app'; "
 set cmds to cmds & "rmdir '/Library/Application Support/Studio 87' 2>/dev/null; for p in $(pkgutil --pkgs | grep '^io.github.speakingcolors.stretchcat'); do pkgutil --forget $p; done"
 do shell script cmds with administrator privileges
 -- standalone app settings (audio device choice only); exact file name unverified, removed if present

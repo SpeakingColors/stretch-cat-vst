@@ -44,12 +44,14 @@ Stretch Cat is a sampler with time stretch and a small FX rack. Load a sound; ch
 - The level meter shows the left and right peak in dB with a hold line. Click it to reset the hold and the clip mark. The plugin adds no latency (0 samples).
 - Not in the rack yet: Detune and widen, Output section, a limiter (see the roadmap).
 
-# Track effect (design and engine, not yet in the plugin)
-- The Track Effect page is in the mockup (docs/mockup, version 2) and its engine is built and tested in src/core/TrackFx.h. It is not wired into the plugin window yet.
+# Track Effect (the second plugin)
+- Stretch Cat Track Effect is installed together with Stretch Cat, as its own VST3 (an effect: put it on a track). Its window is the Track Effect page of the design. Stereo in, stereo out, latency 0 samples; while HOLD is off the sound passes untouched. HOLD is a host parameter, so you can automate it; the change applies at the start of an audio block.
+- It has no preset browser of its own: use your host's presets.
 - It listens to the track in a ring buffer. HOLD freezes the moment and repeats the held part as grains. Time: Start (how far back the held part begins), Length, Speed (how fast the playhead moves, pitch unchanged), Key to (transposes the grains), Loop, HOLD.
 - Grains: Attack and Hold set each grain's fades and flat part, Grain spacing the time between grain starts, Wave spacing an extra shift of each grain's read position.
 - Effects: Pan, Depth (random pan and level spread) and Rand (random timing and position jitter up to 20 ms).
-- Transients: Off, Use regions (your slice marks) or Detect (an onset detector). Hold amount is how much of each region is repeated.
+- Transients: Off, Use regions (the held part cut into 8 equal pieces; this plugin has no slice marks) or Detect (an onset detector). Hold amount is how much of each region is repeated.
+- The top view shows the last 8 seconds of the incoming sound. Drag the orange marker for Start and its right edge for Length. The meter at the bottom is the output level in dB.
 - Where the meaning of a control is not defined by any standard (Wave spacing, Depth, Rand, Hold amount) the descriptions above are what this plugin does. The latency is exactly 0 samples because it only looks at the past.
 
 # Your presets

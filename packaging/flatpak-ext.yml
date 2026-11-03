@@ -17,9 +17,10 @@ modules:
       build-args: [--share=network]     # JUCE is fetched at build time by CMake (not at install or run time)
     build-commands:
       - cmake -S . -B _b -G Ninja -DCMAKE_BUILD_TYPE=Release
-      - cmake --build _b --parallel 2 --target StretchCat_VST3
+      - cmake --build _b --parallel 2 --target StretchCat_VST3 --target StretchCatTrack_VST3
       - mkdir -p /app/extensions/Plugins/StretchCat/vst3
-      - cp -r "$(find _b -type d -name '*.vst3' | head -1)" /app/extensions/Plugins/StretchCat/vst3/
+      - cp -r "$(find _b -type d -name 'Stretch Cat.vst3' | head -1)" /app/extensions/Plugins/StretchCat/vst3/
+      - cp -r "$(find _b -type d -name 'Stretch Cat Track Effect.vst3' | head -1)" /app/extensions/Plugins/StretchCat/vst3/
     sources:
       - type: dir
         path: .

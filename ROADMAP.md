@@ -15,7 +15,7 @@ Sampler and track effect.
 - [x] Saved states carry a version (2). Version 1 states load (tested with a fixture in CI)
 
 ## Next
-- [ ] Track effect plugin: an effect build (audio input, HOLD host parameter, window page from the mockup v2) that uses src/core/TrackFx.h. The engine and tests exist; the plugin target and the editor page do not
+- [x] Track effect plugin (0.3): the Stretch Cat Track Effect VST3 (stereo effect, HOLD and every control as host parameters, window from the mockup's Track Effect page, 8 second history view, dB meter, self tests in CI). Shipped in the same installers as the sampler. Still missing: its own preset browser, draggable region markers (Use regions cuts 8 equal pieces), the Stretch FX tab, sample accurate HOLD (it applies at the start of an audio block); not tried by ear or in a real DAW
 - [ ] Listen on real material and tune the modes, the formant shift and the track effect by ear (nothing in this repo has been judged by ear yet)
 - [ ] Rack sections "Detune and widen" and "Output" from the mockup (the mockup rack scrolls; the plugin omits them so no scrollbar is needed), and a limiter
 - [ ] Glide knob (the mockup has it; the plugin shows Gain in that place)

@@ -39,6 +39,9 @@ jobs:
       - name: Plugin self tests (Linux)
         if: runner.os == 'Linux'
         run: xvfb-run -a build/StretchCatSnapshot_artefacts/Release/StretchCatSnapshot --selftest tests/fixtures/state-v1.xml
+      - name: Track Effect self tests (Linux)
+        if: runner.os == 'Linux'
+        run: xvfb-run -a build/StretchCatTrackSnapshot_artefacts/Release/StretchCatTrackSnapshot --selftest
       - name: Render the real editor (screenshots)
         if: runner.os == 'Linux'
         run: |
@@ -58,6 +61,7 @@ jobs:
           try_shoot shots/about.png 1 about -1 -1
           try_shoot shots/guide.png 1 guide -1 -1
           try_shoot shots/presets.png 1 presets -1 -1
+          shoot shots/track.png 1
           ls -l shots; exit $bad
       - name: Publish screenshots to the snapshots branch
         if: runner.os == 'Linux' && github.ref == 'refs/heads/main'

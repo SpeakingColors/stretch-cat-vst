@@ -6,14 +6,16 @@ Sampler with time stretch, for VST3 and standalone: change the speed without cha
 
 <p align="center"><img src="docs/screenshot.png" alt="Stretch Cat editor" width="900"><br><sub>Screenshot of the real plugin window (rendered offscreen in CI). The design is in docs/mockup.</sub></p>
 
+<p align="center"><img src="docs/screenshot-track.png" alt="Stretch Cat Track Effect editor" width="900"><br><sub>Stretch Cat Track Effect: real plugin window (rendered offscreen).</sub></p>
+
 **Manual:** [PDF, opens in the browser](https://github.com/SpeakingColors/stretch-cat-vst/blob/main/docs/stretch-cat-vst-manual.pdf)
 
 ## Status
-Early test build (0.2). What exists today:
+Early test build (0.3). Two plugins come in one download: **Stretch Cat** (sampler) and **Stretch Cat Track Effect** (effect: listens to your track, HOLD freezes the last moments and repeats them as grains). What exists today:
 - A tested pure C++ engine (`src/core`): the stretch engine from the [mockup](docs/mockup/) (grains aligned by correlation, modes Beats, Tones, Texture, Re-Pitch, Complex, Formant+, speed, pitch and formant lanes over time), transient slicing, an 8 voice sampler with slices, a real formant shift, the filter / EQ / compressor rack, and the track effect engine (`TrackFx.h`: ring buffer, HOLD, grains).
 - Rendering runs on a background thread and is swapped in lock free with a 20 ms crossfade. Changes that need a new render are not instant (see the manual).
 - The JUCE plugin (`src/stretch`) with a real cat-ui window built from the mockup layout: wood cheeks, resizable at a fixed aspect, source and result waveforms, slice marks and pads, over-time lanes, FX rack, dB meter, presets, help on hover.
-- Not in the plugin yet: the track effect build (engine and mockup page exist), the Detune and Output rack sections, Glide, BPM and key analysis. Nothing here has been tried by ear or in a real host yet. See [ROADMAP.md](ROADMAP.md).
+- Not in the plugin yet: the Detune and Output rack sections, Glide, BPM and key analysis. Nothing here has been tried by ear or in a real host yet. See [ROADMAP.md](ROADMAP.md).
 
 Run the engine tests: `sh tests/run.sh` (needs only g++).
 

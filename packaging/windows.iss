@@ -31,6 +31,7 @@ SelectDirBrowseLabel=To continue, click Next. Choose another folder only if you 
 
 [Files]
 Source: "..\stage\vst3\*"; DestDir: "{commoncf64}\VST3\{#Product}.vst3"; Flags: recursesubdirs createallsubdirs ignoreversion
+Source: "..\stage\vst3fx\*"; DestDir: "{commoncf64}\VST3\{#Product} Track Effect.vst3"; Flags: recursesubdirs createallsubdirs ignoreversion
 Source: "..\stage\{#Product}.exe"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\stage\{#Name}-manual.pdf"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\assets\icon.ico"; DestDir: "{app}"; Flags: ignoreversion
@@ -43,6 +44,7 @@ Name: "{group}\Uninstall {#Product}"; Filename: "{uninstallexe}"; IconFilename: 
 [UninstallDelete]
 ; the plugin folder is removed by the uninstall log; these catch anything the program wrote next to its files
 Type: filesandordirs; Name: "{commoncf64}\VST3\{#Product}.vst3"
+Type: filesandordirs; Name: "{commoncf64}\VST3\{#Product} Track Effect.vst3"
 Type: filesandordirs; Name: "{app}"
 ; standalone app settings (audio device choice only, no presets); unverified exact location, removed if present
 Type: filesandordirs; Name: "{userappdata}\{#Product}"

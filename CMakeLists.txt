@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.22)
-project(stretchcat VERSION 0.2.0 LANGUAGES C CXX)
+project(stretchcat VERSION 0.3.0 LANGUAGES C CXX)
 
 include(FetchContent)
 FetchContent_Declare(juce GIT_REPOSITORY https://github.com/juce-framework/JUCE.git
@@ -25,6 +25,20 @@ target_compile_definitions(StretchCat PUBLIC JUCE_WEB_BROWSER=0 JUCE_USE_CURL=0 
 target_link_libraries(StretchCat PRIVATE StretchCatAssets cat_ui juce::juce_audio_utils juce::juce_audio_formats juce::juce_dsp
     PUBLIC juce::juce_recommended_config_flags juce::juce_recommended_warning_flags)
 
+# Stretch Cat Track Effect: the effect plugin (hold and repeat), built from the same core as the sampler.
+juce_add_plugin(StretchCatTrack
+    COMPANY_NAME "Studio 87"
+    PLUGIN_MANUFACTURER_CODE Spco
+    PLUGIN_CODE Sttr
+    FORMATS VST3
+    PRODUCT_NAME "Stretch Cat Track Effect"
+    IS_SYNTH FALSE NEEDS_MIDI_INPUT FALSE)
+target_sources(StretchCatTrack PRIVATE src/PluginsTrack.cpp src/trackfx/TrackFxProcessor.cpp src/trackfx/TrackFxEditor.cpp)
+target_include_directories(StretchCatTrack PRIVATE src)
+target_compile_definitions(StretchCatTrack PUBLIC JUCE_WEB_BROWSER=0 JUCE_USE_CURL=0 JUCE_VST3_CAN_REPLACE_VST2=0)
+target_link_libraries(StretchCatTrack PRIVATE StretchCatAssets cat_ui juce::juce_audio_utils juce::juce_audio_formats juce::juce_dsp
+    PUBLIC juce::juce_recommended_config_flags juce::juce_recommended_warning_flags)
+
 # Offscreen window renderer and self tests (CI only, not part of releases).
 option(SC_BUILD_SNAPSHOT "Build the editor snapshot tool" OFF)
 if(SC_BUILD_SNAPSHOT)
@@ -34,4 +48,9 @@ if(SC_BUILD_SNAPSHOT)
     target_compile_definitions(StretchCatSnapshot PRIVATE JUCE_WEB_BROWSER=0 JUCE_USE_CURL=0 JUCE_USE_MP3AUDIOFORMAT=1
         JUCE_STANDALONE_APPLICATION=1 JUCE_MODAL_LOOPS_PERMITTED=1 JucePlugin_Name="StretchCat" JucePlugin_VersionString="0.2.0")
     target_link_libraries(StretchCatSnapshot PRIVATE StretchCatAssets cat_ui juce::juce_audio_utils juce::juce_audio_formats juce::juce_dsp juce::juce_recommended_config_flags)
+    juce_add_console_app(StretchCatTrackSnapshot PRODUCT_NAME "StretchCatTrackSnapshot")
+    target_sources(StretchCatTrackSnapshot PRIVATE tools/snapshot_track.cpp src/trackfx/TrackFxProcessor.cpp src/trackfx/TrackFxEditor.cpp)
+    target_include_directories(StretchCatTrackSnapshot PRIVATE src)
+    target_compile_definitions(StretchCatTrackSnapshot PRIVATE JUCE_WEB_BROWSER=0 JUCE_USE_CURL=0 JUCE_STANDALONE_APPLICATION=1 JUCE_MODAL_LOOPS_PERMITTED=1 JucePlugin_Name="StretchCatTrack" JucePlugin_VersionString="0.3.0")
+    target_link_libraries(StretchCatTrackSnapshot PRIVATE StretchCatAssets cat_ui juce::juce_audio_utils juce::juce_audio_formats juce::juce_dsp juce::juce_recommended_config_flags)
 endif()

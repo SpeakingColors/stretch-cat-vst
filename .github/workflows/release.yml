@@ -58,8 +58,10 @@ jobs:
       - name: Stage files
         run: |
           mkdir -p stage/vst3
-          v=$(find build -type d -name "*.vst3" | head -1); echo "VST3: $v"; test -n "$v"
+          v=$(find build -type d -name "$PRODUCT.vst3" | head -1); echo "VST3: $v"; test -n "$v"
           cp -r "$v"/. "stage/vst3/"
+          mkdir -p stage/vst3fx; v2=$(find build -type d -name "$PRODUCT Track Effect.vst3" | head -1); echo "VST3 FX: $v2"; test -n "$v2"
+          cp -r "$v2"/. "stage/vst3fx/"
           exe=$(find build -name "*.exe" -path "*Standalone*" | head -1); echo "EXE: $exe"; test -n "$exe"
           cp "$exe" "stage/$PRODUCT.exe"
           cp manual/*.pdf "stage/$NAME-manual.pdf"
@@ -94,13 +96,13 @@ jobs:
         run: |
           ver="${TAGIN:-$GITHUB_REF_NAME}"; ver="${ver#v}"; echo "$ver" | grep -Eq '^[0-9]+\.[0-9]+\.[0-9]+$' || ver=0.0.1
           id="io.github.speakingcolors.$(echo "$NAME" | tr 'A-Z' 'a-z')"
-          v=$(find build -type d -name "*.vst3" | head -1); a=$(find build -type d -name "*.app" | head -1)
-          echo "VST3: $v  APP: $a"; test -n "$v"; test -n "$a"
+          v=$(find build -type d -name "$PRODUCT.vst3" | head -1); v2=$(find build -type d -name "$PRODUCT Track Effect.vst3" | head -1); a=$(find build -type d -name "*.app" | head -1)
+          echo "VST3: $v  VST3 FX: $v2  APP: $a"; test -n "$v"; test -n "$v2"; test -n "$a"
           mkdir -p root/vst3 root/app root/doc
           osacompile -o "root/app/Uninstall $PRODUCT.app" packaging/macos-uninstall.applescript
           cp assets/icon.icns "root/app/Uninstall $PRODUCT.app/Contents/Resources/applet.icns"
-          cp -R "$v" root/vst3/; cp -R "$a" root/app/; cp manual/*.pdf "root/doc/$NAME-manual.pdf"
-          codesign --force --deep -s - "root/vst3/$(basename "$v")"; codesign --force --deep -s - "root/app/$(basename "$a")"
+          cp -R "$v" root/vst3/; cp -R "$v2" root/vst3/; cp -R "$a" root/app/; cp manual/*.pdf "root/doc/$NAME-manual.pdf"
+          codesign --force --deep -s - "root/vst3/$(basename "$v")"; codesign --force --deep -s - "root/vst3/$(basename "$v2")"; codesign --force --deep -s - "root/app/$(basename "$a")"
           pkgbuild --root root/vst3 --identifier "$id.vst3" --version "$ver" --install-location "/Library/Audio/Plug-Ins/VST3" vst3.pkg
           pkgbuild --root root/app --identifier "$id.app" --version "$ver" --install-location "/Applications" app.pkg
           pkgbuild --root root/doc --identifier "$id.doc" --version "$ver" --install-location "/Library/Application Support/Studio 87/$PRODUCT" doc.pkg
@@ -120,8 +122,8 @@ jobs:
           ver="${TAGIN:-$GITHUB_REF_NAME}"; ver="${ver#v}"; if echo "$ver" | grep -Eq '^[0-9]+\.[0-9]+\.[0-9]+$'; then sed -i.bak -E "s/^(project\([A-Za-z0-9_]+ VERSION )[0-9.]+/\1$ver/" CMakeLists.txt; rm -f CMakeLists.txt.bak; fi
           cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
           cmake --build build --parallel 4
-          v=$(find build -type d -name "*.vst3" | head -1); echo "VST3: $v"
-          mkdir -p out && tar -C "$(dirname "$v")" -czf "out/$NAME-linux-vst3.tar.gz" "$(basename "$v")"
+          v=$(find build -type d -name "$PRODUCT.vst3" | head -1); v2=$(find build -type d -name "$PRODUCT Track Effect.vst3" | head -1); echo "VST3: $v  FX: $v2"; test -n "$v"; test -n "$v2"
+          mkdir -p out stagefx && cp -r "$v" "$v2" stagefx/ && tar -C stagefx -czf "out/$NAME-linux-vst3.tar.gz" "$(basename "$v")" "$(basename "$v2")"
       - uses: actions/upload-artifact@v4
         with:
           name: linux-native

@@ -1,4 +1,5 @@
 Stretch Cat install, remove and use (works fully offline)
+Two plugins are installed together: Stretch Cat (sampler instrument) and Stretch Cat Track Effect (effect: hold and repeat).
 =====================================================
 
 Windows
@@ -25,7 +26,7 @@ Linux, DAW installed as a Flatpak (for example Bitwig, Reaper or Ardour from Fla
 
 Linux, DAW installed natively
   Extract linux/StretchCat-linux-vst3.tar.gz into ~/.vst3  (create the folder if needed), then rescan plugins.
-  Remove: delete the "Stretch Cat.vst3" folder from ~/.vst3.
+  Remove: delete the "Stretch Cat.vst3" and "Stretch Cat Track Effect.vst3" folders from ~/.vst3.
 
 Your saved presets (kept on remove unless you choose to delete them)
   Windows : %APPDATA%\Studio 87\StretchCat\presets
