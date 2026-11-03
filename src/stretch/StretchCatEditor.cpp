@@ -28,7 +28,7 @@ public:
         g.setColour(Colour(0x80000000)); g.fillRect(0.f, 0.f, a, h); g.fillRect(b, 0.f, w - b, h);
         const auto& m = p.slices().marks; std::vector<double> cuts { p.selA() }; cuts.insert(cuts.end(), m.begin(), m.end()); cuts.push_back(p.selB());
         for (double c : m) { g.setColour(kYellow); g.fillRect((float) c * w - 1.f, 0.f, 2.f, h); }
-        for (size_t i = 0; i + 1 < cuts.size(); ++i) text(g, String((int) i + 1), { (float) cuts[i] * w + 4.f, 3.f, 20.f, 14.f }, font(F::mono, 11.f), kYellow, juce::Justification::left);
+        for (size_t i = 0; i + 1 < cuts.size(); ++i) text(g, String((int) i + 1), { (float) cuts[i] * w + 11.f, 3.f, 20.f, 14.f }, font(F::mono, 11.f), kYellow, juce::Justification::left);
         g.setColour(kOrange); g.fillRect(a - 2.f, 0.f, 4.f, h); g.fillRect(b - 2.f, 0.f, 4.f, h); g.fillRect(a - 2.f, 0.f, 9.f, 8.f); g.fillRect(b - 7.f, 0.f, 9.f, 8.f);
         const float pp = p.playPosition(); if (pp >= 0.f && p.sourceSamples() > 0) { const double s = stretchcat::outToSource(p.resultMap(), (double) pp * (double) p.resultLength()) / (double) p.sourceSamples(); g.setColour(juce::Colours::white); g.fillRect((float) s * w - 1.f, 0.f, 2.f, h); }
         text(g, "drag the orange handles and the yellow marks", { w - 304.f, h - 16.f, 300.f, 14.f }, font(F::mono, 10.f), Colour(0xff8f93a3), juce::Justification::right);
@@ -138,19 +138,23 @@ public:
     void mouseDown(const juce::MouseEvent&) override { resetClip(); }
     void paint(Graphics& g) override
     {
-        const float w = (float) getWidth(), h = (float) getHeight(), top = 12.f, bot = h - 18.f; auto Yd = [&](float d) { return top + (3.f - juce::jlimit(-54.f, 3.f, d)) / 57.f * (bot - top); };
+        // Horizontal meter: L bar above R bar, dB scale along the bottom. Colours sit at fixed dB positions: blue up to -12, purple -12 to 0, pink above 0.
+        const float w = (float) getWidth(), h = (float) getHeight(), x0 = 18.f, x1 = w - 8.f; auto Xd = [&](float d) { return x0 + (juce::jlimit(-54.f, 3.f, d) + 54.f) / 57.f * (x1 - x0); };
         g.fillAll(Colour(0xff06080a)); g.setColour(kLine); g.drawRect(getLocalBounds().toFloat(), 1.f);
-        for (int d = 0; d >= -54; d -= 6) { const float y = std::round(Yd((float) d)) + 0.5f; g.setColour(kGrid); g.drawHorizontalLine((int) y, 0.f, w); text(g, String(d), { w / 2 - 20.f, y - 7.f, 40.f, 14.f }, font(F::mono, 10.f), d >= -6 ? Colour(0xffffb35c) : Colour(0xff8f8bd6)); }
-        const float bw = std::max(6.f, w / 2 - 14.f);
-        auto bar = [&](float x, float val, float hold, bool clip)
+        const float barH = 22.f, yL = 8.f, yR = 8.f + barH + 6.f, yS = yR + barH + 4.f;
+        for (int d = -54; d <= 0; d += 6) { const float x = std::round(Xd((float) d)) + 0.5f; g.setColour(kGrid); g.drawVerticalLine((int) x, yL, yS); g.setColour(Colour(0xff3a3f4a)); g.drawVerticalLine((int) x, yS, yS + 4.f);
+            text(g, String(d), { x - 14.f, yS + 5.f, 28.f, 12.f }, font(F::mono, 10.f), d >= -6 ? Colour(0xffffb35c) : Colour(0xff8f8bd6)); }
+        auto bar = [&](float y, float val, float hold, bool clip, const char* name)
         {
-            const float y = Yd(val); const float zones[4] = { Yd(3.f), Yd(0.f), Yd(-12.f), bot };       // fixed positions, never stretched with the level
-            auto seg = [&](float y0, float y1, Colour c) { const float a = std::max(y0, y), b2 = y1; if (b2 > a) { g.setColour(c); g.fillRect(x, a, bw, b2 - a); } };
-            seg(zones[0], zones[1], kPink); seg(zones[1], zones[2], Colour(0xffa43dff)); seg(zones[2], zones[3], Colour(0xff6cc9f5));
-            g.setColour(clip ? kPink : juce::Colours::white); g.fillRect(x, Yd(hold), bw, 2.f); if (clip) g.fillRect(x, 0.f, bw, 4.f);
+            g.setColour(Colour(0xff0e1114)); g.fillRect(x0, y, x1 - x0, barH);
+            const float xv = Xd(val), z0 = Xd(-54.f), z1 = Xd(-12.f), z2 = Xd(0.f), z3 = Xd(3.f);
+            auto seg = [&](float a, float b, Colour c) { const float e = std::min(b, xv); if (e > a) { g.setColour(c); g.fillRect(a, y, e - a, barH); } };
+            seg(z0, z1, Colour(0xff6cc9f5)); seg(z1, z2, Colour(0xffa43dff)); seg(z2, z3, kPink);
+            g.setColour(clip ? kPink : juce::Colours::white); g.fillRect(Xd(hold) - 1.f, y, 2.f, barH); if (clip) g.fillRect(x1 - 5.f, y, 5.f, barH);
+            text(g, name, { 2.f, y, 14.f, barH }, font(F::mono, 11.f), Colour(0xffa9adb8));
         };
-        bar(3.f, l, hl, clipL); bar(w - 3.f - bw, r, hr, clipR);
-        text(g, "L", { 3.f, bot + 3.f, bw, 14.f }, font(F::mono, 10.f), Colour(0xff8f93a3)); text(g, "R", { w - 3.f - bw, bot + 3.f, bw, 14.f }, font(F::mono, 10.f), Colour(0xff8f93a3));
+        bar(yL, l, hl, clipL, "L"); bar(yR, r, hr, clipR, "R");
+        text(g, "dB", { x1 - 30.f, yS + 5.f, 30.f, 12.f }, font(F::mono, 10.f), Colour(0xff8f93a3), juce::Justification::right); (void) h;
     }
 private:
     bool clipL = false, clipR = false;
@@ -170,6 +174,7 @@ public:
     }
     void mouseDoubleClick(const juce::MouseEvent& e) override { const auto p = e.getEventRelativeTo(this).getPosition(); if (p.x < layout::Cheek * scale() || p.x > getWidth() - layout::Cheek * scale()) setSize(kBaseW, kBaseH); }
     void openDialogForTesting(const juce::String& n) { if (n == "settings") showSettings(); else if (n == "about") showAbout(); else if (n == "guide") showGuide(); else if (n == "presets") showPresetMenu(); else if (n == "save") savePresetDialog(); }
+    void tickForTesting() { tick(); tick(); }
     void selectLaneForTesting(int i) { if (i >= 0 && i < (int) laneTabs.size()) { laneTabs[(size_t) i]->setToggleState(true, juce::sendNotification); laneTabs[(size_t) i]->onClick(); } }
 
 private:
@@ -188,7 +193,7 @@ private:
     std::unique_ptr<juce::FileChooser> chooser; juce::uint32 lastTick = 0;
 
     float scale() const { return (float) getWidth() / (float) kBaseW; }
-    void place(juce::Component& c, const layout::Item& it, const juce::String& tip = {}) { c.setBounds(sc::irc(it.r)); if (auto* t = dynamic_cast<juce::SettableTooltipClient*>(&c)) t->setTooltip(tip.isEmpty() ? juce::String(it.tip) : tip); }
+    void place(juce::Component& c, const layout::Item& it, const juce::String& tip = {}) { c.setBounds(sc::irc(it.r)); if (auto* t = dynamic_cast<juce::SettableTooltipClient*>(&c)) t->setTooltip(tip.isEmpty() ? sc::u8(it.tip) : tip); }
     sc::Knob& addKnob(const char* key, const char* id, std::function<juce::String(double)> fmt, const char* label = nullptr, bool bipolar = false, double mid = 0);
     sc::Btn& addToggle(const char* key, const char* id);
     sc::Sel& addChoice(const char* key, const char* id);
@@ -204,20 +209,20 @@ using namespace sc;
 
 sc::Knob& StretchCatEditor::addKnob(const char* key, const char* id, std::function<String(double)> fmt, const char* label, bool bipolar, double mid)
 {
-    auto k = std::make_unique<sc::Knob>(); const auto& it = layout::find(key); k->it = it; k->label = label ? String(label) : String(it.text); k->fmt = std::move(fmt); k->bipolar = bipolar; k->midValue = mid;
-    content.addAndMakeVisible(*k); k->setBounds(irc(it.r)); k->setTooltip(String(it.tip).isEmpty() ? String(k->label) : String(it.tip));
+    auto k = std::make_unique<sc::Knob>(); const auto& it = layout::find(key); k->it = it; k->label = label ? String(label) : u8(it.text); k->fmt = std::move(fmt); k->bipolar = bipolar; k->midValue = mid;
+    content.addAndMakeVisible(*k); k->setBounds(irc(it.r)); k->setTooltip(u8(it.tip).isEmpty() ? String(k->label) : u8(it.tip));
     k->setDoubleClickReturnValue(true, proc.apvts.getParameter(id)->convertFrom0to1(proc.apvts.getParameter(id)->getDefaultValue()));
     sliderAtt.push_back(std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(proc.apvts, id, *k)); knobs.push_back(std::move(k)); return *knobs.back();
 }
 sc::Btn& StretchCatEditor::addToggle(const char* key, const char* id)
 {
-    auto b = std::make_unique<sc::Btn>(layout::find(key).text); const auto& it = layout::find(key); content.addAndMakeVisible(*b); b->setClickingTogglesState(true); b->setBounds(irc(it.r)); b->setTooltip(it.tip);
+    auto b = std::make_unique<sc::Btn>(u8(layout::find(key).text)); const auto& it = layout::find(key); content.addAndMakeVisible(*b); b->setClickingTogglesState(true); b->setBounds(irc(it.r)); b->setTooltip(u8(it.tip));
     buttonAtt.push_back(std::make_unique<juce::AudioProcessorValueTreeState::ButtonAttachment>(proc.apvts, id, *b)); toggles.push_back(std::move(b)); return *toggles.back();
 }
 sc::Sel& StretchCatEditor::addChoice(const char* key, const char* id)
 {
     auto c = std::make_unique<sc::Sel>(); const auto& it = layout::find(key); content.addAndMakeVisible(*c); auto* ch = dynamic_cast<juce::AudioParameterChoice*>(proc.apvts.getParameter(id)); c->addItemList(ch->choices, 1);
-    c->setBounds(irc(it.r)); c->setTooltip(it.tip); comboAtt.push_back(std::make_unique<juce::AudioProcessorValueTreeState::ComboBoxAttachment>(proc.apvts, id, *c)); combos.push_back(std::move(c)); return *combos.back();
+    c->setBounds(irc(it.r)); c->setTooltip(u8(it.tip)); comboAtt.push_back(std::make_unique<juce::AudioProcessorValueTreeState::ComboBoxAttachment>(proc.apvts, id, *c)); combos.push_back(std::move(c)); return *combos.back();
 }
 
 StretchCatEditor::StretchCatEditor(StretchCatProcessor& pr) : AudioProcessorEditor(pr), proc(pr), gate(*this)
@@ -235,12 +240,12 @@ StretchCatEditor::StretchCatEditor(StretchCatProcessor& pr) : AudioProcessorEdit
     // views
     content.addAndMakeVisible(src); content.addAndMakeVisible(res); content.addAndMakeVisible(lane); content.addAndMakeVisible(meter);
     src.setBounds(irc(layout::srcBox)); res.setBounds(irc(layout::resBox)); lane.setBounds(irc(layout::laneBox)); meter.setBounds(irc(layout::cvM));
-    src.setTooltip(layout::tipSrc); res.setTooltip(layout::tipRes); lane.setTooltip(layout::tipLane); meter.setTooltip("Output level in dB: left and right peak, with a hold line. Click to reset the hold and the clip marks.");
+    src.setTooltip(u8(layout::tipSrc)); res.setTooltip(u8(layout::tipRes)); lane.setTooltip(u8(layout::tipLane)); meter.setTooltip("Output level in dB: left and right peak, with a hold line. Click to reset the hold and the clip marks.");
     // slice row
     for (int i = 0; i < 8; ++i)
     {
-        const auto& it = layout::find((String("sliceRow.C3\xc2\xb7") + String(i + 1)).toRawUTF8()); auto b = std::make_unique<sc::Btn>(it.text); b->pad = true; content.addAndMakeVisible(*b); b->setBounds(irc(it.r));
-        b->setTooltip("Slice " + String(i + 1) + ": press to play it. In Slices to keys mode the MIDI note root + " + String(i) + " plays it too. " + String(it.tip));
+        const auto& it = layout::find((String::fromUTF8("sliceRow.C3\xc2\xb7") + String(i + 1)).toRawUTF8()); auto b = std::make_unique<sc::Btn>(u8(it.text)); b->pad = true; content.addAndMakeVisible(*b); b->setBounds(irc(it.r));
+        b->setTooltip("Slice " + String(i + 1) + ": press to play it. In Slices to keys mode the MIDI note root + " + String(i) + " plays it too. " + u8(it.tip));
         auto* bp = b.get(); bp->onStateChange = [this, i, bp] { const bool d = bp->isDown(); if (d != (bool) bp->getProperties().getWithDefault("was", false)) { bp->getProperties().set("was", d); proc.triggerSlice(i, d); } };
         pads.push_back(std::move(b));
     }
@@ -285,6 +290,7 @@ StretchCatEditor::StretchCatEditor(StretchCatProcessor& pr) : AudioProcessorEdit
     setConstrainer(&constrainer); setResizable(true, false); addAndMakeVisible(border); border.setBorderThickness(juce::BorderSize<int>(6)); setSize(kBaseW, kBaseH);
     tooltip.setMillisecondsBeforeTipAppears(proc.bubbles() ? 1000 : 100000000);
     gate.onFrame = [this] { tick(); }; gate.start(proc.eco() ? 12 : 30);
+    tick();                                  // fill the drop downs and pads at once, not only after the first frame
     if (const char* f = std::getenv("CAT_TOUR_LOAD"))   // documentation tool for the screenshots, never set for users
         juce::Timer::callAfterDelay(1500, [sp = juce::Component::SafePointer<StretchCatEditor>(this), path = String(f)] { if (sp != nullptr) sp->proc.loadFile(juce::File(path)); });
 }
@@ -325,32 +331,40 @@ void StretchCatEditor::paintContent(juce::Graphics& g)
     box(rig, kPanel2); box(ctlBox, kPanel2); box(rackcol, kPanel2);
     g.setColour(kLine); g.drawHorizontalLine((int) (header.y + header.h), header.x, header.x + header.w); g.drawHorizontalLine((int) foot.y - 1, foot.x, foot.x + foot.w);
     catui::drawCatHead(g, rc(brandSvg), kInk, kPanel);
-    text(g, "STRETCH CAT", rc(brandName), font(F::bold, 30.f), kInk, juce::Justification::centredLeft, 3.f);
+    text(g, "STRETCH CAT SAMPLER", { layout::brandName.x, layout::brandName.y, 420.f, layout::brandName.h }, font(F::bold, 30.f), kInk, juce::Justification::centredLeft, 3.f);
     text(g, "STUDIO 87", rc(brandSub), font(F::semi, 12.f), kYellow, juce::Justification::centredLeft, 3.6f);
-    // mode tabs: the sampler is this plugin; Stretch FX (the effect) is on the roadmap
-    for (int i = 0; i < 2; ++i)
+    // mode tabs: Stretch Sampler is this plugin; the two effects are on the roadmap
+    const char* tabName[3] = { "STRETCH SAMPLER", "STRETCH FX", "TRACK EFFECT" };
+    const char* tabSub[3] = { "instrument, VST3 and Standalone", "effect: planned, see the roadmap", "effect: engine built, plugin planned" };
+    for (int i = 0; i < 3; ++i)
     {
         const bool on = i == 0; g.setColour(on ? kPressed : Colour(0xff17181c)); g.fillRoundedRectangle(rc(modeTab[i]), 3.f); g.setColour(on ? kPurple : kLine); g.drawRoundedRectangle(rc(modeTab[i]).reduced(0.5f), 3.f, 1.f);
-        auto r = rc(modeTab[i]); text(g, i == 0 ? "STRETCH SAMPLER" : "STRETCH FX", r.withTrimmedBottom(r.getHeight() * 0.38f), font(F::bold, 17.f), on ? kLav : kDim.withAlpha(0.6f), juce::Justification::centred, 2.8f);
-        text(g, i == 0 ? "instrument, VST3 and Standalone" : "effect: planned, see the roadmap", r.withTrimmedTop(r.getHeight() * 0.6f), font(F::label, 11.f), kDim, juce::Justification::centred, 1.2f);
+        auto r = rc(modeTab[i]); text(g, tabName[i], r.withTrimmedBottom(r.getHeight() * 0.38f), font(F::bold, 17.f), on ? kLav : kDim.withAlpha(0.6f), juce::Justification::centred, 2.8f);
+        text(g, tabSub[i], r.withTrimmedTop(r.getHeight() * 0.6f), font(F::label, 11.f), kDim, juce::Justification::centred, 1.2f);
     }
+    // rig row: the sample's name in the place of the mockup's source list (the plugin has no test signals)
+    text(g, "SAMPLE", { 28.f, 164.f, 70.f, 32.f }, font(F::label, 12.f), kDim, juce::Justification::centredLeft, 2.0f);
+    text(g, "SOURCE", { 104.f, 148.f, 100.f, 13.f }, font(F::label, 11.f), kDim, juce::Justification::centredLeft, 2.0f);
+    g.setColour(Colour(0xff0a0a0c)); g.fillRoundedRectangle(104.f, 164.f, 188.f, 32.f, 3.f); g.setColour(kLine); g.drawRoundedRectangle(104.5f, 164.5f, 187.f, 31.f, 3.f, 1.f);
+    text(g, proc.hasSource() ? proc.sourceName() : String("(none)"), { 112.f, 164.f, 172.f, 32.f }, font(F::label, 15.f), kInk, juce::Justification::centredLeft);
     for (const auto& it : items)
     {
         const String kind(it.kind), key(it.key);
         if (kind == "cap" && key != "rackcol.rackInfo" && key != "rackcol.latInfo")
-            text(g, String(it.text).toUpperCase(), rc(it.r), font(F::label, 11.f), kDim, juce::Justification::centredLeft, 2.0f);
+            text(g, u8(it.text).toUpperCase(), rc(it.r), font(F::label, 11.f), kDim, juce::Justification::centredLeft, 2.0f);
         else if (kind == "head")
         {
-            const auto& on = find((String(it.text) + ".On").toRawUTF8()); text(g, String(it.text).toUpperCase(), { it.r.x, it.r.y, on.r.x - it.r.x - 6.f, it.r.h }, font(F::label, 11.f), kHead, juce::Justification::centredLeft, 2.2f);
+            const String sec = key.upToFirstOccurrenceOf(".", false, false);          // the head's own text is all its children run together
+            const auto& on = find((sec + ".On").toRawUTF8()); text(g, sec.toUpperCase(), { it.r.x, on.r.y, on.r.x - it.r.x - 6.f, on.r.h }, font(F::label, 11.f), kHead, juce::Justification::centredLeft, 2.2f);
         }
     }
     for (int i = 0; i < 4; ++i) { g.setColour(kLine); g.drawHorizontalLine((int) rackSec[i].y, rackSec[i].x, rackSec[i].x + rackSec[i].w); }
     text(g, proc.rendering() ? "RENDERING..." : (proc.renderMs() > 0 ? "RENDER " + String(juce::roundToInt(proc.renderMs())) + " MS" : String()), rc(find("rackcol.rackInfo").r), font(F::label, 11.f), kDim, juce::Justification::centredRight, 2.0f);
     text(g, "LATENCY 0 MS", rc(find("rackcol.latInfo").r), font(F::label, 11.f), kDim, juce::Justification::centredRight, 2.0f);
-    const String ana = proc.hasSource() ? proc.sourceName() + "   \xc2\xb7   " + String(proc.sourceSeconds(), 1) + " s" : "No sound loaded. Press Load file.";
+    const String ana = proc.hasSource() ? proc.sourceName() + String::fromUTF8("   \xc2\xb7   ") + String(proc.sourceSeconds(), 1) + " s" : "No sound loaded. Press Load file.";
     text(g, ana, rc(anaInfo), font(F::label, 12.f), kDim, juce::Justification::centredRight, 0.5f);
     text(g, lenText(), rc(find("lenInfo").r), font(F::mono, 12.f), kYellow, juce::Justification::centredLeft);
-    text(g, "STUDIO 87  \xc2\xb7  STRETCH CAT", rc(footL), font(F::label, 12.f), kDim, juce::Justification::centredLeft, 1.9f);
+    text(g, String::fromUTF8("STUDIO 87  \xc2\xb7  STRETCH CAT"), rc(footL), font(F::label, 12.f), kDim, juce::Justification::centredLeft, 1.9f);
     text(g, "WINDOW " + String(juce::roundToInt(100.f * scale())) + " %", rc(sizeT), font(F::label, 12.f), kDim, juce::Justification::centredRight, 1.9f);
 }
 
@@ -403,5 +417,5 @@ juce::AudioProcessorEditor* StretchCatProcessor::createEditor() { return new Str
 // Test hooks for tools/snapshot.cpp (screenshots of dialogs and lane tabs); not used by the plugin.
 void stretchCatEditorTestHook(juce::AudioProcessorEditor* e, const juce::String& dialog, int lane)
 {
-    if (auto* ed = dynamic_cast<StretchCatEditor*>(e)) { if (lane >= 0) ed->selectLaneForTesting(lane); if (dialog != "none") ed->openDialogForTesting(dialog); }
+    if (auto* ed = dynamic_cast<StretchCatEditor*>(e)) { ed->tickForTesting(); if (lane >= 0) ed->selectLaneForTesting(lane); if (dialog != "none") ed->openDialogForTesting(dialog); }
 }

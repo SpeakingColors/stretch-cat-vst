@@ -23,13 +23,19 @@ inline juce::Font font(F k, float px)
     const auto& tf = k == F::label ? med : k == F::semi ? semi : k == F::bold ? bold : mono;
     return juce::Font(juce::FontOptions(tf).withHeight(px));
 }
+// Strings from Layout.h and literals with non-ASCII characters are UTF-8: always decode them with u8().
+inline String u8(const char* s) { return String::fromUTF8(s); }
 inline Rectangle<float> rc(const layout::Rc& r) { return { r.x, r.y, r.w, r.h }; }
 inline Rectangle<int> irc(const layout::Rc& r) { return { juce::roundToInt(r.x), juce::roundToInt(r.y), juce::roundToInt(r.w), juce::roundToInt(r.h) }; }
 // text with letter spacing in px
 inline void text(Graphics& g, const String& s, Rectangle<float> r, juce::Font f, Colour c, juce::Justification j = juce::Justification::centred, float spacing = 0.f)
 {
     if (spacing != 0.f) f = f.withExtraKerningFactor(spacing / std::max(1.f, f.getHeight()));
-    g.setFont(f); g.setColour(c); g.drawText(s, r.expanded(40.f, 0.f), j, false);
+    // Widen the box on the side the text does not grow from, so it never gets squeezed or shifted (left text grows right, right text grows left).
+    if (j.testFlags(juce::Justification::left)) r.setWidth(r.getWidth() + 80.f);
+    else if (j.testFlags(juce::Justification::right)) r = r.withLeft(r.getX() - 80.f);
+    else r = r.expanded(40.f, 0.f);
+    g.setFont(f); g.setColour(c); g.drawText(s, r, j, false);
 }
 inline String noteName(int m) { static const char* n[] = { "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B" }; return String(n[((m % 12) + 12) % 12]) + String(m / 12 - 2); }
 inline String fmtHz(double v) { return v >= 1000 ? String(v / 1000.0, v >= 10000 ? 1 : 2).trimCharactersAtEnd("0").trimCharactersAtEnd(".") + " kHz" : String(juce::roundToInt(v)) + " Hz"; }

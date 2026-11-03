@@ -98,7 +98,7 @@
  "footL": [
   44,
   914,
-  273.23,
+  428.69,
   14
  ],
  "cvM": [
@@ -108,9 +108,9 @@
   94
  ],
  "rackInfo": [
-  1258.23,
+  1257.94,
   222,
-  88.77,
+  89.06,
   14
  ],
  "latInfo": [
@@ -343,7 +343,7 @@
    "r": [
     44,
     77,
-    653,
+    433.33,
     54
    ],
    "tip": "Stretch Cat Sampler: a sampler instrument. Warp a loop, slice it, play slices from your keyboard, transpose over time.",
@@ -364,12 +364,35 @@
    "cls": "",
    "text": "Stretch FXeffect, VST3 and Standalone",
    "r": [
-    703,
+    483.33,
     77,
-    653,
+    433.34,
     54
    ],
    "tip": "Stretch Cat FX: an effect. It grabs the last bars of your DAW audio and lets you stretch it, bend its pitch and perform tape stops, freezes and risers.",
+   "style": {
+    "fs": 17,
+    "fw": "600",
+    "ls": 2.72,
+    "tt": "uppercase",
+    "col": "rgb(244, 245, 247)",
+    "mono": false
+   },
+   "par": "modes",
+   "pressed": "false"
+  },
+  {
+   "tag": "button",
+   "id": "",
+   "cls": "",
+   "text": "Track Effecteffect: hold and repeat",
+   "r": [
+    922.67,
+    77,
+    433.33,
+    54
+   ],
+   "tip": "Track Effect: listens to your track in a ring buffer. Press HOLD to freeze that moment and repeat it as grains, at any speed and pitch.",
    "style": {
     "fs": 17,
     "fw": "600",
@@ -1683,11 +1706,11 @@
    "tag": "span",
    "id": "rackInfo",
    "cls": "",
-   "text": "render 65 ms",
+   "text": "render 94 ms",
    "r": [
-    1258.23,
+    1257.94,
     222,
-    88.77,
+    89.06,
     14
    ],
    "tip": "",

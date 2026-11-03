@@ -19,14 +19,14 @@ constexpr Rc ctlBox = { 14.0f, 693.0f, 914.0f, 202.0f };
 constexpr Rc rackcol = { 936.0f, 213.0f, 390.0f, 682.0f };
 constexpr Rc foot = { 14.0f, 905.0f, 1312.0f, 23.0f };
 constexpr Rc sizeT = { 1239.61f, 914.0f, 86.39f, 14.0f };
-constexpr Rc footL = { 14.0f, 914.0f, 273.23f, 14.0f };
+constexpr Rc footL = { 14.0f, 914.0f, 428.69f, 14.0f };
 constexpr Rc cvM = { 946.0f, 791.0f, 370.0f, 94.0f };
-constexpr Rc rackInfo = { 1228.23f, 222.0f, 88.77f, 14.0f };
+constexpr Rc rackInfo = { 1227.94f, 222.0f, 89.06f, 14.0f };
 constexpr Rc latInfo = { 1221.5f, 770.0f, 95.5f, 14.0f };
 constexpr Rc anaInfo = { 1079.84f, 165.0f, 235.16f, 14.0f };
 constexpr Rc laneTabs = { 14.0f, 483.0f, 914.0f, 32.0f };
 constexpr Rc sliceRow = { 14.0f, 323.0f, 914.0f, 72.0f };
-constexpr Rc modeTab[2] = { { 14.0f, 77.0f, 653.0f, 54.0f }, { 673.0f, 77.0f, 653.0f, 54.0f } };
+constexpr Rc modeTab[3] = { { 14.0f, 77.0f, 433.33f, 54.0f }, { 453.33f, 77.0f, 433.34f, 54.0f }, { 892.67f, 77.0f, 433.33f, 54.0f } };
 constexpr const char* modeTip[2] = { "Stretch Cat Sampler: a sampler instrument. Warp a loop, slice it, play slices from your keyboard, transpose over time.", "Stretch Cat FX: an effect. It grabs the last bars of your DAW audio and lets you stretch it, bend its pitch and perform tape stops, freezes and risers." };
 constexpr const char* tipCheek = "The wood side panels. Double-click one to reset the window to 100 %.";
 constexpr const char* tipSrc = "The whole sample. The bright part is the selection that gets stretched. Drag the orange handles; in the sampler drag the yellow slice marks.";
@@ -43,8 +43,9 @@ constexpr Item items[] = {
     { "bHelp", "btn", "Guide", { 1057.44f, 17.0f, 56.08f, 32.0f }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 }, "Quick guide: what each part does." },
     { "bSet", "btn", "Settings", { 1119.52f, 17.0f, 76.47f, 32.0f }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 }, "Info bubbles and eco mode." },
     { "bAbout", "btn", "About & Support", { 1201.98f, 17.0f, 124.02f, 32.0f }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 }, "About Studio 87, privacy, and ways to support the project." },
-    { "modes.Stretch Samplerinstrument, VST3 and Standalone", "btn", "Stretch Samplerinstrument, VST3 and Standalone", { 14.0f, 77.0f, 653.0f, 54.0f }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 }, "Stretch Cat Sampler: a sampler instrument. Warp a loop, slice it, play slices from your keyboard, transpose over time." },
-    { "modes.Stretch FXeffect, VST3 and Standalone", "btn", "Stretch FXeffect, VST3 and Standalone", { 673.0f, 77.0f, 653.0f, 54.0f }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 }, "Stretch Cat FX: an effect. It grabs the last bars of your DAW audio and lets you stretch it, bend its pitch and perform tape stops, freezes and risers." },
+    { "modes.Stretch Samplerinstrument, VST3 and Standalone", "btn", "Stretch Samplerinstrument, VST3 and Standalone", { 14.0f, 77.0f, 433.33f, 54.0f }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 }, "Stretch Cat Sampler: a sampler instrument. Warp a loop, slice it, play slices from your keyboard, transpose over time." },
+    { "modes.Stretch FXeffect, VST3 and Standalone", "btn", "Stretch FXeffect, VST3 and Standalone", { 453.33f, 77.0f, 433.34f, 54.0f }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 }, "Stretch Cat FX: an effect. It grabs the last bars of your DAW audio and lets you stretch it, bend its pitch and perform tape stops, freezes and risers." },
+    { "modes.Track Effecteffect: hold and repeat", "btn", "Track Effecteffect: hold and repeat", { 892.67f, 77.0f, 433.33f, 54.0f }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 }, "Track Effect: listens to your track in a ring buffer. Press HOLD to freeze that moment and repeat it as grains, at any speed and pitch." },
     { "bPlay", "btn", "▶ Play", { 257.59f, 156.0f, 67.67f, 32.0f }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 }, "Play the stretched result. Shortcut: Space." },
     { "bFile", "btn", "Load file", { 333.27f, 156.0f, 78.72f, 32.0f }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 }, "Load your own audio file (wav, mp3, flac, ogg). It stays in this browser tab and is never uploaded." },
     { "rigHost.Host BPM", "knob", "Host BPM", { 427.98f, 156.5f, 91.97f, 31.0f }, { 429.14f, 156.16f, 31.68f, 31.68f }, { 469.98f, 156.5f, 49.97f, 13.0f }, { 469.98f, 171.5f, 39.02f, 16.0f }, { 0, 0, 0, 0 }, "" },
@@ -90,7 +91,7 @@ constexpr Item items[] = {
     { "cPb.Release", "knob", "Release", { 220.0f, 809.0f, 76.0f, 77.0f }, { 236.0f, 809.0f, 44.0f, 44.0f }, { 236.03f, 855.0f, 43.92f, 13.0f }, { 238.48f, 870.0f, 39.02f, 16.0f }, { 0, 0, 0, 0 }, "" },
     { "cPb.Glide", "knob", "Glide", { 302.0f, 809.0f, 76.0f, 77.0f }, { 318.0f, 809.0f, 44.0f, 44.0f }, { 325.25f, 855.0f, 29.48f, 13.0f }, { 316.59f, 870.0f, 46.81f, 16.0f }, { 0, 0, 0, 0 }, "" },
     { "rackcol.FX rack", "cap", "FX rack", { 945.0f, 222.0f, 51.83f, 14.0f }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 }, "" },
-    { "rackcol.rackInfo", "cap", "render 65 ms", { 1228.23f, 222.0f, 88.77f, 14.0f }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 }, "" },
+    { "rackcol.rackInfo", "cap", "render 94 ms", { 1227.94f, 222.0f, 89.06f, 14.0f }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 }, "" },
     { "Filter.head", "head", "FilterOnTypeLow-passHigh-passBand-passNotch", { 945.0f, 247.0f, 368.0f, 48.0f }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 }, "" },
     { "Filter.On", "btn", "On", { 991.41f, 255.0f, 38.75f, 32.0f }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 }, "" },
     { "Filter.cap.Type", "cap", "Type", { 1038.16f, 247.0f, 91.0f, 13.0f }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 }, "" },
@@ -114,7 +115,7 @@ constexpr Item items[] = {
     { "Formant.Keep", "btn", "Keep", { 1015.0f, 687.5f, 51.63f, 32.0f }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 }, "" },
     { "rackcol.Level", "cap", "Level", { 945.0f, 770.0f, 38.06f, 14.0f }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 }, "" },
     { "rackcol.latInfo", "cap", "Latency 23 ms", { 1221.5f, 770.0f, 95.5f, 14.0f }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 }, "" } };
-constexpr int numItems = 79;
+constexpr int numItems = 80;
 inline const Item& find(const char* key) { for (const auto& i : items) if (std::strcmp(i.key, key) == 0) return i; return items[0]; }
 inline bool has(const char* key) { for (const auto& i : items) if (std::strcmp(i.key, key) == 0) return true; return false; }
 }
