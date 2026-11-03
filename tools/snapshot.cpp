@@ -76,6 +76,7 @@ static int selfTest(const juce::File& fixture)
     // audio comes out, and a pad makes sound
     b.prepareToPlay(44100.0, 512); b.triggerSlice(2, true); float peak = 0.f; juce::AudioBuffer<float> buf(2, 512);
     for (int i = 0; i < 40; ++i) { buf.clear(); juce::MidiBuffer m; b.processBlock(buf, m); peak = std::max(peak, buf.getMagnitude(0, 512)); juce::MessageManager::getInstance()->runDispatchLoopUntil(5); }
+    std::printf("info: pad peak %.5f, rendering %d, result length %d, slices %d\n", (double) peak, (int) b.rendering(), (int) b.resultLength(), (int) b.slices().count());
     check(peak > 0.01f && std::isfinite(peak), "a slice pad plays sound");
     check(b.getLatencySamples() == 0, "reported latency is exactly 0 samples");
     { std::unique_ptr<juce::AudioProcessorEditor> ed(b.createEditor()); ed->setSize(700, 470); ed->setSize(2800, 1880); check(ed->getWidth() == 2800, "editor creates and resizes"); }
