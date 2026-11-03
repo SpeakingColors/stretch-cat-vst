@@ -28,9 +28,9 @@ Stretch Cat is a sampler with time stretch and a small FX rack. Load a sound; ch
 - Width is a plain mid and side gain. It does not add any delay.
 
 # Formant shift
-- Formant moves the vowel colour (the spectral envelope) without moving the pitch: a cepstral envelope warp on 2048 sample frames with 75 percent overlap. It works on the magnitudes and keeps the original phases.
+- Formant moves the vowel colour (the spectral envelope) without moving the pitch. Each 2048 sample frame gets a true envelope estimate (a smooth curve through the harmonic peaks, with a smoothing length that follows the pitch of that frame), the envelope is moved along the frequency axis, and only the magnitudes change. No component is moved in frequency, so the pitch stays exactly where it was and nothing can alias.
 - Formant+ mode and the Keep switch cancel the formant movement that transposing causes, so a voice keeps its character.
-- Limits, honestly: it does not track the pitch, it smears on high voices (above about 400 Hz fundamental) and on dense mixes, and the result gets artificial beyond plus or minus 12 semitones. It has been measured (a +7 semitone shift moves the spectral centroid by about 1.4 times) but not judged by ear.
+- Limits, honestly: it follows one pitch per frame, so chords and dense mixes get one common smoothing length; when the harmonics are further apart than a formant is wide (very high voices) the envelope is simply not in the sound and cannot be moved exactly; beyond plus or minus 12 semitones it gets artificial. Measured on synthetic vowels: the harmonic levels follow the moved envelope within about 1 dB rms for pitches up to 220 Hz, about 3 dB at 330 to 440 Hz and 4 to 5 dB from 600 Hz to 1 kHz (formants widened with the pitch for that test), the pitch does not move, white noise stays white and clicks stay in time. It has not been judged by ear. It runs in the background render, so it adds no latency, and a formant change is heard when the new render fades in.
 
 # Playback
 - Playback: Loop, One shot, Gate or Slices to keys. Attack up to 500 ms, Release up to 2 s. Root note sets the key where the sound plays unchanged. Gain: -24 to +12 dB. Eight notes can play at once.
