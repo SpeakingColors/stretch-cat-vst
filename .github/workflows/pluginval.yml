@@ -1,0 +1,38 @@
+# Loads every built VST3 in pluginval (the same kind of stress test a DAW's scanner and host do): state save and load,
+# automation, resizing, threading. pluginval v1.0.4 is pinned and its checksum is checked. Runs on every push to main and by hand.
+name: pluginval
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - name: Build the VST3
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libasound2-dev libx11-dev libxinerama-dev libxext-dev libxrandr-dev libxcursor-dev libxcomposite-dev libfreetype-dev libfontconfig1-dev libgl1-mesa-dev xvfb unzip
+          cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+          cmake --build build --parallel 4
+      - name: Run pluginval
+        shell: bash
+        run: |
+          curl -fsSL -o pv.zip https://github.com/Tracktion/pluginval/releases/download/v1.0.4/pluginval_Linux.zip
+          echo "c01c49d8063965c4c2dea8324468336768f5c9139e0b1caebde14c2400b55352  pv.zip" | sha256sum -c -
+          unzip -q pv.zip; chmod +x pluginval
+          set +e; rc=0
+          while IFS= read -r v; do
+            echo "Testing $v"
+            xvfb-run -a ./pluginval --strictness-level 5 --validate-in-process --timeout-ms 120000 --verbose "$v" 2>&1 | tee -a pv.log
+            code=${PIPESTATUS[0]}; echo "pluginval exit code: $code"; [ "$code" -eq 0 ] || rc=1
+          done < <(find build -type d -name "*.vst3")
+          (grep -iE "fail|error|assert|crash" pv.log | head -n 8; tail -n 6 pv.log) | while IFS= read -r l; do echo "::notice::${l:0:300}"; done
+          exit $rc
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        if: always()
+        with: { name: pluginval-log, path: pv.log }
