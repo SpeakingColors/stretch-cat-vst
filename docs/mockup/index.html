@@ -395,7 +395,8 @@ function aboutCard(name, extra) {
   openCard('<h2>About &amp; Support</h2><p><b>' + name + '</b> by Studio 87. Free and open source (AGPL-3.0-or-later).</p>' +
     '<p>Version 0.2.0.<br>Your presets live in the Studio 87 / StretchCat / presets folder of your user data folder (on Windows %APPDATA%, on macOS Application Support, on Linux ~/.config).</p>' +
     '<p>To uninstall, use the uninstaller from the download (your presets are kept unless you choose to delete them).</p><p>If it helps your music, a coffee on Ko-fi keeps new plugins coming.</p>' +
-    '<div class="row"><a class="btn" href="https://ko-fi.com/studio87" target="_blank" rel="noopener">&#9749; Support Studio 87 on Ko-fi</a><a class="btn" href="https://github.com/SpeakingColors/stretch-cat-vst" target="_blank" rel="noopener">GitHub</a><button data-close>Close</button></div>');
+    '<div class="row"><a class="btn" href="https://ko-fi.com/studio87" target="_blank" rel="noopener">&#9749; Support Studio 87 on Ko-fi</a><a class="btn" href="studio87://open?product=stretch-cat-vst" data-tip="Opens Studio 87 Gear Updater to check this plugin for updates. Nothing is sent anywhere. If nothing opens, install Studio 87 Gear Updater from github.com/SpeakingColors/gearupdater/releases.">Open Studio 87 Gear Updater</a><a class="btn" href="https://github.com/SpeakingColors/stretch-cat-vst" target="_blank" rel="noopener">GitHub</a><button data-close>Close</button></div>');
+  $$("[data-tip]", card).forEach(function (el) { attachTip(el, el.textContent.trim(), el.getAttribute("data-tip")); });
 }
 function settingsCard() {
   openCard('<h2>Settings</h2><div class="set"><span>Info bubbles after 1 s of hovering</span><button id="sBub" aria-pressed="' + SET.bubbles + '">' + (SET.bubbles ? "On" : "Off") + '</button></div>' +

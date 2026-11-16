@@ -19,3 +19,6 @@ if [ "${SANITIZE:-1}" = "1" ]; then
   g++ -std=c++17 -O1 -g -fsanitize=address,undefined -fno-sanitize-recover=undefined -o /tmp/formant_asan test_formant.cpp
   /tmp/formant_asan > /tmp/formant_asan.log 2>&1 && echo "formant asan+ubsan: clean" || { tail -30 /tmp/formant_asan.log; exit 1; }
 fi
+
+# Studio 87 Gear Updater link (product id and link string)
+(cd .. && g++ -std=c++17 -O2 -Wall -Wextra -o /tmp/s87_link_test tests/test_updater_link.cpp && /tmp/s87_link_test) || exit 1

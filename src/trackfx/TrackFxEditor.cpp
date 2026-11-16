@@ -3,6 +3,7 @@
 // The mockup's mode tabs, sample rig and presets belong to the sampler and are left out; the host saves and loads presets.
 // Fixed aspect ratio, resizable from every corner and edge, wood cheeks, info bubbles after 1 s, drawing paused by catui::RenderGate.
 #include "../stretch/EditorWidgets.h"
+#include "../stretch/Studio87Link.h"
 #include "TrackFxProcessor.h"
 #include "TrackFxEditorFactory.h"
 #include <catui/CatLookAndFeel.h>
@@ -218,8 +219,9 @@ private:
     {
         auto* w = new juce::AlertWindow("About & Support", "Stretch Cat Track Effect by Studio 87. Free and open source (AGPL-3.0-or-later). It collects nothing and never connects to the network.\n\n"
             "Version " + String(JucePlugin_VersionString) + ".\nTo uninstall, use the uninstaller from the download.\n\nIf it helps your music, a coffee on Ko-fi keeps new plugins coming.", juce::MessageBoxIconType::NoIcon, this);
-        w->addButton("Support Studio 87 on Ko-fi", 1); w->addButton("GitHub", 2); w->addButton("Close", 0);
-        w->enterModalState(true, juce::ModalCallbackFunction::create([](int r) { if (r == 1) juce::URL("https://ko-fi.com/studio87").launchInDefaultBrowser(); else if (r == 2) juce::URL("https://github.com/SpeakingColors/stretch-cat-vst").launchInDefaultBrowser(); }), true);
+        w->addButton("Support Studio 87 on Ko-fi", 1); w->addButton(studio87link::buttonText(), 3); w->addButton("GitHub", 2); w->addButton("Close", 0);
+        if (auto* ub = w->getButton(studio87link::buttonText())) ub->setTooltip(studio87link::tipText());
+        w->enterModalState(true, juce::ModalCallbackFunction::create([](int r) { if (r == 1) juce::URL("https://ko-fi.com/studio87").launchInDefaultBrowser(); else if (r == 3) studio87link::openUpdater("stretch-cat-vst"); else if (r == 2) juce::URL("https://github.com/SpeakingColors/stretch-cat-vst").launchInDefaultBrowser(); }), true);
     }
     void showGuide()
     {
