@@ -1,0 +1,33 @@
+ok shots/main.png
+ok shots/main2x.png
+ok shots/lane-pitch.png
+ok shots/lane-speed.png
+ok shots/lane-cutoff.png
+ok shots/lane-formant.png
+ok shots/lane-width.png
+ok shots/pad.png
+X Error of failed request:  BadAtom (invalid Atom parameter)
+  Major opcode of failed request:  18 (X_ChangeProperty)
+  Atom id in failed request:  0x0
+  Serial number of failed request:  85
+  Current serial number in output stream:  96
+FAILED shots/settings.png (1)
+X Error of failed request:  BadAtom (invalid Atom parameter)
+  Major opcode of failed request:  18 (X_ChangeProperty)
+  Atom id in failed request:  0x0
+  Serial number of failed request:  84
+  Current serial number in output stream:  95
+FAILED shots/about.png (1)
+X Error of failed request:  BadAtom (invalid Atom parameter)
+  Major opcode of failed request:  18 (X_ChangeProperty)
+  Atom id in failed request:  0x0
+  Serial number of failed request:  84
+  Current serial number in output stream:  95
+FAILED shots/guide.png (1)
+X Error of failed request:  BadAtom (invalid Atom parameter)
+  Major opcode of failed request:  18 (X_ChangeProperty)
+  Atom id in failed request:  0x0
+  Serial number of failed request:  85
+  Current serial number in output stream:  96
+FAILED shots/presets.png (1)
+ok shots/track.png
